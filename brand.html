@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JAYDEN · کاتالوگ</title>
+<meta name="theme-color" content="#0c0b09">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="top">
+  <div class="bar1">
+    <a class="back" href="index.html" aria-label="بازگشت به برندها"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+    <div class="logo">JAYDEN</div>
+    <div style="width:44px"></div>
+  </div>
+  <div class="bar2"><h1 id="bname"></h1><small>حراج <span class="en">BLACK FRIDAY</span></small></div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+</div>
+<div class="tools">
+  <div class="search"><input id="q" type="search" placeholder="جستجوی مدل یا رنگ، مثلاً Hana" aria-label="جستجو"></div>
+  <div class="chips" id="chips"></div>
+</div>
+<main id="list"></main>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="pname">
+  <div class="bar1">
+    <button class="back" id="close" aria-label="بستن" style="background:none"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="logo">JAYDEN</div>
+    <div style="width:44px"></div>
+  </div>
+  <div class="gal" id="gal"></div>
+  <div class="dots" id="dots"></div>
+  <div class="pbody">
+    <h3 id="pname"></h3>
+    <div class="meta" id="pmeta"></div>
+    <div class="price"><b id="pfin"></b><s id="porg"></s></div>
+    <div id="szwrap"><div class="lbl">سایزهای موجود (US)</div><div class="sizes" id="psizes"></div></div>
+    <div class="lbl">رنگ‌های این مدل</div>
+    <div class="colors" id="pcolors"></div>
+    <div class="lbl">کد محصول برای سفارش</div>
+    <div class="meta" id="pcode" style="direction:ltr;text-align:right;font-weight:800;color:#15130f"></div>
+  </div>
+</div>
+<div class="dock"><div class="order" id="porder"></div></div>
+
+<script src="assets/config.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

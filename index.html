@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JAYDEN · کاتالوگ برندها</title>
+<meta name="theme-color" content="#0c0b09">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="home">
+  <header>
+    <div class="logo">JAYDEN</div>
+    <small>SOLD BY JAYDEN</small>
+  </header>
+  <section class="hero">
+    <h1>حراج <span class="en">BLACK FRIDAY</span></h1>
+    <p>قیمت‌ها به تومان و نهایی است. روی هر برند بزنید تا همه محصولات، رنگ‌ها و عکس‌ها را ببینید.</p>
+  </section>
+  <nav class="brands" id="brands" aria-label="برندها"></nav>
+  <footer class="contact">
+    <span>سفارش و مشاوره</span>
+    <div class="order" id="order"></div>
+  </footer>
+</div>
+<script src="assets/config.js"></script>
+<script>
+(function () {
+  var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
+  var nav = document.getElementById('brands');
+  C.brands.forEach(function (b) {
+    var a = document.createElement('a');
+    a.className = 'brand' + (b.soon ? ' soon' : '');
+    a.href = b.soon ? '#' : 'brand.html?b=' + b.slug;
+    a.innerHTML = '<div><b></b><span></span></div><em></em>';
+    a.querySelector('b').textContent = b.name;
+    a.querySelector('span').textContent = b.sub;
+    a.querySelector('em').textContent = b.soon ? 'به‌زودی' : 'مشاهده';
+    nav.appendChild(a);
+    if (!b.soon) fetch('data/' + b.slug + '.json').then(function (r) { return r.json(); }).then(function (d) {
+      var n = d.cats.reduce(function (s, c) { return s + c.items.length; }, 0);
+      a.querySelector('em').textContent = fa(n) + ' محصول';
+    }).catch(function () {});
+  });
+  document.getElementById('order').innerHTML =
+    '<a class="ig" href="' + C.instagram + '" target="_blank" rel="noopener">دایرکت اینستاگرام</a>' +
+    '<a class="wa" href="' + C.whatsapp + '" target="_blank" rel="noopener">واتساپ</a>';
+})();
+</script>
+</body>
+</html>
