@@ -15,7 +15,7 @@
 
   var group = '', sortBy = '', BR = (C.brands || []).filter(function (b) { return b.slug === slug; })[0] || {};
 
-  fetch('data/' + slug + '.json').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('data/' + slug + '.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
     DATA = d;
     document.title = 'JAYDEN · ' + d.brand;
     $('bname').textContent = BR.name || d.brand;
