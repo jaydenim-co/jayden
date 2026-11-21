@@ -33,7 +33,7 @@
     a.className = 'brand' + (b.soon ? ' soon' : '');
     a.href = b.soon ? '#' : 'brand.html?b=' + b.slug;
     a.innerHTML = '<div><b></b><span></span></div><em></em>';
-    a.querySelector('b').textContent = b.name;
+    a.querySelector('b').textContent = b.name; if (b.font) a.querySelector('b').classList.add(b.font);
     a.querySelector('span').textContent = b.sub;
     a.querySelector('em').textContent = b.soon ? 'به‌زودی' : 'مشاهده';
     nav.appendChild(a);

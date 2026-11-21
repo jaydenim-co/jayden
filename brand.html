@@ -18,8 +18,16 @@
   <div class="tabs" role="tablist" id="tabs"></div>
 </div>
 <div class="tools">
-  <div class="search"><input id="q" type="search" placeholder="جستجوی مدل یا رنگ" aria-label="جستجو"></div>
+  <div class="tools2">
+    <div class="search"><input id="q" type="search" placeholder="جستجوی مدل یا رنگ" aria-label="جستجو"></div>
+    <select id="sort" class="sort" aria-label="مرتب‌سازی">
+      <option value="">پیش‌فرض</option>
+      <option value="asc">ارزان‌ترین</option>
+      <option value="desc">گران‌ترین</option>
+    </select>
+  </div>
   <div class="chips" id="chips"></div>
+  <div class="count" id="count"></div>
 </div>
 <main id="list"></main>
 
