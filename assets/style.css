@@ -142,3 +142,4 @@ main{padding:14px 12px 40px}
 .cact .ig{background:var(--ink);color:var(--gold2)}
 .cact .wa{background:#1f7a4d;color:#fff}
 .count{padding:0 14px 8px;font-size:12px;color:var(--muted)}
+.cact .olbl{grid-column:1/-1;text-align:center;font-size:11px;font-weight:800;color:var(--muted);margin-top:2px}

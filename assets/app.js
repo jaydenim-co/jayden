@@ -98,7 +98,7 @@
     a.querySelector('s').textContent = p.o ? fa(p.o) : '';
     a.querySelector('b').innerHTML = fa(p.f) + ' <small>تومان</small>';
     a.querySelector('.tap').onclick = function () { openP(p); };
-    var act = a.querySelector('.cact');
+    var act = a.querySelector('.cact'); act.appendChild(el('div', 'olbl', 'ثبت سفارش'));
     act.appendChild(orderLink('ig', 'دایرکت', C.instagram, ICON_IG, p));
     act.appendChild(orderLink('wa', 'واتساپ', C.whatsapp, ICON_WA, p));
     return a;
