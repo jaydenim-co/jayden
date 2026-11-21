@@ -8,6 +8,6 @@ window.JAYDEN = {
     { slug: 'calvinklein', name: 'CALVIN KLEIN', sub: 'کیف، کفش و کاپشن', font: 'bf-ck' },
     { slug: 'ralphlauren', name: 'RALPH LAUREN', sub: 'کاپشن و کت', font: 'bf-rl' },
     { slug: 'gymshark', name: 'GYMSHARK', sub: 'لباس ورزشی زنانه و مردانه', font: 'bf-gym' },
-    { slug: 'michaelkors', name: 'MICHAEL KORS', sub: 'کیف و کفش', font: 'bf-mk', soon: true }
+    { slug: 'michaelkors', name: 'MICHAEL KORS', sub: 'کیف، کفش، لباس و ساعت', font: 'bf-mk' }
   ]
 };
