@@ -106,3 +106,6 @@ main{padding:14px 12px 40px}
 .tabs{overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{flex:1 0 auto;padding:0 14px;white-space:nowrap}
+.bar2{flex-wrap:wrap;row-gap:4px}
+.bar2 h1{font-size:clamp(17px,5.6vw,24px);white-space:nowrap}
+.card .n{min-height:2.5em}
