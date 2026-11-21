@@ -5,7 +5,7 @@
   var fn = function (n) { return String(n).replace(/\d/g, function (d) { return FA[d]; }); };
   var $ = function (id) { return document.getElementById(id); };
   var slug = new URLSearchParams(location.search).get('b') || 'jwpei';
-  var DATA, cat, model = '', query = '', shown = 0, pool = [], byCode = {}, byGroup = {};
+  var DATA, cat = null, query = '', shown = 0, pool = [], byCode = {}, byGroup = {};
   var PAGE = 40, io;
 
   var ICON_WA = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>';
@@ -13,80 +13,94 @@
 
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
 
+  var group = '', sortBy = '', BR = (C.brands || []).filter(function (b) { return b.slug === slug; })[0] || {};
+
   fetch('data/' + slug + '.json').then(function (r) { return r.json(); }).then(function (d) {
     DATA = d;
     document.title = 'JAYDEN · ' + d.brand;
-    $('bname').textContent = d.brand;
-    d.cats.forEach(function (c) { c.items.forEach(function (p) { byCode[p.k] = p; (byGroup[p.b] = byGroup[p.b] || []).push(p); }); });
+    $('bname').textContent = BR.name || d.brand;
+    if (BR.font) $('bname').classList.add(BR.font);
+    d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; (byGroup[p.b] = byGroup[p.b] || []).push(p); }); });
     var tabs = $('tabs');
-    d.cats.forEach(function (c, i) {
-      var b = el('button', null, c.fa + ' · ' + fn(c.items.length));
-      b.setAttribute('role', 'tab');
-      b.onclick = function () { setCat(c); };
-      c.btn = b; tabs.appendChild(b);
+    (d.groups || []).forEach(function (g) {
+      var n = d.cats.filter(function (c) { return c.g === g.id; }).reduce(function (s, c) { return s + c.items.length; }, 0);
+      var b = el('button', null, g.fa + ' · ' + fn(n)); b.setAttribute('role', 'tab');
+      b.onclick = function () { setGroup(g.id); };
+      g.btn = b; tabs.appendChild(b);
     });
-    setCat(d.cats[0]);
-    var m = location.hash.match(/p=([^&]+)/);
-    if (m && byCode[decodeURIComponent(m[1])]) openP(byCode[decodeURIComponent(m[1])], true);
+    var m = location.hash.match(/p=([^&]+)/), hp = m && byCode[decodeURIComponent(m[1])];
+    setGroup(hp && hp._c.g ? hp._c.g : (d.groups ? d.groups[0].id : ''));
+    if (hp) openP(hp, true);
   }).catch(function () { $('list').innerHTML = '<div class="empty">کاتالوگ بارگذاری نشد. دوباره امتحان کنید.</div>'; });
 
-  function setCat(c) {
-    cat = c; model = ''; $('q').value = ''; query = '';
-    DATA.cats.forEach(function (x) { x.btn.setAttribute('aria-selected', x === c ? 'true' : 'false'); });
+  function cats() { return DATA.cats.filter(function (c) { return !group || c.g === group; }); }
+  function setGroup(g) {
+    group = g; cat = null;
+    (DATA.groups || []).forEach(function (x) { x.btn.setAttribute('aria-selected', x.id === g ? 'true' : 'false'); });
     var chips = $('chips'); chips.innerHTML = '';
-    var seen = {}, models = [];
-    c.items.forEach(function (p) { if (!seen[p.m]) { seen[p.m] = 1; models.push(p.m); } });
-    var all = el('button', 'on', 'All'); all.onclick = function () { pickModel('', all); }; chips.appendChild(all);
-    models.forEach(function (m) { var b = el('button', null, m); b.onclick = function () { pickModel(m, b); }; chips.appendChild(b); });
+    var cs = cats();
+    if (cs.length > 1) {
+      var total = cs.reduce(function (s, c) { return s + c.items.length; }, 0);
+      var all = el('button', 'on'); all.innerHTML = 'همه <small></small>'; all.querySelector('small').textContent = fn(total);
+      all.onclick = function () { pickCat(null, all); }; chips.appendChild(all);
+      cs.forEach(function (c) {
+        var b = el('button'); b.innerHTML = '<span></span> <small></small>';
+        b.firstChild.textContent = c.fa; b.querySelector('small').textContent = fn(c.items.length);
+        b.onclick = function () { pickCat(c, b); }; chips.appendChild(b);
+      });
+    }
     render();
   }
-  function pickModel(m, btn) {
-    model = m;
+  function pickCat(c, btn) {
+    cat = c;
     [].forEach.call($('chips').children, function (b) { b.classList.toggle('on', b === btn); });
     render(); window.scrollTo({ top: 0 });
   }
   $('q').addEventListener('input', function () { query = this.value.trim().toLowerCase(); render(); });
+  $('sort').addEventListener('change', function () { sortBy = this.value; render(); });
 
   function render() {
-    pool = cat.items.filter(function (p) {
-      if (model && p.m !== model) return false;
-      if (query && (p.b + ' ' + p.c).toLowerCase().indexOf(query) < 0) return false;
-      return true;
-    });
-    $('list').innerHTML = ''; shown = 0; lastGroup = null; lastGrid = null;
+    var src = [];
+    (cat ? [cat] : cats()).forEach(function (c) { src = src.concat(c.items); });
+    pool = src.filter(function (p) { return !query || (p.b + ' ' + p.c + ' ' + p.k).toLowerCase().indexOf(query) >= 0; });
+    if (sortBy) pool = pool.slice().sort(function (a, b) { return sortBy === 'asc' ? a.f - b.f : b.f - a.f; });
+    $('count').textContent = fn(pool.length) + ' محصول';
+    $('list').innerHTML = ''; shown = 0; grid = null;
     if (!pool.length) { $('list').innerHTML = '<div class="empty">محصولی پیدا نشد.</div>'; return; }
+    grid = el('div', 'grid'); $('list').appendChild(grid);
     more();
   }
-  var lastGroup, lastGrid;
+  var grid;
   function more() {
     var list = $('list'), end = Math.min(shown + PAGE, pool.length);
     var old = $('morebtn'); if (old) old.remove();
-    for (var i = shown; i < end; i++) {
-      var p = pool[i];
-      if (p.b !== lastGroup) {
-        var sec = el('section', 'sec'), h = el('h2');
-        h.appendChild(el('span', 'en', p.b)); h.firstChild.style.cssText = 'font-family:Playfair,serif;color:#f4efe4;font-size:15px';
-        h.appendChild(el('span', null, fn((byGroup[p.b] || []).length) + ' رنگ'));
-        sec.appendChild(h); lastGrid = el('div', 'grid'); sec.appendChild(lastGrid); list.appendChild(sec); lastGroup = p.b;
-      }
-      lastGrid.appendChild(card(p));
-    }
+    for (var i = shown; i < end; i++) grid.appendChild(card(pool[i]));
     shown = end;
     if (shown < pool.length) {
       var b = el('button', 'more', 'نمایش محصولات بیشتر'); b.id = 'morebtn'; b.onclick = more; list.appendChild(b);
       if ('IntersectionObserver' in window) { if (io) io.disconnect(); io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) more(); }, { rootMargin: '600px' }); io.observe(b); }
     }
   }
+  function orderMsg(p) { return 'سلام، برای سفارش این محصول: ' + p.k + ' | ' + (BR.name || DATA.brand) + ' ' + p.b + ' - ' + p.c; }
+  function orderLink(cls, label, href, icon, p) {
+    var a = el('a', cls); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = icon + '<span></span>'; a.querySelector('span').textContent = label;
+    a.onclick = function () { try { navigator.clipboard.writeText(orderMsg(p)); toast('کد محصول کپی شد؛ در پیام paste کنید'); } catch (e) {} };
+    return a;
+  }
   function card(p) {
-    var a = el('button', 'card'); a.type = 'button'; a.setAttribute('aria-label', p.b + ' ' + p.c);
-    a.innerHTML = '<div class="ph"><img loading="lazy" decoding="async" alt=""><span class="off"></span></div><div class="info"><div class="n"></div><div class="c"></div><s></s><b></b></div>';
+    var a = el('div', 'card');
+    a.innerHTML = '<button type="button" class="tap"><div class="ph"><img loading="lazy" decoding="async" alt=""><span class="off"></span></div><div class="info"><div class="n"></div><div class="c"></div><s></s><b></b></div></button><div class="cact"></div>';
+    a.querySelector('.tap').setAttribute('aria-label', p.b + ' ' + p.c);
     a.querySelector('img').src = p.i[0];
     if (p.d > 0) a.querySelector('.off').textContent = '-' + fn(p.d) + '٪'; else a.querySelector('.off').remove();
     a.querySelector('.n').textContent = p.b;
     a.querySelector('.c').textContent = p.c + (p.z && p.z.length ? ' · Size ' + p.z.join(' · ') : '');
     a.querySelector('s').textContent = p.o ? fa(p.o) : '';
     a.querySelector('b').innerHTML = fa(p.f) + ' <small>تومان</small>';
-    a.onclick = function () { openP(p); };
+    a.querySelector('.tap').onclick = function () { openP(p); };
+    var act = a.querySelector('.cact');
+    act.appendChild(orderLink('ig', 'دایرکت', C.instagram, ICON_IG, p));
+    act.appendChild(orderLink('wa', 'واتساپ', C.whatsapp, ICON_WA, p));
     return a;
   }
 
@@ -103,7 +117,7 @@
     g.scrollLeft = 0;
     g.onscroll = function () { var k = Math.round(Math.abs(g.scrollLeft) / g.clientWidth); [].forEach.call(dots.children, function (x, j) { x.className = j === k ? 'on' : ''; }); };
     $('pname').textContent = p.b;
-    $('pmeta').textContent = DATA.brand + ' · ' + p.c;
+    $('pmeta').textContent = (BR.name || DATA.brand) + ' · ' + p.c;
     $('pfin').innerHTML = fa(p.f) + ' <small style="font-size:13px">تومان</small>';
     $('porg').textContent = p.o ? fa(p.o) : '';
     $('szwrap').style.display = p.z && p.z.length ? '' : 'none';
@@ -116,7 +130,7 @@
       cl.appendChild(b);
     });
     $('pcode').textContent = p.k + ' · ' + p.b + ' - ' + p.c;
-    var msg = 'سلام، برای سفارش این محصول: ' + p.k + ' | ' + DATA.brand + ' ' + p.b + ' - ' + p.c;
+    var msg = orderMsg(p);
     var o = $('porder'); o.innerHTML = '';
     [['ig', 'سفارش در دایرکت', C.instagram, ICON_IG], ['wa', 'سفارش در واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
       var a = el('a', x[0]); a.href = x[2]; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = x[3] + '<span></span>'; a.querySelector('span').textContent = x[1];
