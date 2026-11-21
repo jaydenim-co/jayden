@@ -79,7 +79,7 @@
   }
   function card(p) {
     var a = el('button', 'card'); a.type = 'button'; a.setAttribute('aria-label', p.b + ' ' + p.c);
-    a.innerHTML = '<div class="ph"><img loading="lazy" decoding="async" alt=""><span class="off"></span><span class="wm">Sold by Jayden</span></div><div class="info"><div class="n"></div><div class="c"></div><s></s><b></b></div>';
+    a.innerHTML = '<div class="ph"><img loading="lazy" decoding="async" alt=""><span class="off"></span></div><div class="info"><div class="n"></div><div class="c"></div><s></s><b></b></div>';
     a.querySelector('img').src = p.i[0];
     a.querySelector('.off').textContent = '-' + fn(p.d) + '٪';
     a.querySelector('.n').textContent = p.b;
@@ -97,7 +97,7 @@
     p.i.forEach(function (src, n) {
       var d = el('div'); var im = el('img'); im.src = src; im.alt = p.b + ' ' + p.c + ' ' + (n + 1);
       if (n) im.loading = 'lazy';
-      d.appendChild(im); var w = el('span', 'wm', 'Sold by Jayden'); d.appendChild(w); g.appendChild(d);
+      d.appendChild(im); g.appendChild(d);
       dots.appendChild(el('i', n ? '' : 'on'));
     });
     g.scrollLeft = 0;

@@ -103,3 +103,6 @@ main{padding:14px 12px 40px}
 .dock{position:fixed;bottom:0;left:0;right:0;z-index:60;padding:10px 14px calc(12px + env(safe-area-inset-bottom));background:var(--paper);border-top:1px solid var(--line);display:none}
 .sheet.open~.dock{display:block}
 .dock .order{max-width:720px;margin:0 auto}
+.tabs{overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:1 0 auto;padding:0 14px;white-space:nowrap}
