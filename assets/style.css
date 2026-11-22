@@ -143,3 +143,15 @@ main{padding:14px 12px 40px}
 .cact .wa{background:#1f7a4d;color:#fff}
 .count{padding:0 14px 8px;font-size:12px;color:var(--muted)}
 .cact .olbl{grid-column:1/-1;text-align:center;font-size:11px;font-weight:800;color:var(--muted);margin-top:2px}
+/* home sections */
+.secs{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 16px 24px}
+.secs[hidden],.brands[hidden],.sechead[hidden]{display:none}
+.sec{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:150px;padding:16px;border-radius:16px;text-decoration:none;color:#f4efe4;background:linear-gradient(160deg,#2a2418 0%,#15130f 70%);border:1px solid #3a321f;overflow:hidden}
+.sec b{font-size:26px;font-weight:800;line-height:1.2}
+.sec i{font-style:normal;font-family:Cinzel,serif;font-size:12px;letter-spacing:.3em;color:var(--gold);direction:ltr;text-align:right;margin-top:2px}
+.sec em{position:absolute;top:14px;left:14px;font-style:normal;font-size:12px;font-weight:700;color:#0c0b09;background:var(--gold2);border-radius:999px;padding:3px 10px}
+.sec.soon{opacity:.55}
+.sec.soon em{background:#3a321f;color:#cfc6b3}
+.sechead{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0}
+.sechead h2{margin:0;font-size:22px;font-weight:800;color:#f4efe4}
+.secback{color:var(--gold2);text-decoration:none;font-size:13px;font-weight:700;border:1px solid #3a321f;border-radius:999px;padding:6px 12px}

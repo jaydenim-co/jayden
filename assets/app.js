@@ -13,6 +13,7 @@
 
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
 
+  var qs = (location.search.match(/[?&]s=([a-z]+)/) || [])[1]; if (qs) { var bk = document.querySelector('.top .back, a.back'); if (bk) bk.href = 'index.html#' + qs; }
   var group = '', sortBy = '', BR = (C.brands || []).filter(function (b) { return b.slug === slug; })[0] || {};
 
   fetch('data/' + slug + '.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
@@ -29,7 +30,8 @@
       g.btn = b; tabs.appendChild(b);
     });
     var m = location.hash.match(/p=([^&]+)/), hp = m && byCode[decodeURIComponent(m[1])];
-    setGroup(hp && hp._c.g ? hp._c.g : (d.groups ? d.groups[0].id : ''));
+    var qg = (location.search.match(/[?&]g=([a-z]+)/) || [])[1], okg = d.groups && d.groups.some(function (x) { return x.id === qg; });
+    setGroup(hp && hp._c.g ? hp._c.g : (d.groups ? (okg ? qg : d.groups[0].id) : ''));
     if (hp) openP(hp, true);
   }).catch(function () { $('list').innerHTML = '<div class="empty">کاتالوگ بارگذاری نشد. دوباره امتحان کنید.</div>'; });
 
