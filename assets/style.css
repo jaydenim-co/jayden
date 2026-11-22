@@ -174,3 +174,20 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .chips2{padding-top:0}
 .chips2 button{min-height:34px;font-family:inherit;font-size:13px;direction:rtl}
 .stick.mini .chips2{padding-top:0;padding-bottom:8px}
+
+/* section banner */
+.hero[hidden]{display:none}
+.secban[hidden]{display:none}
+.secban{position:relative;margin:16px 16px 4px;padding:14px 16px 18px;border-radius:18px;border:1px solid #3a321f;background:radial-gradient(120% 140% at 0% 0%,#3a3020 0%,#1a1710 55%,#12100c 100%);overflow:hidden}
+.secban .secback{display:inline-block;margin-bottom:12px}
+.sb-in{display:flex;align-items:center;gap:16px}
+.sb-ic{flex:0 0 auto;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;color:var(--gold2);background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.35)}
+.sb-ic svg{width:56px;height:56px}
+.sb-tx small{display:block;font-family:Cinzel,serif;font-size:12px;letter-spacing:.35em;color:var(--gold);direction:ltr;text-align:right}
+.sb-tx h2{margin:2px 0 4px;font-size:28px;font-weight:800;color:#f4efe4;line-height:1.25}
+.sb-tx p{margin:0;font-size:13px;color:#cfc6b3}
+.sb-men{background:radial-gradient(120% 140% at 0% 0%,#24303a 0%,#141a1f 55%,#0f1215 100%);border-color:#2e3b46}
+.sb-women{background:radial-gradient(120% 140% at 0% 0%,#3d2a2c 0%,#1d1516 55%,#140f10 100%);border-color:#4a3236}
+.sec .sic{position:absolute;top:12px;right:12px;width:40px;height:40px;color:var(--gold2);opacity:.85}
+.sec .sic svg{width:100%;height:100%}
+.crumb{color:var(--gold);text-decoration:none;font-weight:700;border-bottom:1px dashed currentColor}
