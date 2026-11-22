@@ -84,10 +84,21 @@
       if ('IntersectionObserver' in window) { if (io) io.disconnect(); io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) more(); }, { rootMargin: '600px' }); io.observe(b); }
     }
   }
-  function orderMsg(p) { return 'سلام، برای سفارش این محصول: ' + p.k + ' | ' + (p.br ? p.br : (BR.name || DATA.brand)) + ' ' + p.b + (p.c ? ' - ' + p.c : ''); }
+  function orderMsg(p) {
+    var bn = BR.name || DATA.brand, L = ['سلام، وقتتون بخیر 🌸', 'می‌خواستم این محصول رو سفارش بدم:', ''];
+    L.push('برند: ' + (p.br ? p.br + ' (' + bn + ')' : bn));
+    L.push('محصول: ' + p.b);
+    if (p.c && /[۰-۹]+ رنگ/.test(p.c)) L.push('مشخصات: ' + p.c + ' موجود — رنگ دلخواهم: ');
+    else if (p.c) L.push('رنگ / مدل: ' + p.c);
+    if (p.z && p.z.length) L.push('سایزهای موجود: ' + p.z.join('، '));
+    if (p.x) L.push('توضیح: ' + p.x);
+    L.push('قیمت: ' + fa(p.f) + ' تومان' + (p.o ? ' (قیمت قبل: ' + fa(p.o) + ' تومان)' : ''));
+    L.push('کد محصول: ' + p.k);
+    return L.join('\n');
+  }
   function orderLink(cls, label, href, icon, p) {
     var a = el('a', cls); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = icon + '<span></span>'; a.querySelector('span').textContent = label;
-    a.onclick = function () { try { navigator.clipboard.writeText(orderMsg(p)); toast('کد محصول کپی شد؛ در پیام paste کنید'); } catch (e) {} };
+    a.onclick = function () { try { navigator.clipboard.writeText(orderMsg(p)); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} };
     return a;
   }
   function card(p) {
@@ -143,7 +154,7 @@
     else
     [['ig', 'سفارش در دایرکت', C.instagram, ICON_IG], ['wa', 'سفارش در واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
       var a = el('a', x[0]); a.href = x[2]; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = x[3] + '<span></span>'; a.querySelector('span').textContent = x[1];
-      a.onclick = function () { try { navigator.clipboard.writeText(msg); toast('کد محصول کپی شد؛ در پیام paste کنید'); } catch (e) {} };
+      a.onclick = function () { try { navigator.clipboard.writeText(msg); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} };
       o.appendChild(a);
     });
     $('sheet').classList.add('open'); $('sheet').scrollTop = 0; document.body.style.overflow = 'hidden';
