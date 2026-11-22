@@ -162,3 +162,4 @@ main{padding:14px 12px 40px}
 .oosb{position:absolute;top:8px;left:8px;background:#15130f;color:#fff;font-size:11px;padding:3px 8px;border-radius:6px}
 .bf-sephora{font-family:BfMont,sans-serif!important;letter-spacing:.3em!important;font-weight:600!important}
 .bf-el{font-family:BfCormorant,serif!important;letter-spacing:.12em!important;font-weight:600!important}
+a.logo{text-decoration:none;display:inline-block;cursor:pointer}
