@@ -21,7 +21,7 @@
     document.title = 'JAYDEN · ' + d.brand;
     $('bname').textContent = BR.name || d.brand;
     if (BR.font) $('bname').classList.add(BR.font);
-    d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; (byGroup[p.b] = byGroup[p.b] || []).push(p); }); });
+    d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; var gk = (p.br || '') + '|' + p.b; (byGroup[gk] = byGroup[gk] || []).push(p); }); });
     var tabs = $('tabs');
     (d.groups || []).forEach(function (g) {
       var n = d.cats.filter(function (c) { return c.g === g.id; }).reduce(function (s, c) { return s + c.items.length; }, 0);
@@ -64,8 +64,9 @@
   function render() {
     var src = [];
     (cat ? [cat] : cats()).forEach(function (c) { src = src.concat(c.items); });
-    pool = src.filter(function (p) { return !query || (p.b + ' ' + p.c + ' ' + p.k).toLowerCase().indexOf(query) >= 0; });
+    pool = src.filter(function (p) { return !query || (p.b + ' ' + p.c + ' ' + p.k + ' ' + (p.br || '') + ' ' + (p.x || '')).toLowerCase().indexOf(query) >= 0; });
     if (sortBy) pool = pool.slice().sort(function (a, b) { return sortBy === 'asc' ? a.f - b.f : b.f - a.f; });
+    pool = pool.filter(function (p) { return !p.oos; }).concat(pool.filter(function (p) { return p.oos; }));
     $('count').textContent = fn(pool.length) + ' محصول';
     $('list').innerHTML = ''; shown = 0; grid = null;
     if (!pool.length) { $('list').innerHTML = '<div class="empty">محصولی پیدا نشد.</div>'; return; }
@@ -83,7 +84,7 @@
       if ('IntersectionObserver' in window) { if (io) io.disconnect(); io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) more(); }, { rootMargin: '600px' }); io.observe(b); }
     }
   }
-  function orderMsg(p) { return 'سلام، برای سفارش این محصول: ' + p.k + ' | ' + (BR.name || DATA.brand) + ' ' + p.b + ' - ' + p.c; }
+  function orderMsg(p) { return 'سلام، برای سفارش این محصول: ' + p.k + ' | ' + (p.br ? p.br : (BR.name || DATA.brand)) + ' ' + p.b + (p.c ? ' - ' + p.c : ''); }
   function orderLink(cls, label, href, icon, p) {
     var a = el('a', cls); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = icon + '<span></span>'; a.querySelector('span').textContent = label;
     a.onclick = function () { try { navigator.clipboard.writeText(orderMsg(p)); toast('کد محصول کپی شد؛ در پیام paste کنید'); } catch (e) {} };
@@ -96,11 +97,15 @@
     a.querySelector('img').src = p.i[0];
     if (p.d > 0) a.querySelector('.off').textContent = '-' + fn(p.d) + '٪'; else a.querySelector('.off').remove();
     a.querySelector('.n').textContent = p.b;
+    if (p.br) a.querySelector('.n').insertAdjacentElement('beforebegin', el('div', 'br', p.br));
+    if (p.x) a.querySelector('.c').insertAdjacentElement('beforebegin', el('div', 'x', p.x));
+    if (p.oos) { a.classList.add('oos'); a.querySelector('.ph').appendChild(el('span', 'oosb', 'ناموجود')); }
     a.querySelector('.c').textContent = p.c + (p.z && p.z.length ? ' · Size ' + p.z.join(' · ') : '');
     a.querySelector('s').textContent = p.o ? fa(p.o) : '';
     a.querySelector('b').innerHTML = fa(p.f) + ' <small>تومان</small>';
     a.querySelector('.tap').onclick = function () { openP(p); };
     var act = a.querySelector('.cact'); act.appendChild(el('div', 'olbl', 'ثبت سفارش'));
+    if (p.oos) { act.innerHTML = ''; act.appendChild(el('div', 'olbl', 'فعلاً ناموجود')); return a; }
     act.appendChild(orderLink('ig', 'دایرکت', C.instagram, ICON_IG, p));
     act.appendChild(orderLink('wa', 'واتساپ', C.whatsapp, ICON_WA, p));
     return a;
@@ -119,21 +124,23 @@
     g.scrollLeft = 0;
     g.onscroll = function () { var k = Math.round(Math.abs(g.scrollLeft) / g.clientWidth); [].forEach.call(dots.children, function (x, j) { x.className = j === k ? 'on' : ''; }); };
     $('pname').textContent = p.b;
-    $('pmeta').textContent = (BR.name || DATA.brand) + ' · ' + p.c;
+    $('pmeta').textContent = (p.br || BR.name || DATA.brand) + (p.c ? ' · ' + p.c : '') + (p.x ? ' — ' + p.x : '') + (p.oos ? ' — ناموجود' : '');
     $('pfin').innerHTML = fa(p.f) + ' <small style="font-size:13px">تومان</small>';
     $('porg').textContent = p.o ? fa(p.o) : '';
     $('szwrap').style.display = p.z && p.z.length ? '' : 'none';
     var sz = $('psizes'); sz.innerHTML = ''; (p.z || []).forEach(function (s) { sz.appendChild(el('span', null, s)); });
     var cl = $('pcolors'); cl.innerHTML = '';
-    (byGroup[p.b] || [p]).forEach(function (q) {
+    (byGroup[(p.br || '') + '|' + p.b] || [p]).forEach(function (q) {
       var b = el('button', q === p ? 'on' : ''); b.type = 'button'; b.setAttribute('aria-pressed', q === p ? 'true' : 'false');
       var im = el('img'); im.src = q.i[0]; im.alt = ''; im.loading = 'lazy'; b.appendChild(im); b.appendChild(el('span', null, q.c));
       b.onclick = function () { openP(q, true); history.replaceState(null, '', '#p=' + encodeURIComponent(q.k)); };
       cl.appendChild(b);
     });
-    $('pcode').textContent = p.k + ' · ' + p.b + ' - ' + p.c;
+    $('pcode').textContent = p.k + ' · ' + (p.br ? p.br + ' ' : '') + p.b + (p.c ? ' - ' + p.c : '');
     var msg = orderMsg(p);
     var o = $('porder'); o.innerHTML = '';
+    if (p.oos) o.appendChild(el('div', 'olbl', 'این محصول فعلاً ناموجود است'));
+    else
     [['ig', 'سفارش در دایرکت', C.instagram, ICON_IG], ['wa', 'سفارش در واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
       var a = el('a', x[0]); a.href = x[2]; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = x[3] + '<span></span>'; a.querySelector('span').textContent = x[1];
       a.onclick = function () { try { navigator.clipboard.writeText(msg); toast('کد محصول کپی شد؛ در پیام paste کنید'); } catch (e) {} };
