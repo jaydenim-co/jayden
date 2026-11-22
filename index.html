@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261121f">
+<link rel="stylesheet" href="assets/style.css?v=20261122a">
 </head>
 <body>
 <div class="home">
@@ -26,33 +26,59 @@
   </header>
   <section class="hero">
     <h1>حراج <span class="en">BLACK FRIDAY</span></h1>
-    <p>قیمت‌ها به تومان و نهایی است. روی هر برند بزنید تا همه محصولات، رنگ‌ها و عکس‌ها را ببینید.</p>
+    <p>قیمت‌ها به تومان و نهایی است. یک دسته را انتخاب کنید، بعد روی برند بزنید تا همه محصولات را ببینید.</p>
   </section>
-  <nav class="brands" id="brands" aria-label="برندها"></nav>
+  <nav class="secs" id="secs" aria-label="دسته‌ها"></nav>
+  <div class="sechead" id="sechead" hidden><a href="#" class="secback">همه دسته‌ها</a><h2 id="sectitle"></h2></div>
+  <nav class="brands" id="brands" aria-label="برندها" hidden></nav>
   <footer class="contact">
     <span>سفارش و مشاوره</span>
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261121f"></script>
+<script src="assets/config.js?v=20261122a"></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
-  var nav = document.getElementById('brands');
-  C.brands.forEach(function (b) {
-    var a = document.createElement('a');
-    a.className = 'brand' + (b.soon ? ' soon' : '');
-    a.href = b.soon ? '#' : 'brand.html?b=' + b.slug;
-    a.innerHTML = '<div><b></b><span></span></div><em></em>';
-    a.querySelector('b').textContent = b.name; if (b.font) a.querySelector('b').classList.add(b.font);
-    a.querySelector('span').textContent = b.sub;
-    a.querySelector('em').textContent = b.soon ? 'به‌زودی' : 'مشاهده';
-    nav.appendChild(a);
-    if (!b.soon) fetch('data/' + b.slug + '.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
-      var n = d.cats.reduce(function (s, c) { return s + c.items.length; }, 0);
-      a.querySelector('em').textContent = fa(n) + ' محصول';
+  var nav = document.getElementById('brands'), secs = document.getElementById('secs'), counts = {};
+  function count(b, cb) {
+    if (counts[b.slug]) return cb(counts[b.slug]);
+    fetch('data/' + b.slug + '.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
+      var by = { all: 0 };
+      d.cats.forEach(function (c) { by.all += c.items.length; if (c.g) by[c.g] = (by[c.g] || 0) + c.items.length; });
+      counts[b.slug] = by; cb(by);
     }).catch(function () {});
+  }
+  C.sections.forEach(function (s) {
+    var list = C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && !b.soon; });
+    var a = document.createElement('a');
+    a.className = 'sec' + (list.length ? '' : ' soon'); a.href = list.length ? '#' + s.id : '#';
+    a.innerHTML = '<b></b><i></i><em></em>';
+    a.querySelector('b').textContent = s.fa; a.querySelector('i').textContent = s.en;
+    a.querySelector('em').textContent = list.length ? (fa(list.length) + ' برند') : 'به‌زودی';
+    if (!list.length) a.onclick = function (e) { e.preventDefault(); };
+    secs.appendChild(a);
   });
+  function show() {
+    var id = location.hash.slice(1), s = C.sections.filter(function (x) { return x.id === id; })[0];
+    secs.hidden = !!s; nav.hidden = !s; document.getElementById('sechead').hidden = !s;
+    if (!s) return;
+    document.getElementById('sectitle').textContent = s.fa;
+    nav.innerHTML = '';
+    C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0; }).forEach(function (b) {
+      var a = document.createElement('a'), g = b.group && b.group[s.id];
+      a.className = 'brand' + (b.soon ? ' soon' : '');
+      a.href = b.soon ? '#' + s.id : 'brand.html?b=' + b.slug + '&s=' + s.id + (g ? '&g=' + g : '');
+      a.innerHTML = '<div><b></b><span></span></div><em></em>';
+      a.querySelector('b').textContent = b.name; if (b.font) a.querySelector('b').classList.add(b.font);
+      a.querySelector('span').textContent = (b.subs && b.subs[s.id]) || b.sub;
+      a.querySelector('em').textContent = b.soon ? 'به‌زودی' : 'مشاهده';
+      nav.appendChild(a);
+      if (!b.soon) count(b, function (by) { a.querySelector('em').textContent = fa(g ? (by[g] || 0) : by.all) + ' محصول'; });
+    });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', show); show();
   document.getElementById('order').innerHTML =
     '<a class="ig" href="' + C.instagram + '" target="_blank" rel="noopener">دایرکت اینستاگرام</a>' +
     '<a class="wa" href="' + C.whatsapp + '" target="_blank" rel="noopener">واتساپ</a>';
