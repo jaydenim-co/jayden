@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261122h">
+<link rel="stylesheet" href="assets/style.css?v=20261122i">
 </head>
 <body>
 <div class="home">
@@ -29,14 +29,17 @@
     <p>قیمت‌ها به تومان و نهایی است. یک دسته را انتخاب کنید، بعد روی برند بزنید تا همه محصولات را ببینید.</p>
   </section>
   <nav class="secs" id="secs" aria-label="دسته‌ها"></nav>
-  <div class="sechead" id="sechead" hidden><a href="#" class="secback">همه دسته‌ها</a><h2 id="sectitle"></h2></div>
+  <div class="secban" id="sechead" hidden>
+    <a href="#" class="secback">‹ همه دسته‌ها</a>
+    <div class="sb-in"><div class="sb-ic" id="secic" aria-hidden="true"></div><div class="sb-tx"><small id="secen"></small><h2 id="sectitle"></h2><p id="secsub"></p></div></div>
+  </div>
   <nav class="brands" id="brands" aria-label="برندها" hidden></nav>
   <footer class="contact">
     <span>سفارش و مشاوره</span>
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261122h"></script>
+<script src="assets/config.js?v=20261122i"></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -49,11 +52,19 @@
       counts[b.slug] = by; cb(by);
     }).catch(function () {});
   }
+  var ICO = {
+    men: '<circle cx="12" cy="6.3" r="3.4"/><path d="M4.5 21v-2.3c0-3.1 2.5-5.6 5.6-5.6h3.8c3.1 0 5.6 2.5 5.6 5.6V21"/><path d="M12 13.1l-1.3 2.2L12 20.5l1.3-5.2z"/>',
+    women: '<circle cx="12" cy="7" r="3.2"/><path d="M8.8 6.4c-.4 3.2.2 5.4-1.6 6.8M15.2 6.4c.4 3.2-.2 5.4 1.6 6.8"/><path d="M4.5 21v-1.8c0-2.9 2.3-5.2 5.2-5.2h4.6c2.9 0 5.2 2.3 5.2 5.2V21"/><path d="M10 14l2 2.8 2-2.8"/>',
+    kids: '<circle cx="9.5" cy="9.2" r="2.6"/><path d="M5.3 21v-2.6c0-2.3 1.9-4.2 4.2-4.2s4.2 1.9 4.2 4.2V21"/><ellipse cx="18" cy="5.2" rx="2.4" ry="3"/><path d="M18 8.2l-.5 1.6.6 1.2-1 3"/>',
+    beauty: '<rect x="8.5" y="12" width="7" height="9" rx="1"/><path d="M9.5 12V8.6h5V12"/><path d="M10.6 8.6V4.6l2.8-1.6v5.6"/>'
+  };
+  var TAG = { men: 'برندهای مخصوص آقایان', women: 'برندهای مخصوص خانم‌ها', kids: 'برندهای مخصوص بچه‌ها', beauty: 'آرایشی، مراقبت پوست و عطر' };
+  function svg(id) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">' + (ICO[id] || '') + '</svg>'; }
   C.sections.forEach(function (s) {
     var list = C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && !b.soon; });
     var a = document.createElement('a');
     a.className = 'sec' + (list.length ? '' : ' soon'); a.href = list.length ? '#' + s.id : '#';
-    a.innerHTML = '<b></b><i></i><em></em>';
+    a.innerHTML = '<span class="sic" aria-hidden="true">' + svg(s.id) + '</span><b></b><i></i><em></em>';
     a.querySelector('b').textContent = s.fa; a.querySelector('i').textContent = s.en;
     a.querySelector('em').textContent = list.length ? (fa(list.length) + ' برند') : 'به‌زودی';
     if (!list.length) a.onclick = function (e) { e.preventDefault(); };
@@ -62,8 +73,14 @@
   function show() {
     var id = location.hash.slice(1), s = C.sections.filter(function (x) { return x.id === id; })[0];
     secs.hidden = !!s; nav.hidden = !s; document.getElementById('sechead').hidden = !s;
+    document.querySelector('.hero').hidden = !!s;
     if (!s) return;
-    document.getElementById('sectitle').textContent = s.fa;
+    var nb = C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && !b.soon; }).length;
+    document.getElementById('sectitle').textContent = 'بخش ' + s.fa;
+    document.getElementById('secen').textContent = s.en;
+    document.getElementById('secic').innerHTML = svg(s.id);
+    document.getElementById('secsub').textContent = (TAG[s.id] || '') + ' (' + fa(nb) + ' برند)';
+    document.getElementById('sechead').className = 'secban sb-' + s.id;
     nav.innerHTML = '';
     C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0; }).forEach(function (b) {
       var a = document.createElement('a'), g = b.group && b.group[s.id];
