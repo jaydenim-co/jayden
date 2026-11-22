@@ -37,7 +37,7 @@
 
   function cats() { return DATA.cats.filter(function (c) { return !group || c.g === group; }); }
   function setGroup(g) {
-    group = g; cat = null;
+    group = g; cat = null; typ = null;
     (DATA.groups || []).forEach(function (x) { x.btn.setAttribute('aria-selected', x.id === g ? 'true' : 'false'); });
     var chips = $('chips'); chips.innerHTML = '';
     var cs = cats();
@@ -54,7 +54,7 @@
     render();
   }
   function pickCat(c, btn) {
-    cat = c;
+    cat = c; typ = null;
     [].forEach.call($('chips').children, function (b) { b.classList.toggle('on', b === btn); });
     render(); window.scrollTo({ top: 0 });
   }
@@ -64,6 +64,8 @@
   function render() {
     var src = [];
     (cat ? [cat] : cats()).forEach(function (c) { src = src.concat(c.items); });
+    types(src);
+    if (typ) src = src.filter(function (p) { return p.t === typ; });
     pool = src.filter(function (p) { return !query || (p.b + ' ' + p.c + ' ' + p.k + ' ' + (p.br || '') + ' ' + (p.x || '')).toLowerCase().indexOf(query) >= 0; });
     if (sortBy) pool = pool.slice().sort(function (a, b) { return sortBy === 'asc' ? a.f - b.f : b.f - a.f; });
     pool = pool.filter(function (p) { return !p.oos; }).concat(pool.filter(function (p) { return p.oos; }));
@@ -73,7 +75,20 @@
     grid = el('div', 'grid'); $('list').appendChild(grid);
     more();
   }
-  var grid;
+  var grid, typ = null;
+  function types(src) {
+    var box = $('chips2'); if (!box) return; box.innerHTML = '';
+    if (!DATA.types) { box.style.display = 'none'; return; }
+    var cnt = {}; src.forEach(function (p) { cnt[p.t] = (cnt[p.t] || 0) + 1; });
+    var all = el('button', typ ? null : 'on'); all.innerHTML = 'همه <small></small>'; all.querySelector('small').textContent = fn(src.length);
+    all.onclick = function () { typ = null; render(); }; box.appendChild(all);
+    DATA.types.forEach(function (t) {
+      if (!cnt[t.id]) return;
+      var b = el('button', typ === t.id ? 'on' : null); b.innerHTML = '<span></span> <small></small>';
+      b.firstChild.textContent = t.fa; b.querySelector('small').textContent = fn(cnt[t.id]);
+      b.onclick = function () { typ = t.id; render(); window.scrollTo({ top: 0 }); }; box.appendChild(b);
+    });
+  }
   function more() {
     var list = $('list'), end = Math.min(shown + PAGE, pool.length);
     var old = $('morebtn'); if (old) old.remove();

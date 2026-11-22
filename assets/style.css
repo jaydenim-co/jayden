@@ -171,3 +171,6 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .stick.mini .tabs{padding-bottom:8px}
 .stick.mini .tabs button{min-height:36px}
 .stick.mini .chips{padding-top:6px;padding-bottom:8px}
+.chips2{padding-top:0}
+.chips2 button{min-height:34px;font-family:inherit;font-size:13px;direction:rtl}
+.stick.mini .chips2{padding-top:0;padding-bottom:8px}

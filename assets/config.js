@@ -14,7 +14,7 @@ window.JAYDEN = {
     { slug: 'calvinklein', secs: ['women'], name: 'CALVIN KLEIN', sub: 'کیف، کفش و کاپشن', font: 'bf-ck' },
     { slug: 'ralphlauren', secs: ['women'], name: 'RALPH LAUREN', sub: 'کاپشن و کت', font: 'bf-rl' },
     { slug: 'gymshark', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'GYMSHARK', sub: 'لباس ورزشی زنانه و مردانه', subs: { women: 'لباس ورزشی زنانه', men: 'لباس ورزشی مردانه' }, font: 'bf-gym' },
-    { slug: 'michaelkors', secs: ['women'], name: 'MICHAEL KORS', sub: 'کیف، کفش، لباس و ساعت', font: 'bf-mk' },
+    { slug: 'michaelkors', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'MICHAEL KORS', sub: 'کیف، کفش، لباس و ساعت', subs: { women: 'کیف، کفش، لباس و ساعت زنانه', men: 'کیف، کفش، لباس و ساعت مردانه' }, font: 'bf-mk' },
     { slug: 'lululemon', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'lululemon', sub: 'لباس ورزشی زنانه و مردانه', subs: { women: 'لباس ورزشی زنانه', men: 'لباس ورزشی مردانه' }, font: 'bf-lulu' },
     { slug: 'sephora', secs: ['beauty'], name: 'SEPHORA', sub: 'آرایشی، مراقبت پوست، عطر و مو', font: 'bf-sephora' },
     { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' }
