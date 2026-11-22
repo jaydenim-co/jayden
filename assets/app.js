@@ -105,16 +105,35 @@
     L.push('محصول: ' + p.b);
     if (p.c && /[۰-۹]+ رنگ/.test(p.c)) L.push('مشخصات: ' + p.c + ' موجود — رنگ دلخواهم: ');
     else if (p.c) L.push('رنگ / مدل: ' + p.c);
-    if (p.z && p.z.length) L.push('سایزهای موجود: ' + p.z.join('، '));
+    var zs = p.zp && p._s != null ? p.zp[p._s] : null;
+    if (zs) L.push('سایز: ' + zs[0]);
+    else if (p.z && p.z.length) L.push('سایزهای موجود: ' + p.z.join('، '));
     if (p.x) L.push('توضیح: ' + p.x);
-    L.push('قیمت: ' + fa(p.f) + ' تومان' + (p.o ? ' (قیمت قبل: ' + fa(p.o) + ' تومان)' : ''));
+    if (zs) L.push('قیمت: ' + fa(zs[1]) + ' تومان' + (zs[2] ? ' (قیمت قبل: ' + fa(zs[2]) + ' تومان)' : ''));
+    else L.push('قیمت: ' + (p.zp ? 'از ' : '') + fa(p.f) + ' تومان' + (p.o && !p.zp ? ' (قیمت قبل: ' + fa(p.o) + ' تومان)' : ''));
     L.push('کد محصول: ' + p.k);
     return L.join('\n');
   }
   function orderLink(cls, label, href, icon, p) {
     var a = el('a', cls); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = icon + '<span></span>'; a.querySelector('span').textContent = label;
-    a.onclick = function () { try { navigator.clipboard.writeText(orderMsg(p)); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'order/' + cls + '/' + (BR.slug || DATA.brand) + '/' + p.k, title: 'سفارش ' + (cls === 'wa' ? 'واتساپ' : 'دایرکت') + ' · ' + p.b, event: true }); } catch (e) {} };
+    a.onclick = function (e) { if (needSize(p, e)) return; try { navigator.clipboard.writeText(orderMsg(p)); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'order/' + cls + '/' + (BR.slug || DATA.brand) + '/' + p.k, title: 'سفارش ' + (cls === 'wa' ? 'واتساپ' : 'دایرکت') + ' · ' + p.b, event: true }); } catch (e) {} };
     return a;
+  }
+  function needSize(p, e) {
+    if (!p.zp || p._s != null) return false;
+    e.preventDefault(); toast('اول سایز خود را انتخاب کنید تا قیمت نمایش داده شود');
+    (p._ui || []).forEach(function (u) { u.flash(); }); return true;
+  }
+  function sizePicker(p, onPick) {
+    var box = el('div', 'szp');
+    (p.zp || []).forEach(function (z, i) {
+      var b = el('button', p._s === i ? 'on' : null, z[0]); b.type = 'button';
+      b.onclick = function (e) { e.stopPropagation(); p._s = i; (p._ui || []).forEach(function (u) { u.sync(); }); };
+      box.appendChild(b);
+    });
+    var ui = { sync: function () { [].forEach.call(box.children, function (b, i) { b.classList.toggle('on', p._s === i); }); onPick(); },
+      flash: function () { box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash'); } };
+    (p._ui = p._ui || []).push(ui); return box;
   }
   function card(p) {
     var a = el('div', 'card');
@@ -126,9 +145,22 @@
     if (p.br) a.querySelector('.n').insertAdjacentElement('beforebegin', el('div', 'br', p.br));
     if (p.x) a.querySelector('.c').insertAdjacentElement('beforebegin', el('div', 'x', p.x));
     if (p.oos) { a.classList.add('oos'); a.querySelector('.ph').appendChild(el('span', 'oosb', 'ناموجود')); }
-    a.querySelector('.c').textContent = p.c + (p.z && p.z.length ? ' · Size ' + p.z.join(' · ') : '');
+    a.querySelector('.c').textContent = p.c + (p.z && p.z.length && !p.zp ? ' · Size ' + p.z.join(' · ') : '');
     a.querySelector('s').textContent = p.o ? fa(p.o) : '';
     a.querySelector('b').innerHTML = fa(p.f) + ' <small>تومان</small>';
+    if (p.zp) {
+      p._ui = (p._ui || []).filter(function (u) { return document.body.contains(u.el); });
+      var hint = el('div', 'szh'), info = a.querySelector('.info');
+      var upd = function () {
+        var z = p._s != null ? p.zp[p._s] : null;
+        a.querySelector('s').textContent = z && z[2] ? fa(z[2]) : '';
+        a.querySelector('b').innerHTML = z ? fa(z[1]) + ' <small>تومان</small>' : '<small>از</small> ' + fa(p.f) + ' <small>تومان</small>';
+        hint.textContent = z ? 'قیمت سایز ' + z[0] : 'برای دیدن قیمت، سایز خود را انتخاب کنید';
+        var off = a.querySelector('.off'); if (off) off.textContent = z && z[2] ? '-' + fn(Math.round((1 - z[1] / z[2]) * 100)) + '٪' : off.textContent;
+      };
+      var pk = sizePicker(p, upd); pk.ui = p._ui[p._ui.length - 1]; pk.ui.el = pk;
+      info.appendChild(hint); a.insertBefore(pk, a.querySelector('.cact')); upd();
+    }
     a.querySelector('.tap').onclick = function () { openP(p); };
     var act = a.querySelector('.cact'); act.appendChild(el('div', 'olbl', 'ثبت سفارش'));
     if (p.oos) { act.innerHTML = ''; act.appendChild(el('div', 'olbl', 'فعلاً ناموجود')); return a; }
@@ -154,7 +186,21 @@
     $('pfin').innerHTML = fa(p.f) + ' <small style="font-size:13px">تومان</small>';
     $('porg').textContent = p.o ? fa(p.o) : '';
     $('szwrap').style.display = p.z && p.z.length ? '' : 'none';
-    var sz = $('psizes'); sz.innerHTML = ''; (p.z || []).forEach(function (s) { sz.appendChild(el('span', null, s)); });
+    var sz = $('psizes'); sz.innerHTML = ''; var sh = $('szhint'); $('szlbl').textContent = p.zp ? 'انتخاب سایز (EU)' : 'سایزهای موجود (US)';
+    if (p.zp) {
+      var supd = function () {
+        var z = p._s != null ? p.zp[p._s] : null;
+        $('pfin').innerHTML = (z ? '' : '<small style="font-size:13px">از</small> ') + fa(z ? z[1] : p.f) + ' <small style="font-size:13px">تومان</small>';
+        $('porg').textContent = z && z[2] ? fa(z[2]) : '';
+        if (sh) sh.textContent = z ? 'سایز انتخاب‌شده: ' + z[0] : 'قیمت هر سایز فرق دارد؛ سایز خود را انتخاب کنید';
+      };
+      p._ui = (p._ui || []).filter(function (u) { return u.el && document.body.contains(u.el); });
+      var pk = sizePicker(p, supd); pk.ui = p._ui[p._ui.length - 1]; pk.ui.el = pk; pk.classList.add('big');
+      sz.appendChild(pk); supd();
+    } else {
+      if (sh) sh.textContent = '';
+      (p.z || []).forEach(function (s) { sz.appendChild(el('span', null, s)); });
+    }
     var cl = $('pcolors'); cl.innerHTML = '';
     (byGroup[(p.br || '') + '|' + p.b] || [p]).forEach(function (q) {
       var b = el('button', q === p ? 'on' : ''); b.type = 'button'; b.setAttribute('aria-pressed', q === p ? 'true' : 'false');
@@ -169,7 +215,7 @@
     else
     [['ig', 'سفارش در دایرکت', C.instagram, ICON_IG], ['wa', 'سفارش در واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
       var a = el('a', x[0]); a.href = x[2]; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = x[3] + '<span></span>'; a.querySelector('span').textContent = x[1];
-      a.onclick = function () { try { navigator.clipboard.writeText(msg); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} };
+      a.onclick = function (e) { if (needSize(p, e)) return; msg = orderMsg(p); try { navigator.clipboard.writeText(msg); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} };
       o.appendChild(a);
     });
     $('sheet').classList.add('open'); $('sheet').scrollTop = 0; document.body.style.overflow = 'hidden';

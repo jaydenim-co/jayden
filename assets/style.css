@@ -191,3 +191,15 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .sec .sic{position:absolute;top:12px;right:12px;width:40px;height:40px;color:var(--gold2);opacity:.85}
 .sec .sic svg{width:100%;height:100%}
 .crumb{color:var(--gold);text-decoration:none;font-weight:700;border-bottom:1px dashed currentColor}
+
+/* per-size price picker */
+.szp{display:flex;flex-wrap:wrap;gap:5px;padding:0 10px 8px}
+.szp button{min-width:34px;padding:5px 6px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:12px;font-weight:600;cursor:pointer;direction:ltr}
+.szp button.on{background:var(--ink);color:var(--gold2);border-color:var(--ink)}
+.szp.big button{min-width:48px;padding:9px 10px;font-size:14px}
+.szp.flash{animation:szf .9s}
+@keyframes szf{0%,100%{background:transparent}30%,60%{background:#fbecc0}}
+.info .szh{font-size:11px;color:var(--red);margin-top:3px;line-height:1.5}
+.szhint{font-size:12px;color:var(--red);margin:-2px 0 8px}
+.szhint:empty{display:none}
+.bf-veja{font-family:BfMont,sans-serif!important;font-weight:800!important;letter-spacing:.18em!important}
