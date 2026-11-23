@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261123a">
+<link rel="stylesheet" href="assets/style.css?v=20261123b">
 </head>
 <body>
 <div class="home">
@@ -39,7 +39,7 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261123a"></script>
+<script src="assets/config.js?v=20261123b"></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -88,6 +88,7 @@
       a.href = b.soon ? '#' + s.id : 'brand.html?b=' + b.slug + '&s=' + s.id + (g ? '&g=' + g : '');
       a.innerHTML = '<div><b></b><span></span></div><em></em>';
       a.querySelector('b').textContent = b.name; if (b.font) a.querySelector('b').classList.add(b.font);
+      if (b.badge) { a.classList.add('lux'); a.querySelector('div').insertAdjacentHTML('afterbegin', '<i class="prem">' + b.badge + '</i>'); }
       a.querySelector('span').textContent = (b.subs && b.subs[s.id]) || b.sub;
       a.querySelector('em').textContent = b.soon ? 'به‌زودی' : 'مشاهده';
       nav.appendChild(a);
