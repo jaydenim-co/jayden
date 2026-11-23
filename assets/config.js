@@ -17,6 +17,7 @@ window.JAYDEN = {
     { slug: 'gymshark', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'GYMSHARK', sub: 'لباس ورزشی زنانه و مردانه', subs: { women: 'لباس ورزشی زنانه', men: 'لباس ورزشی مردانه' }, font: 'bf-gym' },
     { slug: 'michaelkors', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'MICHAEL KORS', sub: 'کیف، کفش، لباس و ساعت', subs: { women: 'کیف، کفش، لباس و ساعت زنانه', men: 'کیف، کفش، لباس و ساعت مردانه' }, font: 'bf-mk' },
     { slug: 'lululemon', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'lululemon', sub: 'لباس ورزشی زنانه و مردانه', subs: { women: 'لباس ورزشی زنانه', men: 'لباس ورزشی مردانه' }, font: 'bf-lulu' },
+    { slug: 'on', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'On', sub: 'کفش و لباس ورزشی', subs: { women: 'کفش رانینگ و لباس ورزشی زنانه', men: 'کفش رانینگ و لباس ورزشی مردانه' }, font: 'bf-on' },
     { slug: 'veja', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'VEJA', sub: 'اسنیکر و صندل زنانه و مردانه', subs: { women: 'اسنیکر زنانه', men: 'اسنیکر و صندل مردانه' }, font: 'bf-veja' },
     { slug: 'sephora', secs: ['beauty'], name: 'SEPHORA', sub: 'آرایشی، مراقبت پوست، عطر و مو', font: 'bf-sephora' },
     { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' }
