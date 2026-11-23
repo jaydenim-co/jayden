@@ -147,7 +147,7 @@
     if (p.br) a.querySelector('.n').insertAdjacentElement('beforebegin', el('div', 'br', p.br));
     if (p.x) a.querySelector('.c').insertAdjacentElement('beforebegin', el('div', 'x', p.x));
     if (p.oos) { a.classList.add('oos'); a.querySelector('.ph').appendChild(el('span', 'oosb', 'ناموجود')); }
-    a.querySelector('.c').textContent = p.c + (p.z && p.z.length && !p.zp ? ' · Size ' + p.z.join(' · ') : '');
+    a.querySelector('.c').textContent = [p.c, p.z && p.z.length && !p.zp ? 'Size ' + p.z.join(' · ') : ''].filter(Boolean).join(' · ');
     a.querySelector('s').textContent = p.o ? fa(p.o) : '';
     a.querySelector('b').innerHTML = fa(p.f) + ' <small>تومان</small>';
     if (p.zp) {
@@ -203,8 +203,9 @@
       if (sh) sh.textContent = '';
       (p.z || []).forEach(function (s) { sz.appendChild(el('span', null, s)); });
     }
-    var cl = $('pcolors'); cl.innerHTML = '';
-    (byGroup[(p.br || '') + '|' + p.b] || [p]).forEach(function (q) {
+    var cl = $('pcolors'); cl.innerHTML = ''; var grp = byGroup[(p.br || '') + '|' + p.b] || [p];
+    cl.style.display = cl.previousElementSibling.style.display = grp.length > 1 ? '' : 'none';
+    grp.forEach(function (q) {
       var b = el('button', q === p ? 'on' : ''); b.type = 'button'; b.setAttribute('aria-pressed', q === p ? 'true' : 'false');
       var im = el('img'); im.src = q.i[0]; im.alt = ''; im.loading = 'lazy'; b.appendChild(im); b.appendChild(el('span', null, q.c));
       b.onclick = function () { openP(q, true); history.replaceState(null, '', '#p=' + encodeURIComponent(q.k)); };
