@@ -1,5 +1,6 @@
 window.JAYDEN = {
   instagram: 'https://ig.me/m/jaydenim.co',
+  instagramMen: 'https://ig.me/m/jayden.formen',
   whatsapp: 'https://wa.me/message/VYR44CUOAEWGH1',
   sections: [
     { id: 'women', fa: 'زنانه', en: 'WOMEN' },

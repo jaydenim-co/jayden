@@ -116,6 +116,7 @@
     L.push('کد محصول: ' + p.k);
     return L.join('\n');
   }
+  function igFor(p) { var g = p && p._c && p._c.g; return (g === 'm' || (!g && qs === 'men')) && C.instagramMen ? C.instagramMen : C.instagram; }
   function orderLink(cls, label, href, icon, p) {
     var a = el('a', cls); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = icon + '<span></span>'; a.querySelector('span').textContent = label;
     a.onclick = function (e) { if (needSize(p, e)) return; try { navigator.clipboard.writeText(orderMsg(p)); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'order/' + cls + '/' + (BR.slug || DATA.brand) + '/' + p.k, title: 'سفارش ' + (cls === 'wa' ? 'واتساپ' : 'دایرکت') + ' · ' + p.b, event: true }); } catch (e) {} };
@@ -166,7 +167,7 @@
     a.querySelector('.tap').onclick = function () { openP(p); };
     var act = a.querySelector('.cact'); act.appendChild(el('div', 'olbl', 'ثبت سفارش'));
     if (p.oos) { act.innerHTML = ''; act.appendChild(el('div', 'olbl', 'فعلاً ناموجود')); return a; }
-    act.appendChild(orderLink('ig', 'دایرکت', C.instagram, ICON_IG, p));
+    act.appendChild(orderLink('ig', 'دایرکت', igFor(p), ICON_IG, p));
     act.appendChild(orderLink('wa', 'واتساپ', C.whatsapp, ICON_WA, p));
     return a;
   }
@@ -216,7 +217,7 @@
     var o = $('porder'); o.innerHTML = '';
     if (p.oos) o.appendChild(el('div', 'olbl', 'این محصول فعلاً ناموجود است'));
     else
-    [['ig', 'سفارش در دایرکت', C.instagram, ICON_IG], ['wa', 'سفارش در واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
+    [['ig', 'سفارش در دایرکت', igFor(p), ICON_IG], ['wa', 'سفارش در واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
       var a = el('a', x[0]); a.href = x[2]; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = x[3] + '<span></span>'; a.querySelector('span').textContent = x[1];
       a.onclick = function (e) { if (needSize(p, e)) return; msg = orderMsg(p); try { navigator.clipboard.writeText(msg); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} };
       o.appendChild(a);
