@@ -21,6 +21,8 @@
     document.title = 'JAYDEN · ' + d.brand;
     $('bname').textContent = BR.name || d.brand;
     if (BR.font) $('bname').classList.add(BR.font);
+    if (BR.badge) { $('bname').insertAdjacentHTML('beforeend', ' <i class="prem">' + BR.badge + '</i>'); }
+    if (BR.note) { $('bnote').textContent = BR.note; $('bnote').hidden = false; }
     d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; var gk = (p.br || '') + '|' + p.b; (byGroup[gk] = byGroup[gk] || []).push(p); }); });
     var tabs = $('tabs');
     (d.groups || []).forEach(function (g) {

@@ -8,6 +8,7 @@ window.JAYDEN = {
     { id: 'beauty', fa: 'آرایشی', en: 'BEAUTY' }
   ],
   brands: [
+    { slug: 'sunglasses', secs: ['women'], group: { women: 'w', men: 'm' }, name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
     { slug: 'coach', secs: ['women'], name: 'COACH', sub: 'کیف، کفش، لباس و اکسسوری', font: 'bf-coach' },
     { slug: 'jwpei', secs: ['women'], name: 'JW PEI', sub: 'کیف', font: 'bf-jwpei' },
     { slug: 'karllagerfeld', secs: ['women'], name: 'KARL LAGERFELD', sub: 'کیف، کفش زنانه و کاپشن', font: 'bf-karl' },

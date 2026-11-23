@@ -203,3 +203,17 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .szhint{font-size:12px;color:var(--red);margin:-2px 0 8px}
 .szhint:empty{display:none}
 .bf-veja{font-family:BfMont,sans-serif!important;font-weight:800!important;letter-spacing:.18em!important}
+
+/* premium / luxury */
+.prem{display:inline-block;font-style:normal;font-family:Cinzel,serif;font-size:10px;font-weight:700;letter-spacing:.2em;color:#1a1408;background:linear-gradient(135deg,#f3d98a,#c9a227 55%,#f0d27a);padding:3px 8px;border-radius:999px;vertical-align:middle;direction:ltr}
+.brand.lux{background:radial-gradient(130% 160% at 100% 0%,#3a2f17 0%,#17130b 60%,#0f0d08 100%);border:1px solid #6b5520;color:#f4efe4}
+.brand.lux b{color:var(--gold2)}
+.brand.lux span{color:#cfc6b3}
+.brand.lux em{color:var(--gold2)}
+.brand.lux .prem{margin-bottom:6px}
+.bf-lux{font-family:Cinzel,serif!important;letter-spacing:.12em!important}
+#bname .prem{font-size:9px;margin-inline-start:6px}
+.bnote{font-size:12px;color:var(--gold);margin:2px 0 4px}
+
+#bname.bf-lux{font-size:clamp(18px,6vw,30px)!important;white-space:normal;line-height:1.2}
+.bar2{min-width:0}
