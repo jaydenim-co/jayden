@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261123h">
+<link rel="stylesheet" href="assets/style.css?v=20261123i">
 </head>
 <body>
 <div class="home">
@@ -40,7 +40,7 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261123h"></script>
+<script src="assets/config.js?v=20261123i"></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -116,9 +116,10 @@
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', show); show();
-  document.getElementById('order').innerHTML =
-    '<a class="ig" href="' + C.instagram + '" target="_blank" rel="noopener">دایرکت اینستاگرام</a>' +
-    '<a class="wa" href="' + C.whatsapp + '" target="_blank" rel="noopener">واتساپ</a>';
+  function orderBox() { document.getElementById('order').innerHTML =
+    '<a class="ig" href="' + (location.hash === '#men' && C.instagramMen ? C.instagramMen : C.instagram) + '" target="_blank" rel="noopener">دایرکت اینستاگرام</a>' +
+    '<a class="wa" href="' + C.whatsapp + '" target="_blank" rel="noopener">واتساپ</a>'; }
+  orderBox(); window.addEventListener('hashchange', orderBox);
 })();
 </script>
 <script>window.goatcounter={path:function(p){return location.pathname+location.search}};</script>
