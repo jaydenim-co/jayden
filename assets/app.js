@@ -203,6 +203,8 @@
     if (p.d > 0) a.querySelector('.off').textContent = '-' + fn(p.d) + '٪'; else a.querySelector('.off').remove();
     a.querySelector('.n').textContent = p.b;
     if (p.br) a.querySelector('.n').insertAdjacentElement('beforebegin', el('div', 'br', p.br));
+    if (p.inc) a.querySelector('.n').insertAdjacentElement('afterend', el('div', 'inc', p.inc));
+    if (DATA.boldBr) a.classList.add('brb');
     if (p.x) a.querySelector('.c').insertAdjacentElement('beforebegin', el('div', 'x', p.x));
     if (p.oos) { a.classList.add('oos'); a.querySelector('.ph').appendChild(el('span', 'oosb', 'ناموجود')); }
     a.querySelector('.c').textContent = [p.c, p.z && p.z.length && !p.zp ? 'Size ' + p.z.join(' · ') : ''].filter(Boolean).join(' · ');
@@ -241,9 +243,18 @@
     });
     g.scrollLeft = 0;
     g.onscroll = function () { var k = Math.round(Math.abs(g.scrollLeft) / g.clientWidth); [].forEach.call(dots.children, function (x, j) { x.className = j === k ? 'on' : ''; }); };
-    $('pname').textContent = p.b;
-    $('pmeta').textContent = (p.br || BR.name || DATA.brand) + (p.c ? ' · ' + p.c : '') + (p.x ? ' — ' + p.x : '') + (p.oos ? ' — ناموجود' : '');
+    $('pname').textContent = p.b; if ($('pbr')) $('pbr').textContent = DATA.boldBr ? (p.br || '') : '';
+    $('pmeta').textContent = (DATA.boldBr ? '' : (p.br || BR.name || DATA.brand)) + (p.c ? (DATA.boldBr ? 'رنگ: ' : ' · ') + p.c : '') + (p.x ? ' — ' + p.x : '') + (p.oos ? ' — ناموجود' : '');
     $('pfin').innerHTML = fa(p.f) + ' <small style="font-size:13px">تومان</small>';
+    var pf = $('pfeat');
+    if (pf) {
+      pf.innerHTML = '';
+      if (p.inc) { pf.appendChild(el('div', 'lbl', 'داخل بسته')); pf.appendChild(el('div', 'finc', p.inc)); }
+      if (p.ft && p.ft.length) {
+        pf.appendChild(el('div', 'lbl', 'اطلاعات تکمیلی و امکانات'));
+        var ul = el('ul', 'flist'); p.ft.forEach(function (t) { ul.appendChild(el('li', null, t)); }); pf.appendChild(ul);
+      }
+    }
     $('porg').textContent = p.o ? fa(p.o) : '';
     $('szwrap').style.display = p.z && p.z.length ? '' : 'none';
     var sz = $('psizes'); sz.innerHTML = ''; var sh = $('szhint'); $('szlbl').textContent = p.zp ? 'انتخاب سایز (EU)' : 'سایزهای موجود (US)';
