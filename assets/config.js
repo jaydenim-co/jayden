@@ -22,6 +22,7 @@ window.JAYDEN = {
     { slug: 'veja', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'VEJA', sub: 'اسنیکر و صندل زنانه و مردانه', subs: { women: 'اسنیکر زنانه', men: 'اسنیکر و صندل مردانه' }, font: 'bf-veja' },
     { slug: 'sephora', secs: ['beauty'], name: 'SEPHORA', sub: 'آرایشی، مراقبت پوست، عطر و مو', font: 'bf-sephora' },
     { slug: 'dyson', secs: ['beauty'], name: 'DYSON', sub: 'ایرپ (Airwrap) و اتو مو (Airstrait)', font: 'bf-dyson' },
+    { slug: 'shavers', secs: ['beauty', 'men'], group: { men: 'm' }, name: 'SHAVERS', sub: 'ریش‌تراش و ماشین اصلاح · Philips · Braun · Panasonic · Wahl', subs: { men: 'ریش‌تراش، ماشین اصلاح و بادی گرومر · Philips · Braun · Panasonic', beauty: 'ریش‌تراش مردانه و بانوان · Philips · Braun · Panasonic · Wahl' } },
     { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' }
   ]
 };
