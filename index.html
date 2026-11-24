@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261124h">
+<link rel="stylesheet" href="assets/style.css?v=20261124i">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ به دلیل افزایش قیمت دلار، قیمت‌های سایت به‌روز نیستند. لطفاً قیمت نهایی را از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -25,10 +25,21 @@
     <a class="logo" href="index.html" aria-label="صفحه اصلی">JAYDEN</a>
     <small>YOU DESERVE IT</small>
   </header>
-  <section class="hero">
-    <h1>حراج <span class="en">BLACK FRIDAY</span></h1>
-    <p>قیمت‌ها به تومان و نهایی است. یک دسته را انتخاب کنید، بعد روی برند بزنید تا همه محصولات را ببینید.</p>
+  <section class="hero bfroom">
+    <picture><source media="(max-width:700px)" srcset="img/ui/bf-room-m.webp"><img src="img/ui/bf-room.webp" alt="کیف، کفش، کاپشن، دایسون و ریش‌تراش در حراج بلک فرایدی جیدن" width="1800" height="760"></picture>
+    <div class="bfr-tx">
+      <small class="bfr-k">JAYDEN · حراج ویژه سال</small>
+      <h1><span class="bfr-b">BLACK</span><span class="bfr-f">FRIDAY</span></h1>
+      <p class="bfr-off">تا <b>۸۰٪</b> تخفیف</p>
+      <p class="bfr-d">کیف، کفش، کاپشن، دایسون و ریش‌تراش اورجینال از برندهای معتبر دنیا؛ همه در یک‌جا، با قیمت نهایی به تومان.</p>
+      <div class="bfr-br">MICHAEL KORS · COACH · RALPH LAUREN · DYSON · VEJA · On</div>
+      <div class="bfr-cta"><a href="#women">خرید زنانه</a><a href="#men">خرید مردانه</a></div>
+    </div>
   </section>
+  <div class="gsearch" id="gsearch">
+    <div class="gs-box"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gq" type="search" placeholder="جستجو در همه برندها… مثلاً کیف، Airwrap، کاپشن، Braun" aria-label="جستجو در همه محصولات" autocomplete="off"></div>
+    <div class="gs-res" id="gres" hidden></div>
+  </div>
   <nav class="secs" id="secs" aria-label="دسته‌ها"></nav>
   <div class="promo" id="promo"></div>
   <div class="secban" id="sechead" hidden>
@@ -41,8 +52,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261124h"></script>
-<script src="assets/bfhang.js?v=20261124h" defer></script>
+<script src="assets/config.js?v=20261124i"></script>
+<script src="assets/bfhang.js?v=20261124i" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -93,7 +104,7 @@
   function show() {
     var id = location.hash.slice(1), s = C.sections.filter(function (x) { return x.id === id; })[0];
     secs.hidden = !!s; pr.hidden = !!s; nav.hidden = !s; document.getElementById('sechead').hidden = !s;
-    document.querySelector('.hero').hidden = !!s;
+    document.querySelector('.hero').hidden = !!s; document.getElementById('gsearch').hidden = !!s;
     if (!s) return;
     var nb = C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && !b.soon; }).length;
     document.getElementById('sectitle').textContent = 'بخش ' + s.fa;
@@ -122,6 +133,60 @@
     '<a class="ig" href="' + (location.hash === '#men' && C.instagramMen ? C.instagramMen : C.instagram) + '" target="_blank" rel="noopener">دایرکت اینستاگرام</a>' +
     '<a class="wa" href="' + C.whatsapp + '" target="_blank" rel="noopener">واتساپ</a>'; }
   orderBox(); window.addEventListener('hashchange', orderBox);
+  // global search across all brands
+  (function () {
+    var q = document.getElementById('gq'), box = document.getElementById('gres'), IDX = null, loading = null, tmr;
+    function load() {
+      if (loading) return loading;
+      var bs = C.brands.filter(function (b) { return !b.soon; });
+      loading = Promise.all(bs.map(function (b) {
+        return fetch('data/' + b.slug + '.json').then(function (r) { return r.json(); }).then(function (d) {
+          var tf = {}; (d.types || []).forEach(function (t) { tf[t.id] = t.fa; });
+          var out = [];
+          d.cats.forEach(function (c) { c.items.forEach(function (p) {
+            var sec = b.secs[0];
+            if (c.g && b.group) { for (var k in b.group) if (b.group[k] === c.g && b.secs.indexOf(k) >= 0) { sec = k; break; } }
+            out.push({ b: b, p: p, g: c.g, sec: sec, h: ' ' + [p.b, p.c, p.br, p.x, p.k, b.name, c.fa, tf[p.t]].filter(Boolean).join(' ').toLowerCase().replace(/[^0-9a-z\u0600-\u06ff\u200c]+/g, ' ') + ' ' });
+          }); });
+          return out;
+        }).catch(function () { return []; });
+      })).then(function (a) { IDX = [].concat.apply([], a); return IDX; });
+      return loading;
+    }
+    var SYN = { 'مشکی': ['black', 'noir', 'blk'], 'سیاه': ['black'], 'سفید': ['white', 'wht', 'blanc'], 'کرم': ['cream', 'vanilla', 'bone', 'ivory', 'crm'], 'قهوه‌ای': ['brown', 'chocolate', 'luggage', 'camel', 'brn'], 'قهوه ای': ['brown'], 'قرمز': ['red', 'maroon'], 'زرشکی': ['maroon', 'burgundy', 'bordeaux'], 'صورتی': ['pink', 'rose', 'blush'], 'آبی': ['blue', 'navy'], 'سرمه‌ای': ['navy', 'midnight'], 'سبز': ['green', 'olive', 'loden'], 'طوسی': ['grey', 'gray'], 'خاکستری': ['grey', 'gray'], 'طلایی': ['gold'], 'نقره‌ای': ['silver'], 'بژ': ['beige', 'camel', 'tan'],
+      'کیف': ['bag', 'tote', 'satchel', 'crossbody', 'backpack'], 'کوله': ['backpack'], 'کیف پول': ['wallet'], 'کفش': ['shoe', 'sneaker', 'trainer', 'boot', 'loafer', 'pump', 'flat', 'cloud'], 'کتونی': ['sneaker', 'trainer', 'cloud'], 'اسنیکر': ['sneaker'], 'بوت': ['boot'], 'نیم بوت': ['boot'], 'کاپشن': ['jacket', 'puffer', 'down'], 'پافر': ['puffer'], 'پالتو': ['coat'], 'جلیقه': ['vest'], 'هودی': ['hoodie'], 'تیشرت': ['t shirt', 'tee'], 'شلوار': ['pants', 'jeans', 'legging'], 'ساعت': ['watch'], 'عینک': ['sunglasses', 'glasses'], 'عطر': ['perfume', 'parfum', 'fragrance'], 'ریش تراش': ['shaver', 'razor'], 'ریش‌تراش': ['shaver', 'razor'], 'شیور': ['shaver'], 'اتو مو': ['airstrait', 'straightener'], 'سشوار': ['dryer', 'airwrap'], 'دایسون': ['dyson'], 'مایکل کورس': ['michael kors'], 'کوچ': ['coach'], 'رالف لورن': ['ralph lauren'], 'رف لارن': ['ralph lauren'], 'وجا': ['veja'] };
+    function norm(s) { return s.toLowerCase().replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/[^0-9a-z\u0600-\u06ff\u200c]+/g, ' ').trim(); }
+    function run() {
+      var v = norm(q.value);
+      if (v.length < 2) { box.hidden = true; box.innerHTML = ''; return; }
+      box.hidden = false; if (!IDX) box.innerHTML = '<div class="gs-msg">در حال جستجو…</div>';
+      load().then(function () {
+        if (norm(q.value) !== v) return;
+        var vv = v, tk = [];
+        Object.keys(SYN).sort(function (a, b) { return b.length - a.length; }).forEach(function (k) { if (k.indexOf(' ') > 0 && vv.indexOf(k) >= 0) { tk.push([k].concat(SYN[k].map(function (x) { return ' ' + x; }))); vv = vv.replace(k, ' '); } });
+        vv.split(/\s+/).filter(Boolean).forEach(function (t) { tk.push([t].concat((SYN[t] || []).map(function (x) { return ' ' + x; }))); });
+        var res = IDX.filter(function (e) { return tk.every(function (alts) { return alts.some(function (t) { return e.h.indexOf(t) >= 0; }); }); });
+        res.sort(function (a, b) { return (a.p.oos ? 1 : 0) - (b.p.oos ? 1 : 0); });
+        if (!res.length) { box.innerHTML = '<div class="gs-msg">محصولی پیدا نشد.</div>'; return; }
+        var n = res.length; res = res.slice(0, 40);
+        box.innerHTML = '<div class="gs-cnt">' + fa(n) + ' نتیجه' + (n > 40 ? ' · ۴۰ مورد اول' : '') + '</div><div class="gs-grid"></div>';
+        var gr = box.querySelector('.gs-grid');
+        res.forEach(function (e) {
+          var a = document.createElement('a'); a.className = 'gs-it';
+          a.href = 'brand.html?b=' + e.b.slug + '&s=' + e.sec + (e.g ? '&g=' + e.g : '') + '#p=' + encodeURIComponent(e.p.k);
+          a.innerHTML = '<span class="gs-ph"><img loading="lazy" alt=""></span><span class="gs-tx"><small></small><b></b><em></em></span>';
+          a.querySelector('img').src = e.p.i[0];
+          a.querySelector('small').textContent = e.p.br || e.b.name;
+          a.querySelector('b').textContent = e.p.b + (e.p.c && !/[۰-۹]+ رنگ/.test(e.p.c) ? ' · ' + e.p.c : '');
+          a.querySelector('em').textContent = e.p.oos ? 'ناموجود' : fa(e.p.f) + ' تومان';
+          gr.appendChild(a);
+        });
+      });
+    }
+    q.addEventListener('input', function () { clearTimeout(tmr); tmr = setTimeout(run, 200); });
+    q.addEventListener('focus', load, { once: true });
+  })();
+
 })();
 </script>
 <script>window.goatcounter={path:function(p){return location.pathname+location.search}};</script>
