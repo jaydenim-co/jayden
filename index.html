@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261125c">
+<link rel="stylesheet" href="assets/style.css?v=20261125d">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -52,8 +52,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261125c"></script>
-<script src="assets/bfhang.js?v=20261125c" defer></script>
+<script src="assets/config.js?v=20261125d"></script>
+<script src="assets/bfhang.js?v=20261125d" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -101,8 +101,11 @@
     a.href = 'brand.html?b=' + b.slug + '&s=' + s0 + (g ? '&g=' + g : '');
     feat(a, b, g, true); pr.appendChild(a);
   });
+  var KSUB = [{ id: 'baby', fa: 'نوزاد', sub: 'سیسمونی: کالسکه و کریر، شیشه شیر، لوازم مادر و نوزاد، لباس نوزاد' }, { id: 'girl', fa: 'دخترانه', sub: 'لباس و پوشاک دخترانه' }, { id: 'boy', fa: 'پسرانه', sub: 'لباس و پوشاک پسرانه' }];
   function show() {
-    var id = location.hash.slice(1), s = C.sections.filter(function (x) { return x.id === id; })[0];
+    var id = location.hash.slice(1), ksub = null;
+    if (/^kids-/.test(id)) { ksub = id.slice(5); id = 'kids'; }
+    var s = C.sections.filter(function (x) { return x.id === id; })[0];
     secs.hidden = !!s; pr.hidden = !!s; nav.hidden = !s; document.getElementById('sechead').hidden = !s;
     document.querySelector('.hero').hidden = !!s; document.getElementById('gsearch').hidden = !!s;
     if (!s) return;
@@ -113,8 +116,25 @@
     document.getElementById('secsub').textContent = (TAG[s.id] || '') + ' (' + fa(nb) + ' برند)';
     document.getElementById('sechead').className = 'secban sb-' + s.id;
     nav.innerHTML = '';
-    C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0; }).forEach(function (b) {
-      var a = document.createElement('a'), g = b.group && b.group[s.id];
+    if (s.id === 'kids' && !ksub) {
+      KSUB.forEach(function (k) {
+        var bl = C.brands.filter(function (b) { return (b.secs || []).indexOf('kids') >= 0 && !b.soon && (b.ksub || ['baby']).indexOf(k.id) >= 0; });
+        var a = document.createElement('a'); a.className = 'brand ksub'; a.href = '#kids-' + k.id;
+        a.innerHTML = '<div><b></b><span></span></div><em></em>';
+        a.querySelector('b').textContent = k.fa; a.querySelector('span').textContent = k.sub;
+        a.querySelector('em').textContent = bl.length ? fa(bl.length) + ' دسته' : 'به‌زودی';
+        if (!bl.length) a.classList.add('soon');
+        nav.appendChild(a);
+      });
+      window.scrollTo(0, 0); return;
+    }
+    if (ksub) {
+      var kk = KSUB.filter(function (k) { return k.id === ksub; })[0];
+      if (kk) document.getElementById('sectitle').textContent = 'بچگانه · ' + kk.fa;
+      var back = document.createElement('a'); back.className = 'kback'; back.href = '#kids'; back.textContent = '‹ نوزاد، دخترانه، پسرانه'; nav.appendChild(back);
+    }
+    C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && (!ksub || (b.ksub || ['baby']).indexOf(ksub) >= 0); }).forEach(function (b) {
+      var a = document.createElement('a'), g = ksub && b.kgroup ? b.kgroup[ksub] : (b.group && b.group[s.id]);
       a.className = 'brand' + (b.soon ? ' soon' : '');
       a.href = b.soon ? '#' + s.id : 'brand.html?b=' + b.slug + '&s=' + s.id + (g ? '&g=' + g : '');
       if (b.feat) { feat(a, b, g); nav.appendChild(a); return; }
