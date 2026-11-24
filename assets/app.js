@@ -84,7 +84,7 @@
     var ss = DATA.sets.filter(function (s) { return (!group || s.g === group) && s.k.every(function (k) { return byCode[k] && !byCode[k].oos; }); });
     if (!ss.length) return;
     var sec = el('section', 'sets'), h = el('div', 'sets-h');
-    h.innerHTML = '<div><b>پیشنهاد ست</b><small>کیف، کفش و … هماهنگ با هم · برای دیدن ست‌های بیشتر بکشید</small></div>';
+    h.innerHTML = '<div><b>پیشنهاد ست</b><small>کیف و کفش هماهنگ · برای دیدن ست‌های بیشتر بکشید</small></div>';
     var nav = el('div', 'sets-nav'); nav.innerHTML = '<button type="button" aria-label="قبلی">›</button><button type="button" aria-label="بعدی">‹</button>';
     var row = el('div', 'sets-row');
     var nb = nav.querySelectorAll('button');
@@ -94,7 +94,7 @@
       var ps = s.k.map(function (k) { return byCode[k]; }), tf = 0, to = 0;
       ps.forEach(function (p) { tf += p.f; to += p.o || p.f; });
       var c = el('div', 'set');
-      var t = el('div', 'set-t'); t.innerHTML = '<b></b><small></small>'; t.firstChild.textContent = s.n; t.lastChild.textContent = fn(ps.length) + ' تکه';
+      var t = el('div', 'set-t'); t.innerHTML = '<b></b><small></small>'; t.firstChild.textContent = s.n; t.lastChild.textContent = ps.map(ROLE).join(' + ');
       c.appendChild(t);
       var ims = el('div', 'set-ims set-' + ps.length);
       ps.forEach(function (p) {
