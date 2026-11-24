@@ -26,8 +26,10 @@ window.JAYDEN = {
     { slug: 'avent', secs: ['kids'], ksub: ['baby'], name: 'شیشه شیر و لوازم تغذیه', sub: 'شیشه شیر، پستانک، ست هدیه، استریل، گرم‌کن و غذاساز · Philips Avent' },
     { slug: 'momcozy', secs: ['kids'], ksub: ['baby'], name: 'لوازم مادر و نوزاد', sub: 'Momcozy · شیردوش، گرم‌کن، بالش بارداری، آغوشی و لوازم مادر و نوزاد' },
     { slug: 'next', secs: ['kids'], ksub: ['baby', 'girl', 'boy'], kgroup: { baby: 'b', girl: 'g', boy: 'k' }, name: 'لباس و پوشاک · NEXT', sub: 'لباس نوزاد، دخترانه و پسرانه' },
+    { slug: 'flikflak', secs: ['kids'], ksub: ['girl', 'boy'], kgroup: { girl: 'g', boy: 'k' }, name: 'SWATCH', tag: 'Flik Flak · Swiss Made', sub: 'ساعت بچگانه سوئیسی · مدل‌های قابل حک اسم روی بند' },
     { slug: 'shavers', secs: ['beauty', 'men'], group: { men: 'm' }, dmMen: true, name: 'SHAVERS', sub: 'ریش‌تراش و ماشین اصلاح · Philips · Braun · Panasonic · Wahl', subs: { men: 'ریش‌تراش، ماشین اصلاح و بادی گرومر · Philips · Braun · Panasonic', beauty: 'ریش‌تراش مردانه و بانوان · Philips · Braun · Panasonic · Wahl' } },
     { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' },
+    { slug: 'moonswatch', secs: ['men', 'women'], name: 'OMEGA × SWATCH', tag: 'MoonSwatch · Bioceramic · Swiss Made', sub: 'ساعت MoonSwatch اورجینال و بند' },
     { slug: 'clarins', secs: ['beauty'], name: 'CLARINS', sub: 'مراقبت پوست صورت و بدن، ست هدیه و اسپری مراقبتی' },
   ]
 };

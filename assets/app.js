@@ -21,6 +21,7 @@
     document.title = 'JAYDEN · ' + d.brand;
     $('bname').textContent = BR.name || d.brand;
     if (BR.font) $('bname').classList.add(BR.font);
+    if (BR.tag) $('bname').insertAdjacentHTML('beforeend', '<small class="btag">' + BR.tag + '</small>');
     if (BR.badge) { $('bname').insertAdjacentHTML('beforeend', ' <i class="prem">' + BR.badge + '</i>'); }
     if (BR.note) { $('bnote').textContent = BR.note; $('bnote').hidden = false; }
     d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; var gk = (p.br || '') + '|' + p.b; (byGroup[gk] = byGroup[gk] || []).push(p); }); });
@@ -168,6 +169,7 @@
     if (zs) L.push('سایز: ' + zs[0]);
     else if (p.z && p.z.length) L.push('سایزهای موجود: ' + p.z.join('، '));
     if (p.x) L.push('توضیح: ' + p.x);
+    if (p.pz) L.push('✍️ اسم برای حک روی بند: ');
     if (zs) L.push('قیمت: ' + fa(zs[1]) + ' تومان' + (zs[2] ? ' (قیمت قبل: ' + fa(zs[2]) + ' تومان)' : ''));
     else L.push('قیمت: ' + (p.zp ? 'از ' : '') + fa(p.f) + ' تومان' + (p.o && !p.zp ? ' (قیمت قبل: ' + fa(p.o) + ' تومان)' : ''));
     L.push('کد محصول: ' + p.k);
@@ -206,6 +208,7 @@
     if (p.inc) a.querySelector('.n').insertAdjacentElement('afterend', el('div', 'inc', p.inc));
     if (DATA.boldBr) a.classList.add('brb');
     if (p.x) a.querySelector('.c').insertAdjacentElement('beforebegin', el('div', 'x', p.x));
+    if (p.pz) { a.classList.add('haspz'); a.querySelector('.ph').appendChild(el('span', 'pzb', '✍️ حک اسم روی بند')); }
     if (p.oos) { a.classList.add('oos'); a.querySelector('.ph').appendChild(el('span', 'oosb', 'ناموجود')); }
     a.querySelector('.c').textContent = [p.c, p.z && p.z.length && !p.zp ? 'Size ' + p.z.join(' · ') : ''].filter(Boolean).join(' · ');
     a.querySelector('s').textContent = p.o ? fa(p.o) : '';
@@ -249,6 +252,7 @@
     var pf = $('pfeat');
     if (pf) {
       pf.innerHTML = '';
+      if (p.pz) { var pzx = el('div', 'pzbox'); pzx.innerHTML = '<b>✍️ این مدل پرسونالایز می‌شود</b><span>هر اسمی که بخواهید روی بند ساعت حک می‌شود. هنگام سفارش در دایرکت یا واتساپ، اسم موردنظر را بفرستید.</span>'; pf.appendChild(pzx); }
       if (p.inc) { pf.appendChild(el('div', 'lbl', 'داخل بسته')); pf.appendChild(el('div', 'finc', p.inc)); }
       if (p.ft && p.ft.length) {
         pf.appendChild(el('div', 'lbl', 'اطلاعات تکمیلی و امکانات'));
