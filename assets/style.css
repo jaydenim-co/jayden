@@ -254,6 +254,6 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .bfh-brand .bfstr{height:22px}
 @media(max-width:600px){.bfhang{width:200px;margin-left:-100px}.home header:has(.bfhang){margin-bottom:84px}.bfh-brand{width:118px;left:10px;margin-left:0}}
 .bfdrops{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
-.bfdrop{position:absolute;left:0;top:0;font:900 13px/1 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;direction:ltr;padding:4px 7px;border-radius:6px;border:2px solid #111;box-shadow:0 2px 4px rgba(0,0,0,.35);white-space:nowrap;will-change:transform,opacity}
+.bfdrop{position:absolute;left:0;top:0;font:900 13px/1 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;direction:ltr;padding:3px 7px;border-radius:6px;border:1.5px solid;background:transparent;text-shadow:0 1px 3px rgba(0,0,0,.35);white-space:nowrap;will-change:transform,opacity}
 .bfd-pct{font-size:16px;padding:3px 7px;border-radius:50%}
 @media(max-width:600px){.bfdrop{font-size:11px;padding:3px 6px}.bfd-pct{font-size:14px}}
