@@ -8,7 +8,30 @@
   wrap.setAttribute('aria-hidden','true');
   wrap.innerHTML='<span class="bfnail"></span><div class="bfsw"><svg class="bfstr" viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M50 0 L12 40 M50 0 L88 40"/></svg><picture><source srcset="img/ui/blackfriday.webp" type="image/webp"><img src="img/ui/blackfriday.png" alt=""></picture></div>';
   host.appendChild(wrap);
-  var sw=wrap.querySelector('.bfsw');
+  var sw=wrap.querySelector('.bfsw'), img=wrap.querySelector('img');
+  var layer=document.createElement('div'); layer.className='bfdrops'; layer.setAttribute('aria-hidden','true'); document.body.appendChild(layer);
+  var WORDS=['%','-50%','-30%','-70%','SALE','OFF','%','-40%','SALE','%'];
+  var COLS=[['#e0141e','#fff'],['#ffd000','#111'],['#111','#ffd000'],['#fff','#e0141e']];
+  var drops=[], acc=0;
+  function spawn(){
+    if(drops.length>=36) return;
+    var r=img.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
+    var e=document.createElement('span'), c=COLS[Math.random()*COLS.length|0], w=WORDS[Math.random()*WORDS.length|0];
+    e.className='bfdrop'+(w.length<2?' bfd-pct':''); e.textContent=w; e.style.background=c[0]; e.style.color=c[1]; if(c[0]=='#111')e.style.borderColor='#ffd000';
+    layer.appendChild(e);
+    drops.push({e:e,x:r.left+r.width*(.12+Math.random()*.76),y:r.top+r.height*.75,vx:(Math.random()-.5)*70-om*25,vy:20+Math.random()*40,r:(Math.random()-.5)*40,vr:(Math.random()-.5)*260,life:0,max:1.6+Math.random()*.9});
+  }
+  function drops_step(dt){
+    var sp=Math.abs(om);
+    if(sp>.35){ acc+=dt*Math.min(14,(sp-.35)*9); while(acc>=1){acc-=1;spawn();} } else acc=0;
+    for(var i=drops.length-1;i>=0;i--){
+      var d=drops[i]; d.life+=dt; d.vy+=420*dt; d.vx*=.985; d.x+=d.vx*dt; d.y+=d.vy*dt; d.r+=d.vr*dt;
+      var op=d.life<.15?d.life/.15:Math.max(0,1-(d.life-d.max*.6)/(d.max*.4));
+      if(d.life>=d.max||d.y>innerHeight+40){d.e.remove();drops.splice(i,1);continue;}
+      d.e.style.transform='translate('+d.x.toFixed(1)+'px,'+d.y.toFixed(1)+'px) translate(-50%,-50%) rotate('+d.r.toFixed(1)+'deg)';
+      d.e.style.opacity=Math.min(1,op).toFixed(2);
+    }
+  }
   if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var th=0, om=0, bob=0, bv=0, lx=null, ly=null, lsy=scrollY, t0=performance.now(), last=t0, running=false;
@@ -42,6 +65,7 @@
     if(bob>14)bob=14; if(bob<-6)bob=-6;
     // gentle idle sway so it always feels alive
     var idle=Math.sin((now-t0)/900)*.025;
+    drops_step(dt);
     sw.style.transform='translateY('+bob.toFixed(2)+'px) rotate('+((th+idle)*57.2958).toFixed(2)+'deg)';
     requestAnimationFrame(step);
   }
