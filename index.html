@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261125g">
+<link rel="stylesheet" href="assets/style.css?v=20261125h">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -30,14 +30,11 @@
     <div class="bfr-tx">
       <div class="bfr-h"><small class="bfr-k">JAYDEN · حراج ویژه سال</small>
       <h1><span class="bfr-b">BLACK</span><span class="bfr-f">FRIDAY</span></h1></div>
-      <div class="bfr-m"><p class="bfr-off">تا <b>۸۰٪</b> تخفیف</p>
-      <p class="bfr-d">کیف، کفش، کاپشن، لوازم آرایشی، دایسون، ریش‌تراش و کالسکه اورجینال از برندهای معتبر دنیا؛ همه در یک‌جا، با قیمت نهایی به تومان.</p>
-      <div class="bfr-br">MICHAEL KORS · COACH · RALPH LAUREN · DYSON · VEJA · CYBEX</div></div>
-      <div class="bfr-cta"><a href="#women">خرید زنانه</a><a href="#men">خرید مردانه</a></div>
+      <div class="bfr-m"><p class="bfr-off">تا <b>۸۰٪</b> تخفیف</p></div>
     </div>
   </section>
   <div class="gsearch" id="gsearch">
-    <div class="gs-box"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gq" type="search" placeholder="جستجو در همه برندها… مثلاً کیف، Airwrap، کاپشن، Braun" aria-label="جستجو در همه محصولات" autocomplete="off"></div>
+    <div class="gs-box"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gq" type="search" placeholder="سرچ" aria-label="سرچ در همه محصولات" autocomplete="off"></div>
     <div class="gs-res" id="gres" hidden></div>
   </div>
   <nav class="secs" id="secs" aria-label="دسته‌ها"></nav>
@@ -52,8 +49,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261125g"></script>
-<script src="assets/bfhang.js?v=20261125g" defer></script>
+<script src="assets/config.js?v=20261125h"></script>
+<script src="assets/bfhang.js?v=20261125h" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -140,6 +137,7 @@
       if (b.feat) { feat(a, b, g); nav.appendChild(a); return; }
       a.innerHTML = '<div><b></b><span></span></div><em></em>';
       a.querySelector('b').textContent = b.name; if (b.font) a.querySelector('b').classList.add(b.font);
+      if (b.tag) a.querySelector('b').insertAdjacentHTML('afterend', '<small class="btag">' + b.tag + '</small>');
       if (b.badge) { a.classList.add('lux'); a.querySelector('div').insertAdjacentHTML('afterbegin', '<i class="prem">' + b.badge + '</i>'); }
       a.querySelector('span').textContent = (b.subs && b.subs[s.id]) || b.sub;
       a.querySelector('em').textContent = b.soon ? 'به‌زودی' : 'مشاهده';
