@@ -291,22 +291,22 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .set-act .wa{background:#1f7a4d;color:#fff}
 @media(min-width:700px){.set{flex-basis:400px}.sets{margin:0 0 18px;border-radius:14px}}
 /* Black Friday room banner */
-.hero.bfroom{position:relative;margin:0 0 14px;padding:0;border:0;border-radius:0;background:#100c09;overflow:hidden}
+.hero.bfroom{position:relative;margin:0 0 14px;padding:0;border:0;border-radius:0;background:#d8c4ad;overflow:hidden}
 .bfroom picture,.bfroom img{display:block;width:100%;height:auto}
-.bfr-tx{position:absolute;top:0;bottom:0;right:0;width:36%;display:flex;flex-direction:column;justify-content:center;padding:24px 4% 24px 2%;color:#f4efe4}
-.bfr-k{font-size:13px;letter-spacing:.08em;color:#cdb78a;font-weight:700}
+.bfr-tx{position:absolute;top:0;bottom:0;right:0;width:32%;display:flex;flex-direction:column;justify-content:center;padding:24px 4% 24px 1%;color:#1d1712}
+.bfroom .bfr-k{font-size:13px;letter-spacing:.08em;color:#6f5530;font-weight:800}
 .bfroom h1{margin:6px 0 2px;font-family:Cinzel,serif;font-weight:700;line-height:.95;direction:ltr;text-align:right;display:flex;flex-direction:column;align-items:flex-end}
-.bfr-b{font-size:clamp(38px,5.4vw,82px);color:#fff;letter-spacing:.06em;text-shadow:0 4px 18px rgba(0,0,0,.6)}
-.bfr-f{font-size:clamp(38px,5.4vw,82px);letter-spacing:.06em;background:linear-gradient(180deg,#ffe7a3,#d4af37 55%,#9b7a26);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 14px rgba(212,175,55,.35))}
-.bfr-off{margin:10px 0 4px;font-size:clamp(18px,2vw,28px);font-weight:800}
-.bfr-off b{color:#ff3b30;font-size:1.35em}
-.bfr-d{margin:0 0 10px;font-size:14px;line-height:1.9;color:#d9d0bd;max-width:420px}
-.bfr-br{font-family:Cinzel,serif;direction:ltr;text-align:right;font-size:11.5px;letter-spacing:.12em;color:#a8915a;margin-bottom:14px}
+.bfr-b{font-size:clamp(38px,5.4vw,84px);color:#15110d;letter-spacing:.06em}
+.bfr-f{font-size:clamp(38px,5.4vw,84px);letter-spacing:.06em;background:linear-gradient(180deg,#c99a2e,#9a6f16 60%,#6e4e0e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bfroom .bfr-off{margin:10px 0 4px;font-size:clamp(18px,2vw,28px);font-weight:800;color:#15110d}
+.bfroom .bfr-off b{color:#b3121b;font-size:1.35em}
+.bfroom .bfr-d{margin:0 0 10px;font-size:14px;line-height:1.9;color:#3a2f24;max-width:420px}
+.bfroom .bfr-br{font-family:Cinzel,serif;direction:ltr;text-align:right;font-size:11.5px;letter-spacing:.12em;color:#6f5530;margin-bottom:14px}
 .bfr-cta{display:flex;gap:8px;flex-wrap:wrap}
-.bfr-cta a{min-height:44px;padding:0 20px;display:flex;align-items:center;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;background:linear-gradient(180deg,#f1d27a,#d4af37);color:#15130f}
-.bfr-cta a+a{background:transparent;color:#f1d27a;border:1px solid #8a7340}
+.bfr-cta a{min-height:44px;padding:0 22px;display:flex;align-items:center;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;background:#15110d;color:#f1d27a}
+.bfr-cta a+a{background:transparent;color:#15110d;border:1.5px solid #15110d}
 @media(max-width:700px){
- .bfr-tx{position:static;width:auto;padding:16px 18px 20px;background:linear-gradient(180deg,#120d0a,#0c0b09)}
+ .bfr-tx{position:static;width:auto;padding:16px 18px 20px;background:linear-gradient(180deg,#d6c2aa,#cdb79c)}
  .bfroom h1{flex-direction:row;gap:12px;justify-content:flex-end;align-items:baseline}
  .bfr-b,.bfr-f{font-size:40px}
  .bfr-cta a{flex:1;justify-content:center}
