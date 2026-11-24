@@ -290,3 +290,38 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .set-act .ig{background:var(--ink);color:var(--gold2)}
 .set-act .wa{background:#1f7a4d;color:#fff}
 @media(min-width:700px){.set{flex-basis:400px}.sets{margin:0 0 18px;border-radius:14px}}
+/* Black Friday room banner */
+.hero.bfroom{position:relative;margin:0 0 14px;padding:0;border:0;border-radius:0;background:#100c09;overflow:hidden}
+.bfroom picture,.bfroom img{display:block;width:100%;height:auto}
+.bfr-tx{position:absolute;top:0;bottom:0;right:0;width:36%;display:flex;flex-direction:column;justify-content:center;padding:24px 4% 24px 2%;color:#f4efe4}
+.bfr-k{font-size:13px;letter-spacing:.08em;color:#cdb78a;font-weight:700}
+.bfroom h1{margin:6px 0 2px;font-family:Cinzel,serif;font-weight:700;line-height:.95;direction:ltr;text-align:right;display:flex;flex-direction:column;align-items:flex-end}
+.bfr-b{font-size:clamp(38px,5.4vw,82px);color:#fff;letter-spacing:.06em;text-shadow:0 4px 18px rgba(0,0,0,.6)}
+.bfr-f{font-size:clamp(38px,5.4vw,82px);letter-spacing:.06em;background:linear-gradient(180deg,#ffe7a3,#d4af37 55%,#9b7a26);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 14px rgba(212,175,55,.35))}
+.bfr-off{margin:10px 0 4px;font-size:clamp(18px,2vw,28px);font-weight:800}
+.bfr-off b{color:#ff3b30;font-size:1.35em}
+.bfr-d{margin:0 0 10px;font-size:14px;line-height:1.9;color:#d9d0bd;max-width:420px}
+.bfr-br{font-family:Cinzel,serif;direction:ltr;text-align:right;font-size:11.5px;letter-spacing:.12em;color:#a8915a;margin-bottom:14px}
+.bfr-cta{display:flex;gap:8px;flex-wrap:wrap}
+.bfr-cta a{min-height:44px;padding:0 20px;display:flex;align-items:center;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;background:linear-gradient(180deg,#f1d27a,#d4af37);color:#15130f}
+.bfr-cta a+a{background:transparent;color:#f1d27a;border:1px solid #8a7340}
+@media(max-width:700px){
+ .bfr-tx{position:static;width:auto;padding:16px 18px 20px;background:linear-gradient(180deg,#120d0a,#0c0b09)}
+ .bfroom h1{flex-direction:row;gap:12px;justify-content:flex-end;align-items:baseline}
+ .bfr-b,.bfr-f{font-size:40px}
+ .bfr-cta a{flex:1;justify-content:center}
+}
+/* global search */
+.gsearch{margin:0 16px 16px}
+.gs-box{display:flex;align-items:center;gap:8px;background:#f4efe4;border:1px solid #d4af37;border-radius:12px;padding:0 14px;min-height:50px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.gs-box svg{width:20px;height:20px;color:#8a7340;flex:none}
+.gs-box input{flex:1;border:0;background:transparent;font:inherit;font-size:15px;color:#15130f;outline:none;min-height:48px}
+.gs-res{margin-top:10px;background:#15130f;border:1px solid #3a321f;border-radius:12px;padding:10px}
+.gs-cnt,.gs-msg{font-size:12.5px;color:#cdb78a;padding:2px 4px 8px}
+.gs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.gs-it{display:flex;flex-direction:column;background:#faf8f4;color:#15130f;border-radius:10px;overflow:hidden;text-decoration:none}
+.gs-ph{aspect-ratio:1;background:#f1eee8}.gs-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.gs-tx{display:flex;flex-direction:column;gap:2px;padding:7px 8px 9px}
+.gs-tx small{font-size:10.5px;font-weight:800;color:#a8873a;font-family:Cinzel,serif;direction:ltr;text-align:right}
+.gs-tx b{font-size:12px;font-weight:600;line-height:1.4;direction:ltr;text-align:right;font-family:Playfair,serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gs-tx em{font-style:normal;font-size:12px;font-weight:800;color:#9b1c1c}

@@ -173,7 +173,7 @@
     L.push('کد محصول: ' + p.k);
     return L.join('\n');
   }
-  function igFor(p) { var g = p && p._c && p._c.g; return (g === 'm' || (!g && qs === 'men')) && C.instagramMen ? C.instagramMen : C.instagram; }
+  function igFor(p) { var g = p && p._c && p._c.g; if (BR.dmMen && C.instagramMen) return C.instagramMen; return (g === 'm' || (!g && qs === 'men')) && C.instagramMen ? C.instagramMen : C.instagram; }
   function orderLink(cls, label, href, icon, p) {
     var a = el('a', cls); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = icon + '<span></span>'; a.querySelector('span').textContent = label;
     a.onclick = function (e) { if (needSize(p, e)) return; try { navigator.clipboard.writeText(orderMsg(p)); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'order/' + cls + '/' + (BR.slug || DATA.brand) + '/' + p.k, title: 'سفارش ' + (cls === 'wa' ? 'واتساپ' : 'دایرکت') + ' · ' + p.b, event: true }); } catch (e) {} };
