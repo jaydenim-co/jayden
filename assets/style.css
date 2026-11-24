@@ -293,7 +293,9 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 /* Black Friday room banner */
 .hero.bfroom{position:relative;margin:0 0 14px;padding:0;border:0;border-radius:0;background:#d8c4ad;overflow:hidden}
 .bfroom picture,.bfroom img{display:block;width:100%;height:auto}
-.bfr-tx{position:absolute;top:0;bottom:0;right:0;width:32%;display:flex;flex-direction:column;justify-content:center;padding:24px 4% 24px 1%;color:#1d1712}
+.bfr-tx{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:'h t c';align-items:center;gap:6px 28px;padding:20px 4%;color:#1d1712;background:linear-gradient(180deg,#e3d3bf,#d6c2aa)}
+.bfr-h{grid-area:h}.bfr-m{grid-area:t}.bfr-cta{grid-area:c}
+.bfroom .bfr-b,.bfroom .bfr-f{font-size:clamp(34px,3.6vw,56px)}
 .bfroom .bfr-k{font-size:13px;letter-spacing:.08em;color:#6f5530;font-weight:800}
 .bfroom h1{margin:6px 0 2px;font-family:Cinzel,serif;font-weight:700;line-height:.95;direction:ltr;text-align:right;display:flex;flex-direction:column;align-items:flex-end}
 .bfr-b{font-size:clamp(38px,5.4vw,84px);color:#15110d;letter-spacing:.06em}
@@ -306,9 +308,9 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .bfr-cta a{min-height:44px;padding:0 22px;display:flex;align-items:center;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;background:#15110d;color:#f1d27a}
 .bfr-cta a+a{background:transparent;color:#15110d;border:1.5px solid #15110d}
 @media(max-width:700px){
- .bfr-tx{position:static;width:auto;padding:16px 18px 20px;background:linear-gradient(180deg,#d6c2aa,#cdb79c)}
+ .bfr-tx{display:block;padding:16px 18px 20px}
  .bfroom h1{flex-direction:row;gap:12px;justify-content:flex-end;align-items:baseline}
- .bfr-b,.bfr-f{font-size:40px}
+ .bfroom .bfr-b,.bfroom .bfr-f{font-size:40px}
  .bfr-cta a{flex:1;justify-content:center}
 }
 /* global search */

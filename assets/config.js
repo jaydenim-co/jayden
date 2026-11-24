@@ -25,8 +25,9 @@ window.JAYDEN = {
     { slug: 'strollers', secs: ['kids'], ksub: ['baby'], name: 'کالسکه و کریر', sub: 'سیستم سفری، کالسکه، کریر و آغوشی نوزاد · Cybex · Bugaboo · UPPAbaby · Inglesina' },
     { slug: 'avent', secs: ['kids'], ksub: ['baby'], name: 'شیشه شیر و لوازم تغذیه', sub: 'شیشه شیر، پستانک، ست هدیه، استریل، گرم‌کن و غذاساز · Philips Avent' },
     { slug: 'momcozy', secs: ['kids'], ksub: ['baby'], name: 'لوازم مادر و نوزاد', sub: 'Momcozy · شیردوش، گرم‌کن، بالش بارداری، آغوشی و لوازم مادر و نوزاد' },
-    { slug: 'next', secs: ['kids'], ksub: ['baby', 'girl', 'boy'], kgroup: { baby: 'b', girl: 'g', boy: 'k' }, name: 'لباس و پوشاک · NEXT', sub: 'لباس نوزاد، دخترانه و پسرانه', soon: true },
+    { slug: 'next', secs: ['kids'], ksub: ['baby', 'girl', 'boy'], kgroup: { baby: 'b', girl: 'g', boy: 'k' }, name: 'لباس و پوشاک · NEXT', sub: 'لباس نوزاد، دخترانه و پسرانه' },
     { slug: 'shavers', secs: ['beauty', 'men'], group: { men: 'm' }, dmMen: true, name: 'SHAVERS', sub: 'ریش‌تراش و ماشین اصلاح · Philips · Braun · Panasonic · Wahl', subs: { men: 'ریش‌تراش، ماشین اصلاح و بادی گرومر · Philips · Braun · Panasonic', beauty: 'ریش‌تراش مردانه و بانوان · Philips · Braun · Panasonic · Wahl' } },
-    { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' }
+    { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' },
+    { slug: 'clarins', secs: ['beauty'], name: 'CLARINS', sub: 'مراقبت پوست صورت و بدن، ست هدیه و اسپری مراقبتی' },
   ]
 };
