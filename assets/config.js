@@ -22,9 +22,10 @@ window.JAYDEN = {
     { slug: 'veja', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'VEJA', sub: 'اسنیکر و صندل زنانه و مردانه', subs: { women: 'اسنیکر زنانه', men: 'اسنیکر و صندل مردانه' }, font: 'bf-veja' },
     { slug: 'sephora', secs: ['beauty'], name: 'SEPHORA', sub: 'آرایشی، مراقبت پوست، عطر و مو', font: 'bf-sephora' },
     { slug: 'dyson', secs: ['beauty'], name: 'DYSON', sub: 'ایرپ (Airwrap) و اتو مو (Airstrait)', font: 'bf-dyson' },
-    { slug: 'avent', secs: ['kids'], name: 'نوزاد', sub: 'شیشه شیر، پستانک، ست هدیه، استریل، گرم‌کن و غذاساز · Philips Avent' },
-    { slug: 'momcozy', secs: ['kids'], name: 'MOMCOZY', sub: 'شیردوش، گرم‌کن، بالش بارداری، آغوشی و لوازم مادر و نوزاد' },
-    { slug: 'strollers', secs: ['kids'], name: 'کالسکه و کریر بچه', sub: 'سیستم سفری، کالسکه، کریر و آغوشی نوزاد · Cybex · Bugaboo · UPPAbaby · Inglesina' },
+    { slug: 'strollers', secs: ['kids'], ksub: ['baby'], name: 'کالسکه و کریر', sub: 'سیستم سفری، کالسکه، کریر و آغوشی نوزاد · Cybex · Bugaboo · UPPAbaby · Inglesina' },
+    { slug: 'avent', secs: ['kids'], ksub: ['baby'], name: 'شیشه شیر و لوازم تغذیه', sub: 'شیشه شیر، پستانک، ست هدیه، استریل، گرم‌کن و غذاساز · Philips Avent' },
+    { slug: 'momcozy', secs: ['kids'], ksub: ['baby'], name: 'لوازم مادر و نوزاد', sub: 'Momcozy · شیردوش، گرم‌کن، بالش بارداری، آغوشی و لوازم مادر و نوزاد' },
+    { slug: 'next', secs: ['kids'], ksub: ['baby', 'girl', 'boy'], kgroup: { baby: 'b', girl: 'g', boy: 'k' }, name: 'لباس و پوشاک · NEXT', sub: 'لباس نوزاد، دخترانه و پسرانه', soon: true },
     { slug: 'shavers', secs: ['beauty', 'men'], group: { men: 'm' }, dmMen: true, name: 'SHAVERS', sub: 'ریش‌تراش و ماشین اصلاح · Philips · Braun · Panasonic · Wahl', subs: { men: 'ریش‌تراش، ماشین اصلاح و بادی گرومر · Philips · Braun · Panasonic', beauty: 'ریش‌تراش مردانه و بانوان · Philips · Braun · Panasonic · Wahl' } },
     { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' }
   ]

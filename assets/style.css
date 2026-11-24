@@ -334,3 +334,5 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .flist{margin:4px 0 6px;padding:0 18px 0 0;display:flex;flex-direction:column;gap:6px}
 .flist li{font-size:13.5px;line-height:1.75;color:#3a342a}
 .flist li::marker{color:#b08d3a}
+.brand.ksub b{font-size:22px}
+.kback{display:block;padding:4px 2px 10px;color:#d4af37;font-weight:800;font-size:13px;text-decoration:none}
