@@ -257,3 +257,36 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .bfdrop{position:absolute;left:0;top:0;font:900 13px/1 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;direction:ltr;padding:3px 7px;border-radius:6px;border:1.5px solid;background:transparent;text-shadow:0 1px 3px rgba(0,0,0,.35);white-space:nowrap;will-change:transform,opacity}
 .bfd-pct{font-size:16px;padding:3px 7px;border-radius:50%}
 @media(max-width:600px){.bfdrop{font-size:11px;padding:3px 6px}.bfd-pct{font-size:14px}}
+/* set suggestions (Michael Kors) */
+.sets{position:relative;margin:0 -12px 16px;padding:14px 0 16px;background:#15130f;color:#f4efe4}
+.sets-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px 10px}
+.sets-h b{display:block;font-size:17px;font-weight:800;color:var(--gold2)}
+.sets-h small{display:block;font-size:11.5px;color:#bfb49c;margin-top:2px}
+.sets-nav{position:absolute;left:4px;right:4px;top:46%;display:flex;justify-content:space-between;pointer-events:none;z-index:2}
+.sets-nav button{pointer-events:auto;width:40px;height:40px;border-radius:50%;border:1px solid #6b5a33;background:rgba(21,19,15,.85);box-shadow:0 2px 8px rgba(0,0,0,.4);color:var(--gold2);font-size:20px;line-height:1;cursor:pointer}
+@media(hover:none){.sets-nav{display:none}}
+.sets-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 14px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.sets-row::-webkit-scrollbar{display:none}
+.set{flex:0 0 86%;max-width:440px;scroll-snap-align:center;background:#faf8f4;color:var(--ink);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.set-t{display:flex;justify-content:space-between;align-items:baseline}
+.set-t b{font-size:15px;font-weight:800}
+.set-t small{font-size:11px;color:var(--muted);font-weight:700}
+.set-ims{display:grid;gap:6px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.set-ims.set-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.set-it{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0}
+.set-ph{display:block;aspect-ratio:1;border-radius:10px;overflow:hidden;background:#f1eee8}
+.set-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.set-r{font-size:10.5px;font-weight:800;color:#a8873a;margin-top:2px}
+.set-n{font-size:11px;line-height:1.35;color:#3c3529;font-family:Playfair,serif;direction:ltr;text-align:right;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em}
+.set-p{font-size:11.5px;font-weight:800;color:var(--red)}
+.set-tot{display:flex;align-items:baseline;gap:8px;border-top:1px dashed #d9d1c2;padding-top:8px;flex-wrap:wrap}
+.set-tot span{font-size:12px;font-weight:800}
+.set-tot s{font-size:11px;color:#8a8170}
+.set-tot b{margin-inline-start:auto;font-size:16px;font-weight:900;color:var(--red)}
+.set-tot b small{font-size:11px;font-weight:700}
+.set-act{display:grid;grid-template-columns:1.6fr 1fr;gap:6px}
+.set-act a{min-height:40px;display:flex;align-items:center;justify-content:center;gap:5px;border-radius:9px;text-decoration:none;font-size:12.5px;font-weight:800;white-space:nowrap}
+.set-act a svg{width:16px;height:16px;flex:none}
+.set-act .ig{background:var(--ink);color:var(--gold2)}
+.set-act .wa{background:#1f7a4d;color:#fff}
+@media(min-width:700px){.set{flex-basis:400px}.sets{margin:0 0 18px;border-radius:14px}}

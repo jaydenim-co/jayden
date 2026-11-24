@@ -74,10 +74,67 @@
     $('count').textContent = fn(pool.length) + ' محصول';
     $('list').innerHTML = ''; shown = 0; grid = null;
     if (!pool.length) { $('list').innerHTML = '<div class="empty">محصولی پیدا نشد.</div>'; return; }
+    if (DATA.sets && !query && !cat && !typ) setsRow();
     grid = el('div', 'grid'); $('list').appendChild(grid);
     more();
   }
   var grid, typ = null;
+  var ROLE = function (p) { if (p.t === 'shoes') return 'کفش'; if (p.t === 'cloth') return /Vest/i.test(p.b) ? 'جلیقه' : /Coat/i.test(p.b) ? 'پالتو' : 'کاپشن'; if (/Wallet|Wristlet|Card Case|Billfold/i.test(p.b)) return 'کیف پول'; return 'کیف'; };
+  function setsRow() {
+    var ss = DATA.sets.filter(function (s) { return (!group || s.g === group) && s.k.every(function (k) { return byCode[k] && !byCode[k].oos; }); });
+    if (!ss.length) return;
+    var sec = el('section', 'sets'), h = el('div', 'sets-h');
+    h.innerHTML = '<div><b>پیشنهاد ست</b><small>کیف، کفش و … هماهنگ با هم · برای دیدن ست‌های بیشتر بکشید</small></div>';
+    var nav = el('div', 'sets-nav'); nav.innerHTML = '<button type="button" aria-label="قبلی">›</button><button type="button" aria-label="بعدی">‹</button>';
+    var row = el('div', 'sets-row');
+    var nb = nav.querySelectorAll('button');
+    nb[0].onclick = function () { row.scrollBy({ left: row.clientWidth * .8, behavior: 'smooth' }); };
+    nb[1].onclick = function () { row.scrollBy({ left: -row.clientWidth * .8, behavior: 'smooth' }); };
+    ss.forEach(function (s, n) {
+      var ps = s.k.map(function (k) { return byCode[k]; }), tf = 0, to = 0;
+      ps.forEach(function (p) { tf += p.f; to += p.o || p.f; });
+      var c = el('div', 'set');
+      var t = el('div', 'set-t'); t.innerHTML = '<b></b><small></small>'; t.firstChild.textContent = s.n; t.lastChild.textContent = fn(ps.length) + ' تکه';
+      c.appendChild(t);
+      var ims = el('div', 'set-ims set-' + ps.length);
+      ps.forEach(function (p) {
+        var b = el('button', 'set-it'); b.type = 'button'; b.setAttribute('aria-label', p.b + ' ' + p.c);
+        b.innerHTML = '<span class="set-ph"><img loading="lazy" decoding="async" alt=""></span><span class="set-r"></span><span class="set-n"></span><span class="set-p"></span>';
+        b.querySelector('img').src = p.i[0];
+        b.querySelector('.set-r').textContent = ROLE(p);
+        b.querySelector('.set-n').textContent = p.b;
+        b.querySelector('.set-p').textContent = fa(p.f);
+        b.onclick = function () { openP(p); };
+        ims.appendChild(b);
+      });
+      c.appendChild(ims);
+      var tot = el('div', 'set-tot'); tot.innerHTML = '<span>جمع ست</span><s></s><b></b>';
+      tot.querySelector('s').textContent = to > tf ? fa(to) : '';
+      tot.querySelector('b').innerHTML = fa(tf) + ' <small>تومان</small>';
+      c.appendChild(tot);
+      var act = el('div', 'set-act');
+      act.appendChild(setLink('ig', 'سفارش ست · دایرکت', igFor(ps[0]), ICON_IG, s, ps, tf));
+      act.appendChild(setLink('wa', 'واتساپ', C.whatsapp, ICON_WA, s, ps, tf));
+      c.appendChild(act);
+      row.appendChild(c);
+    });
+    sec.appendChild(h); sec.appendChild(row); sec.appendChild(nav); $('list').appendChild(sec);
+  }
+  function setMsg(s, ps, tf) {
+    var L = ['سلام، وقتتون بخیر 🌸', 'می‌خواستم این ست رو سفارش بدم:', '', 'برند: ' + (BR.name || DATA.brand), s.n, ''];
+    ps.forEach(function (p, i) {
+      L.push(fn(i + 1) + ') ' + ROLE(p) + ': ' + p.b + (p.c ? ' — ' + p.c : ''));
+      if (p.z && p.z.length) L.push('   سایزهای موجود: ' + p.z.join('، ') + ' — سایز من: ');
+      L.push('   قیمت: ' + fa(p.f) + ' تومان · کد: ' + p.k);
+    });
+    L.push(''); L.push('جمع ست: ' + fa(tf) + ' تومان');
+    return L.join('\n');
+  }
+  function setLink(cls, label, href, icon, s, ps, tf) {
+    var a = el('a', cls); a.href = href; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = icon + '<span></span>'; a.querySelector('span').textContent = label;
+    a.onclick = function () { try { navigator.clipboard.writeText(setMsg(s, ps, tf)); toast('متن سفارش ست کپی شد؛ در پیام paste کنید'); } catch (e) {} try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'order-set/' + cls + '/' + (BR.slug || DATA.brand) + '/' + s.k.join('+'), title: 'سفارش ست · ' + s.n, event: true }); } catch (e) {} };
+    return a;
+  }
   function types(src) {
     var box = $('chips2'); if (!box) return; box.innerHTML = '';
     if (!DATA.types) { box.style.display = 'none'; return; }
