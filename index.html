@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261125j">
+<link rel="stylesheet" href="assets/style.css?v=20261125k">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -35,6 +35,7 @@
   <nav class="secs" id="secs" aria-label="دسته‌ها"></nav>
   <div class="promo" id="promo"></div>
   <div class="secban" id="sechead" hidden>
+    <picture class="sb-pic" id="secpic" hidden><source id="secpicm" media="(max-width:700px)"><img id="secimg" alt=""></picture>
     <a href="#" class="secback">‹ همه دسته‌ها</a>
     <div class="sb-in"><div class="sb-ic" id="secic" aria-hidden="true"></div><div class="sb-tx"><small id="secen"></small><h2 id="sectitle"></h2><p id="secsub"></p></div></div>
   </div>
@@ -44,8 +45,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261125j"></script>
-<script src="assets/bfhang.js?v=20261125j" defer></script>
+<script src="assets/config.js?v=20261125k"></script>
+<script src="assets/bfhang.js?v=20261125k" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -109,6 +110,7 @@
     document.getElementById('secic').innerHTML = svg(s.id);
     document.getElementById('secsub').textContent = (TAG[s.id] || '') + ' (' + fa(nb) + ' برند)';
     document.getElementById('sechead').className = 'secban sb-' + s.id;
+    var sp = document.getElementById('secpic'); sp.hidden = !s.ban; if (s.ban) { document.getElementById('secpicm').srcset = s.ban + '-m.webp'; document.getElementById('secimg').src = s.ban + '.webp'; document.getElementById('secimg').alt = s.fa; document.getElementById('sechead').classList.add('hasban'); }
     nav.innerHTML = '';
     if (s.id === 'kids' && !ksub) {
       KSUB.forEach(function (k) {
