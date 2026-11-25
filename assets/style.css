@@ -355,7 +355,7 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .sec.simg em{top:auto;bottom:16px;left:14px}
 @media(min-width:900px){.secs{grid-template-columns:repeat(4,1fr)}.secs>a:last-child:nth-child(odd){grid-column:1/-1;aspect-ratio:auto}}
 
-.sb-pic{display:block;margin:-14px -16px 14px;aspect-ratio:1983/793;overflow:hidden}
+.sb-pic{display:block;margin:-14px -16px 14px;aspect-ratio:2/1;overflow:hidden}
 .sb-pic[hidden]{display:none}
 .sb-pic img{display:block;width:100%;height:100%;object-fit:cover}
 .secban.hasban .sb-ic{display:none}

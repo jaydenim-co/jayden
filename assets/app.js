@@ -77,14 +77,16 @@
     $('count').textContent = fn(pool.length) + ' محصول';
     $('list').innerHTML = ''; shown = 0; grid = null;
     if (!pool.length) { $('list').innerHTML = '<div class="empty">محصولی پیدا نشد.</div>'; return; }
-    if (DATA.sets && !query && !cat && !typ) setsRow();
+    SS = (DATA.sets && !query && !cat && !typ) ? DATA.sets.filter(function (s) { return (!group || s.g === group) && s.k.every(function (k) { return byCode[k] && !byCode[k].oos; }); }) : [];
+    sIdx = 0; sinceSet = 0; gapRows = 3;
+    if (SS.length) setsRow();
     grid = el('div', 'grid'); $('list').appendChild(grid);
     more();
   }
-  var grid, typ = null;
+  var grid, typ = null, SS = [], sIdx = 0, sinceSet = 0, gapRows = 3, SETN = 8;
   var ROLE = function (p) { if (p.t === 'shoes') return 'کفش'; if (p.t === 'cloth') return /Vest/i.test(p.b) ? 'جلیقه' : /Coat/i.test(p.b) ? 'پالتو' : 'کاپشن'; if (/Wallet|Wristlet|Card Case|Billfold/i.test(p.b)) return 'کیف پول'; return 'کیف'; };
   function setsRow() {
-    var ss = DATA.sets.filter(function (s) { return (!group || s.g === group) && s.k.every(function (k) { return byCode[k] && !byCode[k].oos; }); });
+    var ss = SS.slice(sIdx, sIdx + SETN); sIdx += SETN;
     if (!ss.length) return;
     var sec = el('section', 'sets'), h = el('div', 'sets-h');
     h.innerHTML = '<div><b>پیشنهاد ست</b><small>کیف و کفش هماهنگ · برای دیدن ست‌های بیشتر بکشید</small></div>';
@@ -154,7 +156,13 @@
   function more() {
     var list = $('list'), end = Math.min(shown + PAGE, pool.length);
     var old = $('morebtn'); if (old) old.remove();
-    for (var i = shown; i < end; i++) grid.appendChild(card(pool[i]));
+    for (var i = shown; i < end; i++) {
+      grid.appendChild(card(pool[i])); sinceSet++;
+      if (sIdx < SS.length && i < pool.length - 1) {
+        var cols = (getComputedStyle(grid).gridTemplateColumns || '').split(' ').filter(Boolean).length || 2;
+        if (sinceSet >= cols * gapRows) { setsRow(); grid = el('div', 'grid'); list.appendChild(grid); sinceSet = 0; gapRows = gapRows === 3 ? 4 : 3; }
+      }
+    }
     shown = end;
     if (shown < pool.length) {
       var b = el('button', 'more', 'نمایش محصولات بیشتر'); b.id = 'morebtn'; b.onclick = more; list.appendChild(b);
