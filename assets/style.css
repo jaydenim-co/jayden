@@ -363,3 +363,5 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 
 .b2bar{background:#e30613;color:#fff;font-size:11.5px;font-weight:800;text-align:center;padding:5px 6px;line-height:1.5}
 .b2bar.b2big{font-size:14px;padding:9px 12px;border-radius:10px;margin:10px 0}
+
+.bpromo{background:#e30613;color:#fff;font-weight:800;font-size:13.5px;text-align:center;padding:9px 12px;line-height:1.6}
