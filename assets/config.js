@@ -7,10 +7,11 @@ window.JAYDEN = {
     { id: 'men', img: 'img/ui/sec-men.webp', ban: 'img/ui/ban-men', fa: 'مردانه', en: 'MEN' },
     { id: 'kids', img: 'img/ui/sec-kids.webp', ban: 'img/ui/ban-kids', fa: 'بچگانه', en: 'KIDS' },
     { id: 'beauty', img: 'img/ui/sec-beauty.webp', ban: 'img/ui/ban-beauty', fa: 'آرایشی', en: 'BEAUTY' },
-    { id: 'watch', fa: 'ساعت', en: 'WATCHES' }
+    { id: 'watch', fa: 'ساعت', en: 'WATCHES' },
+    { id: 'lux', fa: 'لوکس', en: 'LUXURY' }
   ],
   brands: [
-    { slug: 'sunglasses', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
+    { slug: 'sunglasses', secs: ['lux'], lsub: ['glasses'], name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
     { slug: 'nike', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'NIKE', szu: 'EU', sub: 'کفش و لباس اورجینال Nike · حراج تا ۵۰٪', subs: { women: 'کفش و لباس زنانه Nike', men: 'کفش و لباس مردانه Nike' }, promo: '۲۵٪ تخفیف اضافه روی مدل‌های منتخب (نوار قرمز روی عکس) برای سفارش بالای ۴۸٬۶۹۰٬۰۰۰ تومان', promoMin: 48690000 },
     { slug: 'ecco', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'ECCO', sub: 'کفش اورجینال ECCO · حراج + ۲۰٪ تخفیف بیشتر با خرید هر ۲ جفت (مدل‌ها دلخواه)', subs: { women: 'کفش زنانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر', men: 'کفش مردانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر' } },
     { slug: 'coach', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'COACH', sub: 'کیف، کفش، لباس و اکسسوری · قیمت با ۲۰٪ تخفیف اضافه Black Friday', font: 'bf-coach' },
@@ -32,6 +33,7 @@ window.JAYDEN = {
     { slug: 'flikflak', secs: ['kids', 'watch'], ksub: ['girl', 'boy'], kgroup: { girl: 'g', boy: 'k' }, name: 'SWATCH', tag: 'Flik Flak · Swiss Made', sub: 'ساعت بچگانه سوئیسی · مدل‌های قابل حک اسم روی بند' },
     { slug: 'shavers', secs: ['beauty', 'men'], group: { men: 'm' }, dmMen: true, name: 'SHAVERS', sub: 'ریش‌تراش و ماشین اصلاح · Philips · Braun · Panasonic · Wahl', subs: { men: 'ریش‌تراش، ماشین اصلاح و بادی گرومر · Philips · Braun · Panasonic', beauty: 'ریش‌تراش مردانه و بانوان · Philips · Braun · Panasonic · Wahl' } },
     { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' },
+    { slug: 'luxwatch', secs: ['lux'], lsub: ['watch'], name: 'LUXURY WATCHES', badge: 'PREMIUM', font: 'bf-lux', tag: 'Gucci · Versace · Philipp Plein · Roberto Cavalli · Tissot …', sub: 'ساعت‌های نو و اورجینال زنانه و مردانه برندهای لوکس', sticky: 'امکان تخفیف اکسترا روی بعضی مدل‌ها وجود دارد · برای استعلام تخفیف پیام بدهید' },
     { slug: 'moonswatch', secs: ['watch'], name: 'OMEGA × SWATCH', tag: 'MoonSwatch · Bioceramic · Swiss Made', sub: 'ساعت MoonSwatch اورجینال و بند' },
     { slug: 'blancpain', secs: ['watch'], name: 'BLANCPAIN × SWATCH', tag: 'Scuba Fifty Fathoms · Swiss Made', sub: 'ساعت غواصی اتوماتیک Scuba Fifty Fathoms' },
     { slug: 'clarins', secs: ['beauty'], name: 'CLARINS', sub: 'مراقبت پوست صورت و بدن، ست هدیه و اسپری مراقبتی' },

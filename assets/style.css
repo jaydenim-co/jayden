@@ -365,3 +365,10 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .b2bar.b2big{font-size:14px;padding:9px 12px;border-radius:10px;margin:10px 0}
 
 .bpromo{background:#e30613;color:#fff;font-weight:800;font-size:13.5px;text-align:center;padding:9px 12px;line-height:1.6}
+
+.bsticky{background:linear-gradient(90deg,#b8964f,#e6cf8f,#b8964f);color:#1a1410;font-weight:800;font-size:12.5px;text-align:center;padding:7px 10px;line-height:1.6}
+.brand.ksub.lux{background:linear-gradient(135deg,#14110c,#2a2216);color:#f4efe4;border-color:#b8964f}
+.brand.ksub.lux b{color:#e6cf8f}
+.brand.ksub.lux span{color:#cfc5b0}
+.sec.slux{background:linear-gradient(135deg,#0c0b09 0%,#2a2216 60%,#5a4526 100%);color:#e6cf8f;border-color:#b8964f}
+.sec.slux b,.sec.slux i{color:#e6cf8f}

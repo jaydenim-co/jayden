@@ -13,7 +13,7 @@
 
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
 
-  var qs = (location.search.match(/[?&]s=([a-z]+)/) || [])[1]; if (qs) { var bk = document.querySelector('.top .back, a.back'); if (bk) bk.href = './#' + qs; var SC = (C.sections || []).filter(function (x) { return x.id === qs; })[0], sm = document.querySelector('.bar2 small'); if (SC && sm) sm.innerHTML = '<a class="crumb" href="./#' + qs + '">بخش ' + SC.fa + '</a> | حراج <span class="en">BLACK FRIDAY</span>'; }
+  var qs = (location.search.match(/[?&]s=([a-z]+)/) || [])[1]; if (qs) { var bk = document.querySelector('.top .back, a.back'); var ls = (location.search.match(/[?&]ls=([a-z]+)/) || [])[1]; if (bk) bk.href = './#' + qs + (ls ? '-' + ls : ''); var SC = (C.sections || []).filter(function (x) { return x.id === qs; })[0], sm = document.querySelector('.bar2 small'); if (SC && sm) sm.innerHTML = '<a class="crumb" href="./#' + qs + '">بخش ' + SC.fa + '</a> | حراج <span class="en">BLACK FRIDAY</span>'; }
   var group = '', sortBy = '', BR = (C.brands || []).filter(function (b) { return b.slug === slug; })[0] || {};
 
   fetch('data/' + slug + '.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
@@ -24,6 +24,7 @@
     if (BR.tag) $('bname').insertAdjacentHTML('beforeend', '<small class="btag">' + BR.tag + '</small>');
     if (BR.badge) { $('bname').insertAdjacentHTML('beforeend', ' <i class="prem">' + BR.badge + '</i>'); }
     if (BR.note) { $('bnote').textContent = BR.note; $('bnote').hidden = false; }
+    if (BR.sticky) { document.querySelector('.top').insertAdjacentHTML('beforeend', '<div class="bsticky" id="bsticky"></div>'); $('bsticky').textContent = '✦ ' + BR.sticky; }
     if (BR.promo) document.querySelector('.bar2').insertAdjacentHTML('afterend', '<div class="bpromo">🔥 ' + BR.promo + '</div>');
     d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; var gk = (p.br || '') + '|' + p.b; (byGroup[gk] = byGroup[gk] || []).push(p); }); });
     var tabs = $('tabs');
