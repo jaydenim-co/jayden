@@ -370,5 +370,5 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .brand.ksub.lux{background:linear-gradient(135deg,#14110c,#2a2216);color:#f4efe4;border-color:#b8964f}
 .brand.ksub.lux b{color:#e6cf8f}
 .brand.ksub.lux span{color:#cfc5b0}
-.sec.slux{background:linear-gradient(135deg,#0c0b09 0%,#2a2216 60%,#5a4526 100%);color:#e6cf8f;border-color:#b8964f}
+.sec.slux:not(.simg){background:linear-gradient(135deg,#0c0b09 0%,#2a2216 60%,#5a4526 100%);color:#e6cf8f;border-color:#b8964f}
 .sec.slux b,.sec.slux i{color:#e6cf8f}

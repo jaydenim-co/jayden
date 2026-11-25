@@ -7,8 +7,8 @@ window.JAYDEN = {
     { id: 'men', img: 'img/ui/sec-men.webp', ban: 'img/ui/ban-men', fa: 'مردانه', en: 'MEN' },
     { id: 'kids', img: 'img/ui/sec-kids.webp', ban: 'img/ui/ban-kids', fa: 'بچگانه', en: 'KIDS' },
     { id: 'beauty', img: 'img/ui/sec-beauty.webp', ban: 'img/ui/ban-beauty', fa: 'آرایشی', en: 'BEAUTY' },
-    { id: 'watch', ban: 'img/ui/ban-watch', fa: 'ساعت', en: 'WATCHES' },
-    { id: 'lux', fa: 'لوکس', en: 'LUXURY' }
+    { id: 'watch', img: 'img/ui/sec-watch.webp', ban: 'img/ui/ban-watch', fa: 'ساعت', en: 'WATCHES' },
+    { id: 'lux', img: 'img/ui/sec-lux.webp', fa: 'لوکس', en: 'LUXURY' }
   ],
   brands: [
     { slug: 'sunglasses', secs: ['lux'], lsub: ['glasses'], name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
