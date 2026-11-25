@@ -3,10 +3,10 @@ window.JAYDEN = {
   instagramMen: 'https://ig.me/m/jayden.formen',
   whatsapp: 'https://wa.me/message/VYR44CUOAEWGH1',
   sections: [
-    { id: 'women', img: 'img/ui/sec-women.webp', fa: 'زنانه', en: 'WOMEN' },
-    { id: 'men', img: 'img/ui/sec-men.webp', fa: 'مردانه', en: 'MEN' },
-    { id: 'kids', img: 'img/ui/sec-kids.webp', fa: 'بچگانه', en: 'KIDS' },
-    { id: 'beauty', img: 'img/ui/sec-beauty.webp', fa: 'آرایشی', en: 'BEAUTY' },
+    { id: 'women', img: 'img/ui/sec-women.webp', ban: 'img/ui/ban-women', fa: 'زنانه', en: 'WOMEN' },
+    { id: 'men', img: 'img/ui/sec-men.webp', ban: 'img/ui/ban-men', fa: 'مردانه', en: 'MEN' },
+    { id: 'kids', img: 'img/ui/sec-kids.webp', ban: 'img/ui/ban-kids', fa: 'بچگانه', en: 'KIDS' },
+    { id: 'beauty', img: 'img/ui/sec-beauty.webp', ban: 'img/ui/ban-beauty', fa: 'آرایشی', en: 'BEAUTY' },
     { id: 'watch', fa: 'ساعت', en: 'WATCHES' }
   ],
   brands: [
