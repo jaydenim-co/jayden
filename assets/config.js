@@ -7,7 +7,7 @@ window.JAYDEN = {
     { id: 'men', img: 'img/ui/sec-men.webp', ban: 'img/ui/ban-men', fa: 'مردانه', en: 'MEN' },
     { id: 'kids', img: 'img/ui/sec-kids.webp', ban: 'img/ui/ban-kids', fa: 'بچگانه', en: 'KIDS' },
     { id: 'beauty', img: 'img/ui/sec-beauty.webp', ban: 'img/ui/ban-beauty', fa: 'آرایشی', en: 'BEAUTY' },
-    { id: 'watch', fa: 'ساعت', en: 'WATCHES' },
+    { id: 'watch', ban: 'img/ui/ban-watch', fa: 'ساعت', en: 'WATCHES' },
     { id: 'lux', fa: 'لوکس', en: 'LUXURY' }
   ],
   brands: [
