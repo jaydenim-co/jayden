@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261125r">
+<link rel="stylesheet" href="assets/style.css?v=20261125s">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -45,8 +45,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261125r"></script>
-<script src="assets/bfhang.js?v=20261125r" defer></script>
+<script src="assets/config.js?v=20261125s"></script>
+<script src="assets/bfhang.js?v=20261125s" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -122,9 +122,10 @@
       SB.list.forEach(function (k) {
         var bl = C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && !b.soon && (b[bkey] || SB.def).indexOf(k.id) >= 0; });
         var a = document.createElement('a'); a.className = 'brand ksub' + (s.id === 'lux' ? ' lux' : ''); a.href = '#' + s.id + '-' + k.id;
+        if (s.id === 'lux' && bl.length === 1) { var b1 = bl[0], g1 = b1.group && b1.group[s.id]; a.href = 'brand.html?b=' + b1.slug + '&s=lux&ls=' + k.id + (g1 ? '&g=' + g1 : ''); }
         a.innerHTML = '<div><b></b><span></span></div><em></em>';
         a.querySelector('b').textContent = k.fa + (k.en ? '  ·  ' + k.en : ''); a.querySelector('span').textContent = k.sub;
-        a.querySelector('em').textContent = bl.length ? fa(bl.length) + ' ' + SB.unit : 'به‌زودی';
+        a.querySelector('em').textContent = !bl.length ? 'به‌زودی' : (s.id === 'lux' ? 'مشاهده' : fa(bl.length) + ' ' + SB.unit);
         if (!bl.length) a.classList.add('soon');
         nav.appendChild(a);
       });
