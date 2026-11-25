@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261125h">
+<link rel="stylesheet" href="assets/style.css?v=20261125j">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -49,8 +49,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261125h"></script>
-<script src="assets/bfhang.js?v=20261125h" defer></script>
+<script src="assets/config.js?v=20261125j"></script>
+<script src="assets/bfhang.js?v=20261125j" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -67,6 +67,7 @@
     men: '<circle cx="12" cy="6.3" r="3.4"/><path d="M4.5 21v-2.3c0-3.1 2.5-5.6 5.6-5.6h3.8c3.1 0 5.6 2.5 5.6 5.6V21"/><path d="M12 13.1l-1.3 2.2L12 20.5l1.3-5.2z"/>',
     women: '<circle cx="12" cy="7" r="3.2"/><path d="M8.8 6.4c-.4 3.2.2 5.4-1.6 6.8M15.2 6.4c.4 3.2-.2 5.4 1.6 6.8"/><path d="M4.5 21v-1.8c0-2.9 2.3-5.2 5.2-5.2h4.6c2.9 0 5.2 2.3 5.2 5.2V21"/><path d="M10 14l2 2.8 2-2.8"/>',
     kids: '<circle cx="9.5" cy="9.2" r="2.6"/><path d="M5.3 21v-2.6c0-2.3 1.9-4.2 4.2-4.2s4.2 1.9 4.2 4.2V21"/><ellipse cx="18" cy="5.2" rx="2.4" ry="3"/><path d="M18 8.2l-.5 1.6.6 1.2-1 3"/>',
+    watch: '<circle cx="12" cy="12" r="5.2"/><path d="M12 9.4V12l1.8 1.2"/><path d="M9.2 7.4l.8-4.2h4l.8 4.2M9.2 16.6l.8 4.2h4l.8-4.2"/>',
     beauty: '<rect x="8.5" y="12" width="7" height="9" rx="1"/><path d="M9.5 12V8.6h5V12"/><path d="M10.6 8.6V4.6l2.8-1.6v5.6"/>'
   };
   function feat(a, b, g, home) {
@@ -80,12 +81,13 @@
     a.querySelector('p').textContent = b.line || b.sub;
     count(b, function (by) { a.querySelector('.ft-cnt').textContent = fa(g ? (by[g] || 0) : by.all) + ' مدل'; });
   }
-  var TAG = { men: 'برندهای مخصوص آقایان', women: 'برندهای مخصوص خانم‌ها', kids: 'برندهای مخصوص بچه‌ها', beauty: 'آرایشی، مراقبت پوست و عطر' };
+  var TAG = { men: 'برندهای مخصوص آقایان', women: 'برندهای مخصوص خانم‌ها', kids: 'برندهای مخصوص بچه‌ها', beauty: 'آرایشی، مراقبت پوست و عطر', watch: 'ساعت‌های اورجینال سوئیسی' };
   function svg(id) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">' + (ICO[id] || '') + '</svg>'; }
   C.sections.forEach(function (s) {
     var list = C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && !b.soon; });
     var a = document.createElement('a');
     a.className = 'sec' + (list.length ? '' : ' soon'); a.href = list.length ? '#' + s.id : '#';
+    if (s.img) { a.classList.add('simg'); a.style.backgroundImage = 'linear-gradient(180deg,rgba(12,10,8,0) 38%,rgba(12,10,8,.82) 100%),url(' + s.img + ')'; }
     a.innerHTML = '<span class="sic" aria-hidden="true">' + svg(s.id) + '</span><b></b><i></i><em></em>';
     a.querySelector('b').textContent = s.fa; a.querySelector('i').textContent = s.en;
     a.querySelector('em').textContent = list.length ? (fa(list.length) + ' برند') : 'به‌زودی';
@@ -93,7 +95,7 @@
     secs.appendChild(a);
   });
   var pr = document.getElementById('promo');
-  C.brands.filter(function (b) { return b.feat && !b.soon; }).forEach(function (b) {
+  [].forEach(function (b) {
     var s0 = b.secs[0], g = b.group && b.group[s0], a = document.createElement('a');
     a.href = 'brand.html?b=' + b.slug + '&s=' + s0 + (g ? '&g=' + g : '');
     feat(a, b, g, true); pr.appendChild(a);
