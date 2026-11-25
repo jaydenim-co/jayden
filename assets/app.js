@@ -170,6 +170,7 @@
     else if (p.z && p.z.length) L.push('سایزهای موجود: ' + p.z.join('، '));
     if (p.x) L.push('توضیح: ' + p.x);
     if (p.pz) L.push('✍️ اسم برای حک روی بند: ');
+    if (p.b2) L.push('🔥 با خرید ۲ جفت: هر جفت ' + fa(p.b2) + ' تومان');
     if (zs) L.push('قیمت: ' + fa(zs[1]) + ' تومان' + (zs[2] ? ' (قیمت قبل: ' + fa(zs[2]) + ' تومان)' : ''));
     else L.push('قیمت: ' + (p.zp ? 'از ' : '') + fa(p.f) + ' تومان' + (p.o && !p.zp ? ' (قیمت قبل: ' + fa(p.o) + ' تومان)' : ''));
     L.push('کد محصول: ' + p.k);
@@ -208,6 +209,7 @@
     if (p.inc) a.querySelector('.n').insertAdjacentElement('afterend', el('div', 'inc', p.inc));
     if (DATA.boldBr) a.classList.add('brb');
     if (p.x) a.querySelector('.c').insertAdjacentElement('beforebegin', el('div', 'x', p.x));
+    if (p.b2) a.querySelector('.ph').insertAdjacentElement('afterend', el('div', 'b2bar', 'خرید ۲ جفت: هر جفت ' + fa(p.b2)));
     if (p.pz) { a.classList.add('haspz'); a.querySelector('.ph').appendChild(el('span', 'pzb', '✍️ حک اسم روی بند')); }
     if (p.oos) { a.classList.add('oos'); a.querySelector('.ph').appendChild(el('span', 'oosb', 'ناموجود')); }
     a.querySelector('.c').textContent = [p.c, p.z && p.z.length && !p.zp ? 'Size ' + p.z.join(' · ') : ''].filter(Boolean).join(' · ');
@@ -249,6 +251,8 @@
     $('pname').textContent = p.b; if ($('pbr')) $('pbr').textContent = DATA.boldBr ? (p.br || '') : '';
     $('pmeta').textContent = (DATA.boldBr ? '' : (p.br || BR.name || DATA.brand)) + (p.c ? (DATA.boldBr ? 'رنگ: ' : ' · ') + p.c : '') + (p.x ? ' — ' + p.x : '') + (p.oos ? ' — ناموجود' : '');
     $('pfin').innerHTML = fa(p.f) + ' <small style="font-size:13px">تومان</small>';
+    var ob2 = document.getElementById('pb2'); if (ob2) ob2.remove();
+    if (p.b2) { var b2e = el('div', 'b2bar b2big', 'با خرید ۲ جفت، ' + fa(p.b2p || 20) + '٪ تخفیف بیشتر: هر جفت ' + fa(p.b2) + ' تومان'); b2e.id = 'pb2'; $('pfin').parentElement.insertAdjacentElement('afterend', b2e); }
     var pf = $('pfeat');
     if (pf) {
       pf.innerHTML = '';
