@@ -3,13 +3,14 @@ window.JAYDEN = {
   instagramMen: 'https://ig.me/m/jayden.formen',
   whatsapp: 'https://wa.me/message/VYR44CUOAEWGH1',
   sections: [
-    { id: 'women', fa: 'زنانه', en: 'WOMEN' },
-    { id: 'men', fa: 'مردانه', en: 'MEN' },
-    { id: 'kids', fa: 'بچگانه', en: 'KIDS' },
-    { id: 'beauty', fa: 'آرایشی', en: 'BEAUTY' }
+    { id: 'women', img: 'img/ui/sec-women.webp', fa: 'زنانه', en: 'WOMEN' },
+    { id: 'men', img: 'img/ui/sec-men.webp', fa: 'مردانه', en: 'MEN' },
+    { id: 'kids', img: 'img/ui/sec-kids.webp', fa: 'بچگانه', en: 'KIDS' },
+    { id: 'beauty', img: 'img/ui/sec-beauty.webp', fa: 'آرایشی', en: 'BEAUTY' },
+    { id: 'watch', fa: 'ساعت', en: 'WATCHES' }
   ],
   brands: [
-    { slug: 'sunglasses', secs: ['women'], group: { women: 'w', men: 'm' }, name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
+    { slug: 'sunglasses', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
     { slug: 'coach', secs: ['women'], name: 'COACH', sub: 'کیف، کفش، لباس و اکسسوری', font: 'bf-coach' },
     { slug: 'jwpei', secs: ['women'], name: 'JW PEI', sub: 'کیف و کفش', font: 'bf-jwpei' },
     { slug: 'karllagerfeld', secs: ['women'], name: 'KARL LAGERFELD', sub: 'کیف، کفش زنانه و کاپشن', font: 'bf-karl' },
@@ -26,10 +27,11 @@ window.JAYDEN = {
     { slug: 'avent', secs: ['kids'], ksub: ['baby'], name: 'شیشه شیر و لوازم تغذیه', sub: 'شیشه شیر، پستانک، ست هدیه، استریل، گرم‌کن و غذاساز · Philips Avent' },
     { slug: 'momcozy', secs: ['kids'], ksub: ['baby'], name: 'لوازم مادر و نوزاد', sub: 'Momcozy · شیردوش، گرم‌کن، بالش بارداری، آغوشی و لوازم مادر و نوزاد' },
     { slug: 'next', secs: ['kids'], ksub: ['baby', 'girl', 'boy'], kgroup: { baby: 'b', girl: 'g', boy: 'k' }, name: 'لباس و پوشاک · NEXT', sub: 'لباس نوزاد، دخترانه و پسرانه' },
-    { slug: 'flikflak', secs: ['kids'], ksub: ['girl', 'boy'], kgroup: { girl: 'g', boy: 'k' }, name: 'SWATCH', tag: 'Flik Flak · Swiss Made', sub: 'ساعت بچگانه سوئیسی · مدل‌های قابل حک اسم روی بند' },
+    { slug: 'flikflak', secs: ['kids', 'watch'], ksub: ['girl', 'boy'], kgroup: { girl: 'g', boy: 'k' }, name: 'SWATCH', tag: 'Flik Flak · Swiss Made', sub: 'ساعت بچگانه سوئیسی · مدل‌های قابل حک اسم روی بند' },
     { slug: 'shavers', secs: ['beauty', 'men'], group: { men: 'm' }, dmMen: true, name: 'SHAVERS', sub: 'ریش‌تراش و ماشین اصلاح · Philips · Braun · Panasonic · Wahl', subs: { men: 'ریش‌تراش، ماشین اصلاح و بادی گرومر · Philips · Braun · Panasonic', beauty: 'ریش‌تراش مردانه و بانوان · Philips · Braun · Panasonic · Wahl' } },
     { slug: 'esteelauder', secs: ['beauty'], name: 'ESTÉE LAUDER', sub: 'مراقبت پوست، آرایشی، عطر و ست هدیه', font: 'bf-el' },
-    { slug: 'moonswatch', secs: ['men', 'women'], name: 'OMEGA × SWATCH', tag: 'MoonSwatch · Bioceramic · Swiss Made', sub: 'ساعت MoonSwatch اورجینال و بند' },
+    { slug: 'moonswatch', secs: ['watch'], name: 'OMEGA × SWATCH', tag: 'MoonSwatch · Bioceramic · Swiss Made', sub: 'ساعت MoonSwatch اورجینال و بند' },
+    { slug: 'blancpain', secs: ['watch'], name: 'BLANCPAIN × SWATCH', tag: 'Scuba Fifty Fathoms · Swiss Made', sub: 'ساعت غواصی اتوماتیک Scuba Fifty Fathoms' },
     { slug: 'clarins', secs: ['beauty'], name: 'CLARINS', sub: 'مراقبت پوست صورت و بدن، ست هدیه و اسپری مراقبتی' },
   ]
 };
