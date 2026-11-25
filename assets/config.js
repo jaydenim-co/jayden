@@ -12,7 +12,7 @@ window.JAYDEN = {
   brands: [
     { slug: 'sunglasses', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
     { slug: 'ecco', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'ECCO', sub: 'کفش اورجینال ECCO · حراج + تخفیف بیشتر با خرید ۲ جفت', subs: { women: 'کفش زنانه ECCO · با خرید ۲ جفت ۲۰٪ تخفیف بیشتر', men: 'کفش مردانه ECCO · با خرید ۲ جفت ۲۰٪ تخفیف بیشتر' } },
-    { slug: 'coach', secs: ['women'], name: 'COACH', sub: 'کیف، کفش، لباس و اکسسوری', font: 'bf-coach' },
+    { slug: 'coach', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'COACH', sub: 'کیف، کفش، لباس و اکسسوری · قیمت با ۲۰٪ تخفیف اضافه Black Friday', font: 'bf-coach' },
     { slug: 'jwpei', secs: ['women'], name: 'JW PEI', sub: 'کیف و کفش', font: 'bf-jwpei' },
     { slug: 'karllagerfeld', secs: ['women'], name: 'KARL LAGERFELD', sub: 'کیف، کفش زنانه و کاپشن', font: 'bf-karl' },
     { slug: 'calvinklein', secs: ['women'], name: 'CALVIN KLEIN', sub: 'کیف، کفش و کاپشن', font: 'bf-ck' },
