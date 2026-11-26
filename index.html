@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261126f">
+<link rel="stylesheet" href="assets/style.css?v=20261126h">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -32,6 +32,7 @@
     <div class="gs-box"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gq" type="search" placeholder="Search" aria-label="Search" autocomplete="off"></div>
     <div class="gs-res" id="gres" hidden></div>
   </div>
+  <section class="picks" id="picks" hidden><div class="pk-hd"><b>پیشنهادهای جیدن</b><small>JAYDEN PICKS</small></div><div class="pk-row" id="pkrow"></div></section>
   <nav class="secs" id="secs" aria-label="دسته‌ها"></nav>
   <div class="promo" id="promo"></div>
   <div class="secban" id="sechead" hidden>
@@ -45,8 +46,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261126f"></script>
-<script src="assets/bfhang.js?v=20261126f" defer></script>
+<script src="assets/config.js?v=20261126h"></script>
+<script src="assets/bfhang.js?v=20261126h" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -106,7 +107,7 @@
     if (m) { ksub = m[2]; id = m[1]; }
     var s = C.sections.filter(function (x) { return x.id === id; })[0];
     secs.hidden = !!s; pr.hidden = !!s; nav.hidden = !s; document.getElementById('sechead').hidden = !s;
-    document.querySelector('.hero').hidden = !!s; document.getElementById('gsearch').hidden = !!s;
+    document.querySelector('.hero').hidden = !!s; document.getElementById('gsearch').hidden = !!s; document.getElementById('picks').hidden = !!s || !document.getElementById('pkrow').children.length;
     if (!s) return;
     var SB = SUBS[s.id], bkey = SB ? SB.key : null;
     var inSub = function (b) { return !ksub || (b[bkey] || SB.def).indexOf(ksub) >= 0; };
@@ -152,6 +153,20 @@
     });
     window.scrollTo(0, 0);
   }
+  fetch('data/picks.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
+    var row = document.getElementById('pkrow'), BN = {};
+    C.brands.forEach(function (b) { BN[b.slug] = b.name; });
+    d.items.forEach(function (p) {
+      var a = document.createElement('a'); a.className = 'pk-it';
+      a.href = 'brand.html?b=' + p.s + '&s=' + p.sec + (p.g ? '&g=' + p.g : '') + '#p=' + encodeURIComponent(p.k);
+      a.innerHTML = '<span class="pk-ph"><img loading="lazy" alt=""></span><span class="pk-tx"><small></small><b></b><s></s><em></em></span>';
+      a.querySelector('img').src = p.i; a.querySelector('small').textContent = BN[p.s] || p.br || '';
+      a.querySelector('b').textContent = p.b; a.querySelector('s').textContent = p.o && p.o > p.f ? fa(p.o) : '';
+      a.querySelector('em').textContent = fa(p.f) + ' تومان';
+      row.appendChild(a);
+    });
+    if (!location.hash.slice(1)) document.getElementById('picks').hidden = !row.children.length;
+  }).catch(function () {});
   window.addEventListener('hashchange', show); show();
   function orderBox() { document.getElementById('order').innerHTML =
     '<a class="ig" href="' + (location.hash === '#men' && C.instagramMen ? C.instagramMen : C.instagram) + '" target="_blank" rel="noopener">دایرکت اینستاگرام</a>' +
