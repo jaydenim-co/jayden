@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261126i">
+<link rel="stylesheet" href="assets/style.css?v=20261126j">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -46,8 +46,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261126i"></script>
-<script src="assets/bfhang.js?v=20261126i" defer></script>
+<script src="assets/config.js?v=20261126j"></script>
+<script src="assets/bfhang.js?v=20261126j" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -107,7 +107,7 @@
     if (m) { ksub = m[2]; id = m[1]; }
     var s = C.sections.filter(function (x) { return x.id === id; })[0];
     secs.hidden = !!s; pr.hidden = !!s; nav.hidden = !s; document.getElementById('sechead').hidden = !s;
-    document.querySelector('.hero').hidden = !!s; document.getElementById('gsearch').hidden = !!s; document.getElementById('picks').hidden = !!s || !document.getElementById('pkrow').children.length;
+    document.querySelector('.hero').hidden = !!s; document.getElementById('gsearch').hidden = !!s;
     if (!s) return;
     var SB = SUBS[s.id], bkey = SB ? SB.key : null;
     var inSub = function (b) { return !ksub || (b[bkey] || SB.def).indexOf(ksub) >= 0; };
@@ -153,20 +153,30 @@
     });
     window.scrollTo(0, 0);
   }
-  fetch('data/picks.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
-    var row = document.getElementById('pkrow'), BN = {};
-    C.brands.forEach(function (b) { BN[b.slug] = b.name; });
-    d.items.forEach(function (p) {
+  var PK = null, pkEl = document.getElementById('picks');
+  function picks(key) {
+    var row = document.getElementById('pkrow'); row.innerHTML = '';
+    var list = PK && (PK[key] || PK[key.split('-')[0]]) || [];
+    var BN = {}; C.brands.forEach(function (b) { BN[b.slug] = b.name; });
+    list.forEach(function (p) {
       var a = document.createElement('a'); a.className = 'pk-it';
-      a.href = 'brand.html?b=' + p.s + '&s=' + p.sec + (p.g ? '&g=' + p.g : '') + '#p=' + encodeURIComponent(p.k);
+      a.href = 'brand.html?b=' + p.s + '&s=' + p.sec + (p.ls ? '&ls=' + p.ls : '') + (p.g ? '&g=' + p.g : '') + '#p=' + encodeURIComponent(p.k);
       a.innerHTML = '<span class="pk-ph"><img loading="lazy" alt=""></span><span class="pk-tx"><small></small><b></b><s></s><em></em></span>';
       a.querySelector('img').src = p.i; a.querySelector('small').textContent = BN[p.s] || p.br || '';
       a.querySelector('b').textContent = p.b; a.querySelector('s').textContent = p.o && p.o > p.f ? fa(p.o) : '';
       a.querySelector('em').textContent = fa(p.f) + ' تومان';
       row.appendChild(a);
     });
-    if (!location.hash.slice(1)) document.getElementById('picks').hidden = !row.children.length;
-  }).catch(function () {});
+    row.scrollLeft = 0;
+    pkEl.hidden = !list.length;
+  }
+  function placePicks() {
+    var h = location.hash.slice(1);
+    if (h && C.sections.some(function (x) { return x.id === h.split('-')[0]; })) { nav.parentNode.insertBefore(pkEl, nav); picks(h); }
+    else { secs.parentNode.insertBefore(pkEl, secs); picks('home'); }
+  }
+  fetch('data/picks.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) { PK = d.items ? { home: d.items } : d; placePicks(); }).catch(function () {});
+  window.addEventListener('hashchange', placePicks);
   window.addEventListener('hashchange', show); show();
   function orderBox() { document.getElementById('order').innerHTML =
     '<a class="ig" href="' + (location.hash === '#men' && C.instagramMen ? C.instagramMen : C.instagram) + '" target="_blank" rel="noopener">دایرکت اینستاگرام</a>' +
