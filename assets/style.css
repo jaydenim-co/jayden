@@ -372,3 +372,15 @@ a.logo{text-decoration:none;display:inline-block;cursor:pointer}
 .brand.ksub.lux span{color:#cfc5b0}
 .sec.slux:not(.simg){background:linear-gradient(135deg,#0c0b09 0%,#2a2216 60%,#5a4526 100%);color:#e6cf8f;border-color:#b8964f}
 .sec.slux b,.sec.slux i{color:#e6cf8f}
+
+.picks{margin:6px 0 18px}
+.pk-hd{display:flex;align-items:baseline;gap:10px;padding:0 16px 10px;max-width:1200px;margin:0 auto}
+.pk-hd b{font-size:17px;color:#e8d3a2}.pk-hd small{letter-spacing:.18em;font-size:10px;color:#9b8d72}
+.pk-row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px 8px;scroll-padding:0 16px;max-width:1200px;margin:0 auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.pk-it{flex:0 0 158px;scroll-snap-align:start;display:flex;flex-direction:column;background:#faf8f4;color:#15130f;border-radius:12px;overflow:hidden;text-decoration:none}
+.pk-ph{aspect-ratio:1;background:#f1eee8}.pk-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.pk-tx{padding:8px 9px 10px;display:flex;flex-direction:column;gap:2px}
+.pk-tx small{font-size:10px;letter-spacing:.08em;color:#8a7a5a;font-weight:700}
+.pk-tx b{font-size:12px;line-height:1.35;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:32px;direction:ltr;text-align:left}
+.pk-tx s{font-size:11px;color:#9a9388;min-height:14px}.pk-tx em{font-style:normal;font-size:13px;font-weight:800;color:#a3141d}
+@media(min-width:900px){.pk-it{flex-basis:190px}}
