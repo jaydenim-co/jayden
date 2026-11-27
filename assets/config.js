@@ -19,6 +19,7 @@ window.JAYDEN = {
     { slug: 'ecco', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'ECCO', sub: 'کفش اورجینال ECCO · حراج + ۲۰٪ تخفیف بیشتر با خرید هر ۲ جفت (مدل‌ها دلخواه)', subs: { women: 'کفش زنانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر', men: 'کفش مردانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر' } },
     { slug: 'coach', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'COACH', sub: 'کیف، کفش، لباس و اکسسوری · قیمت با ۲۰٪ تخفیف اضافه Black Friday', font: 'bf-coach' },
     { slug: 'jwpei', secs: ['women'], name: 'JW PEI', sub: 'کیف و کفش', font: 'bf-jwpei' },
+    { slug: 'emporioarmani', secs: ['women'], name: 'EMPORIO ARMANI', sub: 'کیف‌های MyEA' },
     { slug: 'karllagerfeld', secs: ['women'], name: 'KARL LAGERFELD', sub: 'کیف، کفش زنانه و کاپشن', font: 'bf-karl' },
     { slug: 'calvinklein', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'CALVIN KLEIN', sub: 'کاپشن، کیف، کفش، شلوار، سویشرت و پولوشرت', subs: { women: 'کاپشن، کیف، کفش، جین و سویشرت زنانه', men: 'کاپشن، کیف، کفش، جین، سویشرت و پولوشرت مردانه' }, font: 'bf-ck' },
     { slug: 'ralphlauren', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'RALPH LAUREN', sub: 'پوشاک، کفش، کیف و کمربند', subs: { women: 'کاپشن، بافت، بلوز، شلوار، کفش و کیف زنانه', men: 'کاپشن، بافت، پولوشرت، پیراهن، شلوار و کفش مردانه' }, font: 'bf-rl' },
