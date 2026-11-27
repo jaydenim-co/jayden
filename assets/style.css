@@ -430,3 +430,10 @@ body:has(#sheet.open) .dcart{display:none}
 .dbr-it b{font-size:20px;font-weight:700;line-height:1.25;padding:12px 10px 2px;text-align:center;letter-spacing:.04em}
 .dbr-it small{text-align:center}
 @media(min-width:760px){.dbr-it b{font-size:24px}}
+
+.ship-tk{background:#15130f;color:#f1d27a;overflow:hidden;white-space:nowrap;border-bottom:1px solid #c9a44c;font-size:13px;font-weight:600;direction:ltr;position:relative;z-index:5}
+.ship-tr{display:inline-flex;gap:0;padding:8px 0;animation:shiptk 38s linear infinite;will-change:transform}
+.ship-tr span{direction:rtl;padding:0 34px;position:relative}
+.ship-tr span+span:before{content:'◆';position:absolute;left:-6px;color:#c9a44c;font-size:9px;top:3px}
+@keyframes shiptk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ship-tr{animation-duration:90s}}
