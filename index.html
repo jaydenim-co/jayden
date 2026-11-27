@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261127b">
+<link rel="stylesheet" href="assets/style.css?v=20261127c">
 </head>
 <body>
 <div class="pricenote" role="alert">⚠️ قیمت‌های سایت در حال به‌روزرسانی است. لطفاً برای قیمت نهایی از طریق دایرکت یا واتساپ استعلام بگیرید.</div>
@@ -46,8 +46,8 @@
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261127b"></script>
-<script src="assets/bfhang.js?v=20261127b" defer></script>
+<script src="assets/config.js?v=20261127c"></script>
+<script src="assets/bfhang.js?v=20261127c" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -85,8 +85,9 @@
     var list = C.brands.filter(function (b) { return (b.secs || []).indexOf(s.id) >= 0 && !b.soon; });
     var a = document.createElement('a');
     if (s.id === 'deal') {
-      a.className = 'sec sdeal'; a.href = 'brand.html?b=deal70&s=deal';
-      a.innerHTML = '<span class="dl-pct">۷۰٪</span><span class="dl-tx"><small>UP TO 70% OFF</small><b>تخفیف تا ۷۰٪</b><span class="dl-sub">منتخب برندها · فقط برای مدت محدود</span></span><span class="dl-cd"><i>فقط</i><span class="jcd" data-cd="1">--:--:--</span><i>مانده</i></span>';
+      a.className = 'sec simg sdeal'; a.href = 'brand.html?b=deal70&s=deal';
+      a.style.backgroundImage = 'linear-gradient(180deg,rgba(40,4,8,0) 30%,rgba(40,4,8,.9) 100%),url(img/ui/sec-deal.webp)';
+      a.innerHTML = '<b>۷۰٪ تخفیف</b><span class="dl-sub">ویژه بلک فرایدی</span><i>70% OFF</i><em class="dl-cd">⏱ <span class="jcd" data-cd="1">--:--:--</span></em>';
       secs.appendChild(a); return;
     }
     a.className = 'sec' + (list.length ? '' : ' soon'); a.href = list.length ? '#' + s.id : '#';
