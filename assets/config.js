@@ -2,7 +2,9 @@ window.JAYDEN = {
   instagram: 'https://ig.me/m/jaydenim.co',
   instagramMen: 'https://ig.me/m/jayden.formen',
   whatsapp: 'https://wa.me/message/VYR44CUOAEWGH1',
+  deal: { end: '2026-11-28T03:00:00+04:00' },
   sections: [
+    { id: 'deal', fa: 'تا ۷۰٪ تخفیف', en: 'UP TO 70% OFF' },
     { id: 'women', img: 'img/ui/sec-women.webp', ban: 'img/ui/ban-women', fa: 'زنانه', en: 'WOMEN' },
     { id: 'men', img: 'img/ui/sec-men.webp', ban: 'img/ui/ban-men', fa: 'مردانه', en: 'MEN' },
     { id: 'kids', img: 'img/ui/sec-kids.webp', ban: 'img/ui/ban-kids', fa: 'بچگانه', en: 'KIDS' },
@@ -11,6 +13,7 @@ window.JAYDEN = {
     { id: 'lux', img: 'img/ui/sec-lux.webp', fa: 'لوکس', en: 'LUXURY' }
   ],
   brands: [
+    { slug: 'deal70', secs: ['deal'], deal: true, name: 'UP TO 70% OFF', sub: 'محصولات با ۶۵ تا ۷۰٪ تخفیف و بیشتر' },
     { slug: 'sunglasses', secs: ['lux'], lsub: ['glasses'], name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
     { slug: 'nike', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'NIKE', szu: 'EU', sub: 'کفش و لباس اورجینال Nike · حراج تا ۵۰٪', subs: { women: 'کفش و لباس زنانه Nike', men: 'کفش و لباس مردانه Nike' }, promo: '۲۵٪ تخفیف اضافه روی مدل‌های منتخب (نوار قرمز روی عکس) برای سفارش بالای ۴۸٬۶۹۰٬۰۰۰ تومان', promoMin: 48690000 },
     { slug: 'ecco', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'ECCO', sub: 'کفش اورجینال ECCO · حراج + ۲۰٪ تخفیف بیشتر با خرید هر ۲ جفت (مدل‌ها دلخواه)', subs: { women: 'کفش زنانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر', men: 'کفش مردانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر' } },
@@ -39,4 +42,12 @@ window.JAYDEN = {
     { slug: 'blancpain', secs: ['watch'], name: 'BLANCPAIN × SWATCH', tag: 'Scuba Fifty Fathoms · Swiss Made', sub: 'ساعت غواصی اتوماتیک Scuba Fifty Fathoms' },
     { slug: 'clarins', secs: ['beauty'], name: 'CLARINS', sub: 'مراقبت پوست صورت و بدن، ست هدیه و اسپری مراقبتی' },
   ]
+};
+
+window.jaydenCD = function () {
+  var FA = '۰۱۲۳۴۵۶۷۸۹', end = new Date((window.JAYDEN.deal || {}).end || Date.now()).getTime(), now = Date.now();
+  while (end <= now) end += 864e5;
+  var t = Math.floor((end - now) / 1000), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), sc = t % 60;
+  var p = function (n) { return (n < 10 ? '0' : '') + n; };
+  return (p(h) + ':' + p(m) + ':' + p(sc)).replace(/\d/g, function (d) { return FA[d]; });
 };
