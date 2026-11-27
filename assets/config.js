@@ -2,7 +2,7 @@ window.JAYDEN = {
   instagram: 'https://ig.me/m/jaydenim.co',
   instagramMen: 'https://ig.me/m/jayden.formen',
   whatsapp: 'https://wa.me/message/VYR44CUOAEWGH1',
-  deal: { end: '2026-11-28T03:00:00+04:00' },
+  deal: { end: '2026-11-28T04:00:00+04:00', min: 25000000 },
   sections: [
     { id: 'deal', fa: 'تا ۷۰٪ تخفیف', en: 'UP TO 70% OFF' },
     { id: 'women', img: 'img/ui/sec-women.webp', ban: 'img/ui/ban-women', fa: 'زنانه', en: 'WOMEN' },

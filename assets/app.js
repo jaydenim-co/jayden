@@ -7,6 +7,7 @@
   var slug = new URLSearchParams(location.search).get('b') || 'jwpei';
   var DATA, cat = null, query = '', shown = 0, pool = [], byCode = {}, byGroup = {};
   var PAGE = 40, io;
+  var DMIN = (C.deal && C.deal.min) || 25000000, CART = [], DEAL = false;
 
   var ICON_WA = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>';
   var ICON_IG = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>';
@@ -24,10 +25,11 @@
     if (BR.tag) $('bname').insertAdjacentHTML('beforeend', '<small class="btag">' + BR.tag + '</small>');
     if (BR.badge) { $('bname').insertAdjacentHTML('beforeend', ' <i class="prem">' + BR.badge + '</i>'); }
     if (BR.note) { $('bnote').textContent = BR.note; $('bnote').hidden = false; }
-    if (BR.deal) { document.querySelector('.top').insertAdjacentHTML('beforeend', '<div class="bsticky bdeal">🔥 تخفیف تا ۷۰٪ · فقط <b class="jcd" data-cd="1"></b> مانده</div>'); var cdf = function () { document.querySelectorAll('[data-cd]').forEach(function (e) { e.textContent = window.jaydenCD(); }); }; cdf(); setInterval(cdf, 1000); }
+    if (BR.deal) { document.querySelector('.top').insertAdjacentHTML('beforeend', '<div class="bsticky bdeal">🔥 تخفیف تا ۷۰٪ · فقط <b class="jcd" data-cd="1"></b> مانده<small>حداقل فاکتور این بخش ' + fa(DMIN) + ' تومان · چند محصول را به سبد اضافه کنید</small></div>'); DEAL = true; var cdf = function () { document.querySelectorAll('[data-cd]').forEach(function (e) { e.textContent = window.jaydenCD(); }); }; cdf(); setInterval(cdf, 1000); }
     if (BR.sticky) { document.querySelector('.top').insertAdjacentHTML('beforeend', '<div class="bsticky" id="bsticky"></div>'); $('bsticky').textContent = '✦ ' + BR.sticky; }
     if (BR.promo) document.querySelector('.bar2').insertAdjacentHTML('afterend', '<div class="bpromo">🔥 ' + BR.promo + '</div>');
     d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; var gk = (p.br || '') + '|' + p.b; (byGroup[gk] = byGroup[gk] || []).push(p); }); });
+    if (DEAL) cartInit();
     var tabs = $('tabs');
     (d.groups || []).forEach(function (g) {
       var n = d.cats.filter(function (c) { return c.g === g.id; }).reduce(function (s, c) { return s + c.items.length; }, 0);
@@ -244,6 +246,7 @@
     a.querySelector('.tap').onclick = function () { openP(p); };
     var act = a.querySelector('.cact'); act.appendChild(el('div', 'olbl', 'ثبت سفارش'));
     if (p.oos) { act.innerHTML = ''; act.appendChild(el('div', 'olbl', 'فعلاً ناموجود')); return a; }
+    if (DEAL) { act.innerHTML = ''; act.appendChild(cartBtn(p)); if (p.f >= DMIN) { act.appendChild(orderLink('ig', 'دایرکت', igFor(p), ICON_IG, p)); act.appendChild(orderLink('wa', 'واتساپ', C.whatsapp, ICON_WA, p)); } else act.appendChild(el('div', 'dmin', 'سفارش با جمع سبد بالای ' + fa(DMIN / 1e6) + ' میلیون')); return a; }
     act.appendChild(orderLink('ig', 'دایرکت', igFor(p), ICON_IG, p));
     act.appendChild(orderLink('wa', 'واتساپ', C.whatsapp, ICON_WA, p));
     return a;
@@ -305,8 +308,9 @@
     $('pcode').textContent = p.k + ' · ' + (p.br ? p.br + ' ' : '') + p.b + (p.c ? ' - ' + p.c : '');
     var msg = orderMsg(p);
     var o = $('porder'); o.innerHTML = '';
+    if (DEAL && !p.oos) { o.appendChild(cartBtn(p, true)); if (p.f < DMIN) o.appendChild(el('div', 'dmin big', 'حداقل فاکتور این بخش ' + fa(DMIN) + ' تومان است؛ این محصول را به سبد اضافه کنید و با چند محصول دیگر سفارش دهید.')); }
     if (p.oos) o.appendChild(el('div', 'olbl', 'این محصول فعلاً ناموجود است'));
-    else
+    else if (!DEAL || p.f >= DMIN)
     [['ig', 'سفارش در دایرکت', igFor(p), ICON_IG], ['wa', 'سفارش در واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
       var a = el('a', x[0]); a.href = x[2]; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = x[3] + '<span></span>'; a.querySelector('span').textContent = x[1];
       a.onclick = function (e) { if (needSize(p, e)) return; msg = orderMsg(p); try { navigator.clipboard.writeText(msg); toast('متن سفارش کپی شد؛ در پیام paste کنید'); } catch (e) {} };
@@ -318,6 +322,66 @@
   function closeP() { $('sheet').classList.remove('open'); document.body.style.overflow = ''; }
   $('close').onclick = function () { if (history.state && history.state.p) history.back(); else { closeP(); history.replaceState(null, '', location.pathname + location.search); } };
   window.addEventListener('popstate', function () { var m = location.hash.match(/p=([^&]+)/); if (m && byCode[decodeURIComponent(m[1])]) openP(byCode[decodeURIComponent(m[1])], true); else closeP(); });
+
+  function cartKey() { return 'jcart_' + (BR.slug || slug); }
+  function cartSave() { try { localStorage.setItem(cartKey(), JSON.stringify(CART)); } catch (e) {} }
+  function cartInit() {
+    DEAL = true;
+    try { CART = JSON.parse(localStorage.getItem(cartKey()) || '[]') || []; } catch (e) { CART = []; }
+    CART = CART.filter(function (c) { return byCode[c.k]; });
+    var b = el('div', 'dcart'); b.id = 'dcart';
+    b.innerHTML = '<div class="dc-list" id="dclist" hidden></div><div class="dc-bar"><button type="button" class="dc-sum" id="dcsum"></button><div class="dc-act" id="dcact"></div></div>';
+    document.body.appendChild(b);
+    $('dcsum').onclick = function () { var l = $('dclist'); l.hidden = !l.hidden; cartDraw(); };
+    cartDraw();
+  }
+  function cartHas(p) { return CART.some(function (c) { return c.k === p.k; }); }
+  function cartBtn(p, big) {
+    var b = el('button', 'cbtn' + (big ? ' big' : '')); b.type = 'button';
+    var upd = function () { var on = cartHas(p); b.classList.toggle('on', on); b.textContent = on ? '✓ در سبد خرید' : '+ افزودن به سبد'; };
+    b.onclick = function (e) {
+      e.stopPropagation();
+      if (cartHas(p)) CART = CART.filter(function (c) { return c.k !== p.k; });
+      else { CART.push({ k: p.k, s: p.zp && p._s != null ? p.zp[p._s][0] : '' }); toast(cartTot() >= DMIN ? 'به سبد اضافه شد · حالا می‌توانید سفارش دهید' : 'به سبد اضافه شد · ' + fa(DMIN - cartTot()) + ' تومان دیگر تا حداقل فاکتور'); }
+      cartSave(); cartDraw(); document.querySelectorAll('.cbtn').forEach(function (x) { if (x._u) x._u(); });
+    };
+    b._u = upd; upd(); return b;
+  }
+  function cartTot() { return CART.reduce(function (t, c) { return t + byCode[c.k].f; }, 0); }
+  function cartMsg() {
+    var L = ['سلام، وقتتون بخیر 🌸', 'می‌خواستم این محصولات رو از بخش «تا ۷۰٪ تخفیف» سفارش بدم:', ''];
+    CART.forEach(function (c, i) {
+      var p = byCode[c.k];
+      L.push(fn(i + 1) + ') ' + (p.br ? p.br + ' — ' : '') + p.b + (p.c ? ' — ' + p.c : ''));
+      if (p.z && p.z.length) L.push('   سایزهای موجود: ' + p.z.join('، ') + ' — سایز من: ' + (c.s || ''));
+      L.push('   قیمت: ' + fa(p.f) + ' تومان' + (p.o ? ' (قیمت قبل: ' + fa(p.o) + ')' : '') + ' · کد: ' + p.k);
+    });
+    L.push(''); L.push('جمع فاکتور: ' + fa(cartTot()) + ' تومان');
+    return L.join('\n');
+  }
+  function cartDraw() {
+    var box = $('dcart'); if (!box) return;
+    var n = CART.length, t = cartTot(), ok = t >= DMIN;
+    box.classList.toggle('has', n > 0);
+    $('dcsum').innerHTML = '🛍 سبد: <b>' + fn(n) + '</b> محصول · <b>' + fa(t) + '</b> تومان' + (n ? ' <i>▾</i>' : '');
+    var act = $('dcact'); act.innerHTML = '';
+    if (!n) act.appendChild(el('div', 'dc-need', 'حداقل فاکتور: ' + fa(DMIN) + ' تومان'));
+    else if (!ok) act.appendChild(el('div', 'dc-need', fa(DMIN - t) + ' تومان دیگر تا حداقل فاکتور'));
+    else [['ig', 'سفارش دایرکت', igFor(byCode[CART[0].k]), ICON_IG], ['wa', 'واتساپ', C.whatsapp, ICON_WA]].forEach(function (x) {
+      var a = el('a', x[0]); a.href = x[2]; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = x[3] + '<span></span>'; a.querySelector('span').textContent = x[1];
+      a.onclick = function () { try { navigator.clipboard.writeText(cartMsg()); toast('متن سفارش سبد کپی شد؛ در پیام paste کنید'); } catch (e) {} try { if (window.goatcounter && goatcounter.count) goatcounter.count({ path: 'order-cart/' + x[0] + '/' + CART.map(function (c) { return c.k; }).join('+'), title: 'سفارش سبد ۷۰٪', event: true }); } catch (e) {} };
+      act.appendChild(a);
+    });
+    var l = $('dclist'); if (l.hidden) return; l.innerHTML = '';
+    if (!n) { l.appendChild(el('div', 'dc-empty', 'سبد خالی است.')); return; }
+    CART.forEach(function (c) {
+      var p = byCode[c.k], r = el('div', 'dc-it');
+      r.innerHTML = '<img alt=""><div><b></b><small></small></div><button type="button" aria-label="حذف">✕</button>';
+      r.querySelector('img').src = p.i[0]; r.querySelector('b').textContent = (p.br ? p.br + ' · ' : '') + p.b; r.querySelector('small').textContent = fa(p.f) + ' تومان';
+      r.querySelector('button').onclick = function () { CART = CART.filter(function (x) { return x.k !== c.k; }); cartSave(); cartDraw(); document.querySelectorAll('.cbtn').forEach(function (x) { if (x._u) x._u(); }); };
+      l.appendChild(r);
+    });
+  }
 
   function toast(t) {
     var x = el('div', null, t);
