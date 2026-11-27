@@ -28,11 +28,21 @@
     if (BR.deal) { document.querySelector('.top').insertAdjacentHTML('beforeend', '<div class="bsticky bdeal">🔥 تخفیف تا ۷۰٪ · فقط <b class="jcd" data-cd="1"></b> مانده<small>حداقل فاکتور این بخش ' + fa(DMIN) + ' تومان · چند محصول را به سبد اضافه کنید</small></div>'); DEAL = true; var cdf = function () { document.querySelectorAll('[data-cd]').forEach(function (e) { e.textContent = window.jaydenCD(); }); }; cdf(); setInterval(cdf, 1000); }
     if (BR.sticky) { document.querySelector('.top').insertAdjacentHTML('beforeend', '<div class="bsticky" id="bsticky"></div>'); $('bsticky').textContent = '✦ ' + BR.sticky; }
     if (BR.promo) document.querySelector('.bar2').insertAdjacentHTML('afterend', '<div class="bpromo">🔥 ' + BR.promo + '</div>');
+    if (BR.deal && d.fams) {
+      d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; }); });
+      var FB = new URLSearchParams(location.search).get('fb'), FM = d.fams.filter(function (x) { return x.id === FB; })[0];
+      if (!FM) { dealBrands(d); return; }
+      d.cats = d.cats.map(function (c) { return { id: c.id, fa: c.fa, g: c.g, items: c.items.filter(function (i) { return i.fm === FB; }) }; }).filter(function (c) { return c.items.length; });
+      d.groups = d.groups.filter(function (g) { return d.cats.some(function (c) { return c.g === g.id; }); });
+      $('bname').textContent = FM.n; document.title = 'JAYDEN · ' + FM.n + ' · ۷۰٪';
+      var bk2 = document.querySelector('.top .back, a.back'); if (bk2) bk2.href = 'brand.html?b=deal70&s=deal';
+    }
     d.cats.forEach(function (c) { c.items.forEach(function (p) { p._c = c; byCode[p.k] = p; var gk = (p.br || '') + '|' + p.b; (byGroup[gk] = byGroup[gk] || []).push(p); }); });
     if (DEAL) cartInit();
     var tabs = $('tabs');
     (d.groups || []).forEach(function (g) {
       var n = d.cats.filter(function (c) { return c.g === g.id; }).reduce(function (s, c) { return s + c.items.length; }, 0);
+      if (!n) return;
       var b = el('button', null, g.fa + ' (' + fn(n) + ')'); b.setAttribute('role', 'tab');
       b.onclick = function () { setGroup(g.id); };
       g.btn = b; tabs.appendChild(b);
@@ -282,7 +292,7 @@
     }
     $('porg').textContent = p.o ? fa(p.o) : '';
     $('szwrap').style.display = p.z && p.z.length ? '' : 'none';
-    var sz = $('psizes'); sz.innerHTML = ''; var sh = $('szhint'); $('szlbl').textContent = p.zp ? 'انتخاب سایز (EU)' : (BR.szu ? (p.z && /^\d/.test(p.z[0]) ? 'سایزهای موجود (' + BR.szu + ')' : 'سایزهای موجود') : 'سایزهای موجود (US)');
+    var sz = $('psizes'); sz.innerHTML = ''; var sh = $('szhint'); var SU = p.su || BR.szu; $('szlbl').textContent = p.zp ? 'انتخاب سایز (EU)' : (SU ? (p.z && /^\d/.test(p.z[0]) ? 'سایزهای موجود (' + SU + ')' : 'سایزهای موجود') : 'سایزهای موجود (US)');
     if (p.zp) {
       var supd = function () {
         var z = p._s != null ? p.zp[p._s] : null;
@@ -322,6 +332,22 @@
   function closeP() { $('sheet').classList.remove('open'); document.body.style.overflow = ''; }
   $('close').onclick = function () { if (history.state && history.state.p) history.back(); else { closeP(); history.replaceState(null, '', location.pathname + location.search); } };
   window.addEventListener('popstate', function () { var m = location.hash.match(/p=([^&]+)/); if (m && byCode[decodeURIComponent(m[1])]) openP(byCode[decodeURIComponent(m[1])], true); else closeP(); });
+
+  function dealBrands(d) {
+    ['tabs', 'chips', 'chips2'].forEach(function (id) { if ($(id)) $(id).style.display = 'none'; });
+    var tl = document.querySelector('.tools'); if (tl) tl.style.display = 'none';
+    $('count').textContent = 'برند مورد نظر را انتخاب کنید · ' + fn(d.fams.length) + ' برند';
+    var g = el('div', 'dbr'); $('list').innerHTML = ''; $('list').appendChild(g);
+    d.fams.forEach(function (f) {
+      var a = el('a', 'dbr-it'); a.href = 'brand.html?b=deal70&s=deal&fb=' + encodeURIComponent(f.id);
+      a.innerHTML = '<span class="dbr-im"><img loading="lazy" alt=""><img loading="lazy" alt=""></span><b></b><small></small><em>تا ۷۰٪</em>';
+      var ims = a.querySelectorAll('img'); ims[0].src = f.i[0]; if (f.i[1]) ims[1].src = f.i[1]; else ims[1].remove();
+      a.querySelector('b').textContent = f.n;
+      a.querySelector('small').textContent = fn(f.c) + ' محصول' + (f.w && f.m ? ' · زنانه و مردانه' : f.m ? ' · مردانه' : ' · زنانه');
+      g.appendChild(a);
+    });
+    if (DEAL) cartInit();
+  }
 
   function cartKey() { return 'jcart_' + (BR.slug || slug); }
   function cartSave() { try { localStorage.setItem(cartKey(), JSON.stringify(CART)); } catch (e) {} }
