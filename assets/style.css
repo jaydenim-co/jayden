@@ -477,3 +477,5 @@ body.isdeal .stick.mini .chips button{min-height:38px;font-size:13.5px;padding:0
 .pk-si .pk-tx{padding:6px 7px 7px}.pk-si .pk-tx b{font-size:11px;min-height:29px}.pk-si .pk-tx em{font-size:12px}
 .pk-st{margin-top:auto;padding:7px 9px 9px;font-size:12px;font-weight:700;color:#5c5446;text-align:right}.pk-st em{font-style:normal;color:#a3141d;font-weight:800}
 @media(min-width:900px){.pk-set{flex-basis:370px}}
+.bn-cd{position:absolute;left:3%;bottom:7%;background:#c3121e;color:#fff;font-style:normal;font-weight:800;font-size:clamp(12px,2.2vw,20px);padding:.35em .8em;border-radius:99px;box-shadow:0 3px 12px rgba(0,0,0,.3);direction:rtl}
+.bn-cd b{font-variant-numeric:tabular-nums;color:#f7d98b}

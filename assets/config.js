@@ -17,7 +17,7 @@ window.JAYDEN = {
     { slug: 'sunglasses', secs: ['lux'], lsub: ['glasses'], name: 'LUXURY SUNGLASSES', badge: 'PREMIUM', font: 'bf-lux', sub: 'عینک آفتابی برندهای لوکس', subs: { women: 'عینک آفتابی زنانه از برندهای لوکس: Saint Laurent، Gucci، Prada، Miu Miu، Dior…', men: 'عینک آفتابی مردانه از برندهای لوکس: Tom Ford، Gucci، Saint Laurent، Prada، Cartier…' }, fa: 'عینک آفتابی لوکس', feat: ['img/sunglasses/SG-001.webp', 'img/sunglasses/SG-087.webp', 'img/sunglasses/SG-005.webp', 'img/sunglasses/SG-076.webp'], line: 'Saint Laurent · Dior · Gucci · Prada · Miu Miu · Tom Ford', note: 'کالکشن پریمیوم · عینک‌های اورجینال از معتبرترین برندهای لوکس دنیا' },
     { slug: 'nike', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'NIKE', szu: 'EU', sub: 'کفش و لباس اورجینال Nike · حراج تا ۵۰٪', subs: { women: 'کفش و لباس زنانه Nike', men: 'کفش و لباس مردانه Nike' }, promo: '۲۵٪ تخفیف اضافه روی مدل‌های منتخب (نوار قرمز روی عکس) برای سفارش بالای ۴۸٬۶۹۰٬۰۰۰ تومان', promoMin: 48690000 },
     { slug: 'ecco', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'ECCO', sub: 'کفش اورجینال ECCO · حراج + ۲۰٪ تخفیف بیشتر با خرید هر ۲ جفت (مدل‌ها دلخواه)', subs: { women: 'کفش زنانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر', men: 'کفش مردانه ECCO · خرید هر ۲ جفت ECCO (مدل دلخواه) = ۲۰٪ تخفیف بیشتر' } },
-    { slug: 'coach', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'COACH', sub: 'کیف، کفش، لباس و اکسسوری · قیمت با ۲۰٪ تخفیف اضافه Black Friday', font: 'bf-coach' },
+    { slug: 'coach', secs: ['women', 'men'], group: { women: 'w', men: 'm' }, name: 'COACH', sub: 'کیف و کفش · تا ۶۰٪ تخفیف Black Friday (آمریکا و آلمان)', font: 'bf-coach', cd: '2026-11-29T05:27:00+04:00', cdt: 'حراج کوچ تا ۶۰٪' },
     { slug: 'jwpei', secs: ['women'], name: 'JW PEI', sub: 'کیف و کفش', font: 'bf-jwpei' },
     { slug: 'emporioarmani', secs: ['women'], name: 'EMPORIO ARMANI', sub: 'کیف‌های MyEA' },
     { slug: 'toryburch', secs: ['women'], name: 'TORY BURCH', sub: 'کیف، کفش، ساعت و جواهرات · قیمت ویژه Black Friday' },
@@ -51,8 +51,8 @@ window.jaydenCDp = function () {
   while (end <= now) end += 864e5;
   var t = Math.floor((end - now) / 1000); return [Math.floor(t / 3600), Math.floor(t % 3600 / 60), t % 60];
 };
-window.jaydenCD = function () {
-  var FA = '۰۱۲۳۴۵۶۷۸۹', end = new Date((window.JAYDEN.deal || {}).end || Date.now()).getTime(), now = Date.now();
+window.jaydenCD = function (e0) {
+  var FA = '۰۱۲۳۴۵۶۷۸۹', end = new Date(e0 || (window.JAYDEN.deal || {}).end || Date.now()).getTime(), now = Date.now();
   while (end <= now) end += 864e5;
   var t = Math.floor((end - now) / 1000), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), sc = t % 60;
   var p = function (n) { return (n < 10 ? '0' : '') + n; };
