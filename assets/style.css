@@ -458,3 +458,15 @@ body:has(#sheet.open) .dcart{display:none}
 .bn-d{display:flex;justify-content:center;gap:7px;margin-top:9px}
 .bn-d button{width:8px;height:8px;border-radius:99px;border:0;background:#c9b88f;opacity:.55;padding:0;cursor:pointer;transition:all .3s}
 .bn-d button.on{width:22px;opacity:1;background:#c9a44c}
+
+.dl-ask{padding:12px 14px 2px;font-size:17px;font-weight:800;color:var(--ink)}
+.dl-ask b{color:#c3121e}
+body.isdeal .chips{flex-wrap:wrap;overflow:visible;gap:9px}
+body.isdeal .chips button{min-height:50px;font-size:15.5px;font-weight:800;padding:0 16px;border:1.5px solid #c9a44c;background:#fffaf0}
+body.isdeal .chips button.on{background:#c3121e;color:#fff;border-color:#c3121e}
+body.isdeal .chips button small{font-size:12px}
+.dl-min{margin:4px 14px 8px;background:#fff4e0;border:1px solid #e0b25a;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.7;color:#5a3d08}
+.dl-min b{color:#c3121e}
+body.isdeal .stick.mini .dl-ask,body.isdeal .stick.mini .dl-min,body.isdeal .stick.mini .tools2,body.isdeal .stick.mini .bsticky.bdeal small{display:none}
+body.isdeal .stick.mini .chips{flex-wrap:nowrap;overflow-x:auto}
+body.isdeal .stick.mini .chips button{min-height:38px;font-size:13.5px;padding:0 12px}
