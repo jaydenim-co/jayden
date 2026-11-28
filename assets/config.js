@@ -2,7 +2,7 @@ window.JAYDEN = {
   instagram: 'https://ig.me/m/jaydenim.co',
   instagramMen: 'https://ig.me/m/jayden.formen',
   whatsapp: 'https://wa.me/message/VYR44CUOAEWGH1',
-  deal: { end: '2026-11-28T04:00:00+04:00', min: 25000000 },
+  deal: { end: '2026-11-30T09:25:00+04:00', min: 25000000 },
   sections: [
     { id: 'deal', fa: 'تا ۷۰٪ تخفیف', en: 'UP TO 70% OFF' },
     { id: 'women', img: 'img/ui/sec-women.webp', ban: 'img/ui/ban-women', fa: 'زنانه', en: 'WOMEN' },
@@ -46,10 +46,15 @@ window.JAYDEN = {
   ]
 };
 
+window.jaydenCDp = function () {
+  var end = new Date((window.JAYDEN.deal || {}).end || Date.now()).getTime(), now = Date.now();
+  while (end <= now) end += 864e5;
+  var t = Math.floor((end - now) / 1000); return [Math.floor(t / 3600), Math.floor(t % 3600 / 60), t % 60];
+};
 window.jaydenCD = function () {
   var FA = '۰۱۲۳۴۵۶۷۸۹', end = new Date((window.JAYDEN.deal || {}).end || Date.now()).getTime(), now = Date.now();
   while (end <= now) end += 864e5;
   var t = Math.floor((end - now) / 1000), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), sc = t % 60;
   var p = function (n) { return (n < 10 ? '0' : '') + n; };
-  return (p(h) + ':' + p(m) + ':' + p(sc)).replace(/\d/g, function (d) { return FA[d]; });
+  return ('\u2066' + p(h) + ':' + p(m) + ':' + p(sc) + '\u2069').replace(/\d/g, function (d) { return FA[d]; });
 };
