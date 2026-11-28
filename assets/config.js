@@ -4,7 +4,6 @@ window.JAYDEN = {
   whatsapp: 'https://wa.me/message/VYR44CUOAEWGH1',
   deal: { end: '2026-11-30T09:25:00+04:00', min: 25000000 },
   sections: [
-    { id: 'deal', fa: 'تا ۷۰٪ تخفیف', en: 'UP TO 70% OFF' },
     { id: 'women', img: 'img/ui/sec-women.webp', ban: 'img/ui/ban-women', fa: 'زنانه', en: 'WOMEN' },
     { id: 'men', img: 'img/ui/sec-men.webp', ban: 'img/ui/ban-men', fa: 'مردانه', en: 'MEN' },
     { id: 'kids', img: 'img/ui/sec-kids.webp', ban: 'img/ui/ban-kids', fa: 'بچگانه', en: 'KIDS' },
