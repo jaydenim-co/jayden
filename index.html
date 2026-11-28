@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://jaydenim-co.github.io/jayden/og2.jpg">
 <meta name="theme-color" content="#0c0b09">
-<link rel="stylesheet" href="assets/style.css?v=20261128h">
+<link rel="stylesheet" href="assets/style.css?v=20261128i">
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zkpyqpwvwv");
 (function(){var q=new URLSearchParams(location.search),b=q.get('b'),s=q.get('s');clarity('set','page',b?'brand':'home');if(b)clarity('set','brand',b);if(s)clarity('set','section',s);
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;var h=a.getAttribute('href')||'';
@@ -58,8 +58,8 @@ else if(a.classList.contains('sdeal')||a.classList.contains('bigcd')){clarity('e
     <div class="order" id="order"></div>
   </footer>
 </div>
-<script src="assets/config.js?v=20261128h"></script>
-<script src="assets/bfhang.js?v=20261128h" defer></script>
+<script src="assets/config.js?v=20261128i"></script>
+<script src="assets/bfhang.js?v=20261128i" defer></script>
 <script>
 (function () {
   var C = window.JAYDEN, fa = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '٬').replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
@@ -176,7 +176,23 @@ else if(a.classList.contains('sdeal')||a.classList.contains('bigcd')){clarity('e
     var row = document.getElementById('pkrow'); row.innerHTML = '';
     var list = PK && (PK[key] || PK[key.split('-')[0]]) || [];
     var BN = {}; C.brands.forEach(function (b) { BN[b.slug] = b.name; });
+    function href(p) { return 'brand.html?b=' + p.s + '&s=' + p.sec + (p.ls ? '&ls=' + p.ls : '') + (p.g ? '&g=' + p.g : '') + '#p=' + encodeURIComponent(p.k); }
     list.forEach(function (p) {
+      if (p.set) {
+        var w = document.createElement('div'); w.className = 'pk-it pk-set';
+        w.innerHTML = '<div class="pk-sh">✨ ست پیشنهادی <b></b></div><div class="pk-sp"></div><div class="pk-st">جمع ست: <em></em></div>';
+        w.querySelector('.pk-sh b').textContent = p.st;
+        var tot = 0;
+        p.set.forEach(function (q) {
+          tot += q.f;
+          var a = document.createElement('a'); a.href = href(q); a.className = 'pk-si';
+          a.innerHTML = '<span class="pk-ph"><img loading="lazy" alt=""></span><span class="pk-tx"><b></b><em></em></span>';
+          a.querySelector('img').src = q.i; a.querySelector('b').textContent = q.b; a.querySelector('em').textContent = fa(q.f) + ' تومان';
+          w.querySelector('.pk-sp').appendChild(a);
+        });
+        w.querySelector('.pk-st em').textContent = fa(tot) + ' تومان';
+        row.appendChild(w); return;
+      }
       var a = document.createElement('a'); a.className = 'pk-it';
       a.href = 'brand.html?b=' + p.s + '&s=' + p.sec + (p.ls ? '&ls=' + p.ls : '') + (p.g ? '&g=' + p.g : '') + '#p=' + encodeURIComponent(p.k);
       a.innerHTML = '<span class="pk-ph"><img loading="lazy" alt=""></span><span class="pk-tx"><small></small><b></b><s></s><em></em></span>';
