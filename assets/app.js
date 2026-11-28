@@ -73,6 +73,7 @@
   }
   function pickCat(c, btn) {
     cat = c; typ = null;
+    try { if (c) { clarity('event', 'category'); clarity('set', 'category', slug + ':' + (btn.textContent || '').replace(/[\d۰-۹\s]+$/, '').trim()); } } catch (e) {}
     [].forEach.call($('chips').children, function (b) { b.classList.toggle('on', b === btn); });
     render(); window.scrollTo({ top: 0 });
   }
@@ -265,6 +266,7 @@
   var cur;
   function openP(p, fromHash) {
     cur = p;
+    try { clarity('event', 'product_open'); clarity('set', 'product', (p.b || '') + ' ' + (p.c || '')); } catch (e) {}
     var g = $('gal'), dots = $('dots'); g.innerHTML = ''; dots.innerHTML = '';
     p.i.forEach(function (src, n) {
       var d = el('div'); var im = el('img'); im.src = src; im.alt = p.b + ' ' + p.c + ' ' + (n + 1);
@@ -368,7 +370,7 @@
     b.onclick = function (e) {
       e.stopPropagation();
       if (cartHas(p)) CART = CART.filter(function (c) { return c.k !== p.k; });
-      else { CART.push({ k: p.k, s: p.zp && p._s != null ? p.zp[p._s][0] : '' }); toast(cartTot() >= DMIN ? 'به سبد اضافه شد · حالا می‌توانید سفارش دهید' : 'به سبد اضافه شد · ' + fa(DMIN - cartTot()) + ' تومان دیگر تا حداقل فاکتور'); }
+      else { try { clarity('event', 'add_to_cart'); } catch (e) {} CART.push({ k: p.k, s: p.zp && p._s != null ? p.zp[p._s][0] : '' }); toast(cartTot() >= DMIN ? 'به سبد اضافه شد · حالا می‌توانید سفارش دهید' : 'به سبد اضافه شد · ' + fa(DMIN - cartTot()) + ' تومان دیگر تا حداقل فاکتور'); }
       cartSave(); cartDraw(); document.querySelectorAll('.cbtn').forEach(function (x) { if (x._u) x._u(); });
     };
     b._u = upd; upd(); return b;
