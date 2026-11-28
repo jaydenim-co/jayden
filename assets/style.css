@@ -470,3 +470,10 @@ body.isdeal .chips button small{font-size:12px}
 body.isdeal .stick.mini .dl-ask,body.isdeal .stick.mini .dl-min,body.isdeal .stick.mini .tools2,body.isdeal .stick.mini .bsticky.bdeal small{display:none}
 body.isdeal .stick.mini .chips{flex-wrap:nowrap;overflow-x:auto}
 body.isdeal .stick.mini .chips button{min-height:38px;font-size:13.5px;padding:0 12px}
+.pk-set{flex:0 0 300px;background:#faf8f4;border:1.5px solid #c9a961}
+.pk-sh{font-size:12px;font-weight:800;color:#7a5a1c;padding:7px 9px 0;text-align:right}.pk-sh b{color:#15130f}
+.pk-sp{display:flex;gap:6px;padding:6px 6px 0}
+.pk-si{flex:1 1 0;min-width:0;display:flex;flex-direction:column;color:#15130f;text-decoration:none;background:#fff;border-radius:9px;overflow:hidden}
+.pk-si .pk-tx{padding:6px 7px 7px}.pk-si .pk-tx b{font-size:11px;min-height:29px}.pk-si .pk-tx em{font-size:12px}
+.pk-st{margin-top:auto;padding:7px 9px 9px;font-size:12px;font-weight:700;color:#5c5446;text-align:right}.pk-st em{font-style:normal;color:#a3141d;font-weight:800}
+@media(min-width:900px){.pk-set{flex-basis:370px}}
